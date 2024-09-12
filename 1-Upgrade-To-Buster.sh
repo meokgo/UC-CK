@@ -45,3 +45,4 @@ else
   befor-reboot
   touch /var/run/continue-script
   sudo reboot
+fi
