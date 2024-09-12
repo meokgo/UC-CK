@@ -7,11 +7,11 @@ echo "****Uninstalling freeradius package****"
   sudo apt-get -y --purge autoremove unifi freeradius
 echo "****Creating new source list****"
   sudo echo "deb https://deb.debian.org/debian buster main contrib non-free
-\deb-src https://deb.debian.org/debian buster main contrib non-free
-\deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free
-\deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free
-\deb https://deb.debian.org/debian buster-updates main contrib non-free
-\deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /etc/apt/sources.list
+deb-src https://deb.debian.org/debian buster main contrib non-free
+deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb https://deb.debian.org/debian buster-updates main contrib non-free
+deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /etc/apt/sources.list
 echo "****Updating repository package list****"
   sudo apt update
 echo "****Updating Debian keyring****"
