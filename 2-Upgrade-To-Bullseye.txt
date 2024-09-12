@@ -1,0 +1,16 @@
+First upgrade from Jessie to Buster using instructions in "1-Upgrade-To-Buster.txt"
+Upgrade from Buster to Bullseye:
+  Edit /etc/apt/sources.list:
+    sudo rm /etc/apt/sources.list && sudo echo "deb https://deb.debian.org/debian bullseye main contrib non-free
+deb-src https://deb.debian.org/debian bullseye main contrib non-free
+deb https://deb.debian.org/debian-security/ bullseye-security main contrib non-free
+deb-src https://deb.debian.org/debian-security/ bullseye-security main contrib non-free
+deb https://deb.debian.org/debian bullseye-updates main contrib non-free
+deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > /etc/apt/sources.list
+  Upgrade to Bullseye:
+    sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt -y upgrade --without-new-pkgs -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && echo $(date)":" "Rebooting in 5 seconds..." && sleep 5 && sudo reboot
+    sudo apt update && sudo DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && sudo apt update && sudo apt -y autoremove && echo $(date)":" "Rebooting in 5 seconds..." && sleep 5 && sudo reboot
+  Fix network settings:
+    sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+  Remove UniFi apps:
+    sudo apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui
