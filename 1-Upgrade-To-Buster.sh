@@ -42,7 +42,7 @@ if [ -f /var/run/continue-script ]; then
   after-reboot
   rm /var/run/continue-script
 else
-  befor-reboot
+  before-reboot
   touch /var/run/continue-script
   sudo reboot
 fi
