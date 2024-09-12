@@ -3,25 +3,25 @@
 #Run script: ./1-Upgrade-To-Buster.sh
 before-reboot()
 {
-  echo "Deleting old source lists"
+  echo "****Deleting old source lists****"
     sudo rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
-  echo "Uninstalling freeradius package"
+  echo "****Uninstalling freeradius package****"
     sudo apt-get -y --purge autoremove unifi freeradius
-  echo "Creating new source list"
+  echo "****Creating new source list****"
     sudo echo "deb https://deb.debian.org/debian buster main contrib non-free
 deb-src https://deb.debian.org/debian buster main contrib non-free
 deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb https://deb.debian.org/debian buster-updates main contrib non-free
 deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /etc/apt/sources.list
-  echo "Updating repository package list"
+  echo "****Updating repository package list****"
     sudo apt update
-  echo "Updating Debian keyring"
+  echo "****Updating Debian keyring****"
     sudo apt -y --force-yes --reinstall install debian-archive-keyring
-  echo "Install nano"
+  echo "****Install nano****"
     sudo apt update
     sudo DEBIAN_FRONTEND=noninteractive apt -y install nano
-  echo "Initial upgrade to Buster"
+  echo "****Initial upgrade to Buster****"
     sudo apt-get -y clean
     sudo apt update
     sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
@@ -30,7 +30,7 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
 }
 after-reboot()
 {
-  echo "Install full Buster upgrade"
+  echo "****Install full Buster upgrade****"
     sudo apt update
     sudo DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
     sudo apt -y autoremove
