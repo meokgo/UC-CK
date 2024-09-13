@@ -11,7 +11,7 @@ case $yn in
     exit 1;;
 esac
 echo "Checking OS version..."
-env -i bash -c '. /etc/os-release; echo "Current OS version is: " $VERSION_CODENAME'
+env -i bash -c '. /etc/os-release; echo "Current OS version is:" $VERSION_CODENAME'
 case $VERSION_CODENAME in
   jessie ) echo "Valid OS";;
   * ) echo "Invalid OS. This script only works to upgrade from Jessie to Buster";
