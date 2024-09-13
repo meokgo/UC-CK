@@ -11,7 +11,7 @@ case $yn in
     exit 1;;
 esac
 echo "Checking OS version..."
-source /etc/os-release
+env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME'
 case $VERSION_CODENAME in
   jessie ) echo "Valid OS: $VERSION_CODENAME";;
   * ) echo "Invalid OS: $VERSION_CODENAME";
