@@ -13,7 +13,7 @@ esac
 echo "Checking OS version..."
 env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME'
 case $VERSION_CODENAME in
-  jessie ) echo "Valid OS: $VERSION_CODENAME";;
+  jessie ) echo "Valid OS: "$VERSION_CODENAME;;
   * ) echo "Invalid OS: "$VERSION_CODENAME;
     exit 1;;
 esac
