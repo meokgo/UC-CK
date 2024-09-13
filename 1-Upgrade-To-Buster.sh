@@ -4,11 +4,11 @@
 #Run script: ./1-Upgrade-To-Buster.sh
 read -p "Upgrade OS to Buster? (y/n) " yn
 case $yn in
-  y ) echo ok, we will proceed;;
-  n ) echo exiting...;
+  y ) echo Proceeding with upgrade;;
+  n ) echo Exiting...;
     exit;;
-  * ) echo invalid response;
-  exit 1;;
+  * ) echo Invalid response;
+    exit 1;;
 esac
   echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   echo "****Deleting old source lists****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
