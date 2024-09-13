@@ -4,8 +4,8 @@
 #Run script: ./1-Upgrade-To-Buster.sh
 read -p "Upgrade OS to Buster? (y/n) " yn
 case $yn in
-  y ) echo "Proceeding with upgrade";;
-  n ) echo "Exiting...";
+  [yY] ) echo "Proceeding with upgrade";;
+  [nN] ) echo "Exiting...";
     exit;;
   * ) echo "Invalid response";
     exit 1;;
