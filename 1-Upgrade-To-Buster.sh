@@ -2,7 +2,9 @@
 #This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #To make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
+echo "***********************************************************************"
 echo "****Deleting old source lists****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo "***********************************************************************"
   rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
 echo "****Uninstalling freeradius package****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   apt-get -y --purge autoremove unifi freeradius
