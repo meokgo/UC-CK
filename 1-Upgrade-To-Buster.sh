@@ -2,13 +2,13 @@
 #This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #To make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
-read -p "Do you want to proceed? (yes/no) " yn
+read -p "Do you want to proceed? (y/n) " yn
 case $yn in
-  yes ) echo ok, we will proceed;;
-	no ) echo exiting...;
-		exit;;
-	* ) echo invalid response;
-		exit 1;;
+  y ) echo ok, we will proceed;;
+  n ) echo exiting...;
+    exit;;
+  * ) echo invalid response;
+  exit 1;;
 esac
 echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 echo "****Deleting old source lists****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
