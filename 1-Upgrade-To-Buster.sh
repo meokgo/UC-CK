@@ -9,6 +9,13 @@ case $yn in
     exit;;
   * ) echo Invalid response;
     exit 1;;
+echo "Checking OS version..."
+. /etc/os-release
+case $PRETTY_NAME in
+  "Debian GNU/Linux 9 (jessie)") echo Valid OS;;
+  *) echo Invalid OS;
+    exit 1;;
+esac
 esac
   echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   echo "****Deleting old source lists****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
