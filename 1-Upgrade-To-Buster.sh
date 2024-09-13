@@ -2,9 +2,9 @@
 #To make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
 echo "****Deleting old source lists****"
-  sudo rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
+  rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
 echo "****Uninstalling freeradius package****"
-  sudo apt-get -y --purge autoremove unifi freeradius
+  apt-get -y --purge autoremove unifi freeradius
 echo "****Creating new source list****"
   touch /etc/apt/sources.list
   sudo echo "deb https://deb.debian.org/debian buster main contrib non-free" | sudo tee -a /etc/apt/sources.list
