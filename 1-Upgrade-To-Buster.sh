@@ -11,10 +11,10 @@ case $yn in
     exit 1;;
 esac
 echo "Checking OS version..."
-. /etc/os-release
+source /etc/os-release
 case $VERSION_CODENAME in
-  jessie ) echo "Valid OS";;
-  * ) echo "Invalid OS" cat /etc/os-release | grep "PRETTY_NAME";
+  jessie ) echo "Valid OS: $VERSION_CODENAME";;
+  * ) echo "Invalid OS: $VERSION_CODENAME";
     exit 1;;
 esac
   echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
