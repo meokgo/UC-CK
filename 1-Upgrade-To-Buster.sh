@@ -39,8 +39,7 @@ echo "****Install full Buster upgrade****" | sed  -e :a -e "s/^.\{1,$(tput cols)
   echo $(date)":" "Full upgrade complete" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 echo $(date)":" "Rebooting in 5 seconds..." | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
+  sudo reboot
 else
   exit
 fi
-  sudo reboot
-  fi
