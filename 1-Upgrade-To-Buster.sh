@@ -12,8 +12,8 @@ case $yn in
 esac
 echo "Checking OS version..."
 . /etc/os-release
-case $PRETTY_NAME in
-  "Debian GNU/Linux 9 (jessie)" ) echo "Valid OS";;
+case $VERSION_CODENAME in
+  jessie ) echo "Valid OS";;
   * ) echo "Invalid OS" cat /etc/os-release | grep "PRETTY_NAME";
     exit 1;;
 esac
