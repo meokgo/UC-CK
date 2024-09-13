@@ -4,16 +4,16 @@
 #Run script: ./1-Upgrade-To-Buster.sh
 read -p "Upgrade OS to Buster? (y/n) " yn
 case $yn in
-  y ) echo Proceeding with upgrade;;
-  n ) echo Exiting...;
+  y ) echo "Proceeding with upgrade";;
+  n ) echo "Exiting...";
     exit;;
-  * ) echo Invalid response;
+  * ) echo "Invalid response";
     exit 1;;
 echo "Checking OS version..."
 . /etc/os-release
 case $PRETTY_NAME in
-  "Debian GNU/Linux 9 (jessie)") echo Valid OS;;
-  *) echo Invalid OS;
+  "Debian GNU/Linux 9 (jessie)") echo "Valid OS";;
+  *) echo "Invalid OS" cat /etc/os-release | grep "PRETTY_NAME";
     exit 1;;
 esac
 esac
