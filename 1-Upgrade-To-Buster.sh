@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/sh
 #This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #To make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
