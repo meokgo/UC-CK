@@ -1,5 +1,5 @@
 #!/bin/sh
-#This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
+#This script will upgrade factory default state OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
