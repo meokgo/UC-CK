@@ -5,18 +5,18 @@
 #Run script: ./1-Upgrade-To-Buster.sh
 read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
 case $yn in
-  [yY] ) echo '\033[0;36m'"\033[1mProceeding with upgrade\033[0m";;
-  [nN] ) echo '\033[0;35m'"\033[1mExiting...\033[0m";
+  [yY]) echo '\033[0;36m'"\033[1mProceeding with upgrade\033[0m";;
+  [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
     exit;;
-  * ) echo '\033[0;31m'"\033[1mInvalid response\033[0m";
+  *) echo '\033[0;31m'"\033[1mInvalid response\033[0m";
     exit 1;;
 esac
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
 env -i bash -c '. /etc/os-release; echo "Current OS version is:" $ID $VERSION_ID'
 case $VERSION_ID in
-  "8" ) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
-  * ) echo '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
+  "8") echo '\033[0;36m'"\033[1mValid OS\033[0m";;
+  *) echo '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
     exit 1;;
 esac
 #Check for valid kernel version
