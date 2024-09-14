@@ -1,5 +1,6 @@
 #!/bin/sh
 #This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
+#Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
 read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
