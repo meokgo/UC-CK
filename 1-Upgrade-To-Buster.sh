@@ -3,29 +3,30 @@
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
 read -p $'\E[37;44mUpgrade Cloud Key OS to Buster? (y/n)\e[0m ' yn
+read -p $'\E[37;44mBlue Highlight Text Input\e[0m: ' foo
 case $yn in
-  [yY] ) echo -e '\033[0;36m'"\033Proceeding with upgrade\033[0m";;
-  [nN] ) echo -e '\033[0;36m'"\033Exiting...\033[0m";
+  [yY] ) echo -e '\033[0;36m'"\033[1mProceeding with upgrade\033[0m";;
+  [nN] ) echo -e '\033[0;36m'"\033[1mExiting...\033[0m";
     exit;;
-  * ) echo -e '\033[0;31m'"\033Invalid response\033[0m";
+  * ) echo -e '\033[0;31m'"\033[1mInvalid response\033[0m";
     exit 1;;
 esac
 #Check for valid OS version
-echo -e '\033[0;36m'"\033Checking OS version...\033[0m"
+echo -e '\033[0;36m'"\033[1mChecking OS version...\033[0m"
 env -i bash -c '. /etc/os-release; echo -e '\E[33;106m'"\033[30mCurrent OS version is:\033[0m" $ID $VERSION_CODENAME'
 case $VERSION_CODENAME in
-  jessie ) echo -e '\033[0;36m'"\033Valid OS\033[0m";;
-  * ) echo -e '\033[0;31m'"\033Invalid OS. This script only works to upgrade from Jessie to Buster.\033[0m";
+  jessie ) echo -e '\033[0;36m'"\033[1mValid OS\033[0m";;
+  * ) echo -e '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade from Jessie to Buster.\033[0m";
     exit 1;;
 esac
 #Check for valid kernel version
-echo -e '\033[0;36m'"\033Checking kernel version...\033[0m"
+echo -e '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
 VERSION_LIMIT=3.10.20-ubnt-mtk
 CURRENT_VERSION=$(uname -r)
   echo -e '\E[33;106m'"\033[30mKernel version:\033[0m $CURRENT_VERSION"
 case $CURRENT_VERSION in
-  3.10.20-ubnt-mtk ) echo -e '\033[0;36m'"\033Valid kernel\033[0m";;
-  * ) echo -e '\033[0;31m'"\033Invalid kernel. This script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
+  3.10.20-ubnt-mtk ) echo -e '\033[0;36m'"\033[1mValid kernel\033[0m";;
+  * ) echo -e '\033[0;31m'"\033[1mInvalid kernel. This script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
     exit 1;;
 esac
   echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
