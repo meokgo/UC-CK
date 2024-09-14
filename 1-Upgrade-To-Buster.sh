@@ -2,7 +2,7 @@
 #This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
-read -p "Upgrade Cloud Key OS to Buster? (y/n)" yn
+read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
 case $yn in
   [yY] ) echo -e '\033[0;36m'"\033[1mProceeding with upgrade\033[0m";;
   [nN] ) echo -e '\033[0;36m'"\033[1mExiting...\033[0m";
