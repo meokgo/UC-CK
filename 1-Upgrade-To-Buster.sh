@@ -6,7 +6,7 @@
 read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
 case $yn in
   [yY] ) echo '\033[0;36m'"\033[1mProceeding with upgrade\033[0m";;
-  [nN] ) echo '\033[0;36m'"\033[1mExiting...\033[0m";
+  [nN] ) echo '\033[0;35m'"\033[1mExiting...\033[0m";
     exit;;
   * ) echo '\033[0;31m'"\033[1mInvalid response\033[0m";
     exit 1;;
@@ -21,9 +21,8 @@ case $VERSION_CODENAME in
 esac
 #Check for valid kernel version
 echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
-VERSION_LIMIT=3.10.20-ubnt-mtk
 CURRENT_VERSION=$(uname -r)
-  echo '\E[33;106m'"\033[30mKernel version:\033[0m $CURRENT_VERSION"
+  echo "Kernel version: $CURRENT_VERSION"
 case $CURRENT_VERSION in
   3.10.20-ubnt-mtk ) echo '\033[0;36m'"\033[1mValid kernel\033[0m";;
   * ) echo '\033[0;31m'"\033[1mInvalid kernel. This script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
@@ -60,10 +59,10 @@ esac
     sudo apt update
     sudo DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
     sudo apt -y autoremove
-  echo $(date)":" "Full upgrade complete" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-  echo $(date)":" "Rebooting in 5 seconds..." | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+  echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+  echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
     sleep 5
     sudo reboot
 else
-  echo "Exiting" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+  echo '\033[0;35m'"\033[1mExiting\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 fi
