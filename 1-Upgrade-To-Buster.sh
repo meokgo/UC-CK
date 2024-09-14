@@ -2,8 +2,7 @@
 #This script will upgrade OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
-read -p $'\E[37;44mUpgrade Cloud Key OS to Buster? (y/n)\e[0m ' yn
-read -p $'\E[37;44mBlue Highlight Text Input\e[0m: ' foo
+read -p "$(echo -e '\E[37;44m'"\033[1mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
 case $yn in
   [yY] ) echo -e '\033[0;36m'"\033[1mProceeding with upgrade\033[0m";;
   [nN] ) echo -e '\033[0;36m'"\033[1mExiting...\033[0m";
@@ -16,7 +15,7 @@ echo -e '\033[0;36m'"\033[1mChecking OS version...\033[0m"
 env -i bash -c '. /etc/os-release; echo -e '\E[33;106m'"\033[30mCurrent OS version is:\033[0m" $ID $VERSION_CODENAME'
 case $VERSION_CODENAME in
   jessie ) echo -e '\033[0;36m'"\033[1mValid OS\033[0m";;
-  * ) echo -e '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade from Jessie to Buster.\033[0m";
+  * ) echo -e '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade OS from Jessie to Buster.\033[0m";
     exit 1;;
 esac
 #Check for valid kernel version
