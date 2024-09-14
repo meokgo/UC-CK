@@ -13,9 +13,9 @@ case $yn in
 esac
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
-env -i bash -c '. /etc/os-release; echo "Current OS version is:" $ID $VERSION_CODENAME'
-case $VERSION_CODENAME in
-  jessie ) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
+env -i bash -c '. /etc/os-release; echo "Current OS version is:" $ID $VERSION'
+case $VERSION in
+  8 (jessie) ) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
   * ) echo '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade OS from Jessie to Buster.\033[0m";
     exit 1;;
 esac
