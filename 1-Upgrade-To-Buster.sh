@@ -16,7 +16,7 @@ echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
 OS_Version=$(lsb_release -a | grep Codename)
   echo "OS Version: $OS_Version"
 case $OS_Version in
-  *[jessie]*) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
+  *[none]*) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
   *) echo '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
     exit 1;;
 esac
