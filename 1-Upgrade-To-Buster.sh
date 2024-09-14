@@ -13,17 +13,18 @@ case $yn in
 esac
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
-env -i bash -c '. /etc/os-release; echo "Current OS version is:" $ID $VERSION_ID'
-case $VERSION_ID in
-  *[8]*) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
+OS-Version=$(lsb_release -a | grep Codename)
+  lsb_release -a | grep Codename
+case $OS-Version in
+  jessie) echo '\033[0;36m'"\033[1mValid OS\033[0m";;
   *) echo '\033[0;31m'"\033[1mInvalid OS. This script only works to upgrade OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
     exit 1;;
 esac
 #Check for valid kernel version
 echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
-CURRENT_VERSION=$(uname -r)
-  echo "Kernel version: $CURRENT_VERSION"
-case $CURRENT_VERSION in
+Kernel-Version=$(uname -r)
+  echo "Kernel version: $Kernel-Version"
+case $Kernel-Version in
   3.10.20-ubnt-mtk ) echo '\033[0;36m'"\033[1mValid kernel\033[0m";;
   * ) echo '\033[0;31m'"\033[1mInvalid kernel. This script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
     exit 1;;
