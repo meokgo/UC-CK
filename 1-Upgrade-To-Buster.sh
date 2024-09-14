@@ -10,11 +10,21 @@ case $yn in
   * ) echo "Invalid response";
     exit 1;;
 esac
+#Check for valid OS version
 echo "Checking OS version..."
 env -i bash -c '. /etc/os-release; echo "Current OS version is:" $ID $VERSION_CODENAME'
 case $VERSION_CODENAME in
   jessie ) echo "Valid OS";;
   * ) echo "Invalid OS. This script only works to upgrade from Jessie to Buster";
+    exit 1;;
+esac
+#Check for valid kernel version
+VERSION_LIMIT=3.10.20-ubnt-mtk
+CURRENT_VERSION=$(uname -r)
+  echo "Kernel version: $CURRENT_VERSION"
+case $CURRENT_VERSION in
+  3.10.20-ubnt-mtk ) echo "Valid kernel";;
+  * ) echo "Invalid kernel. This script only works on kernel 3.10.20-ubnt-mtk"
     exit 1;;
 esac
   echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
