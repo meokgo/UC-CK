@@ -44,12 +44,12 @@ echo "****Uninstalling unifi and freeradius packages****" | sed  -e :a -e "s/^.\
   apt-get -y --purge autoremove unifi freeradius
 echo "****Creating new source list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   touch /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian buster main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian buster main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian buster-updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian buster-updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
+  echo "deb https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
 echo "****Updating repository package list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   apt update
 echo "****Updating Debian keyring****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
