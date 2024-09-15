@@ -3,6 +3,11 @@
 #Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
+#Check if script is run as root
+if ! [ $(id -u) = 0 ]; then
+  echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
+  exit 1
+fi
 read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
   case $yn in
     [yY]) echo '\033[0;36m'"\033[1mProceeding with upgrade.\033[0m";;
@@ -61,6 +66,20 @@ echo "****Install full Buster upgrade****" | sed  -e :a -e "s/^.\{1,$(tput cols)
   sudo DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   sudo apt -y autoremove
 echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+#Option to change hostname
+read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
+  if [ -z "$New_Name" ]; then
+    echo '\033[0;35m'"\033[1mNot updating hostname.\033[0m"
+  else
+    hostnamectl set-hostname $New_Name --static
+  fi
+#Option to change timezone
+read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m")" yn
+  case $yn in
+    [yY]) dpkg-reconfigure tzdata;;
+    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m";;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   sudo reboot
