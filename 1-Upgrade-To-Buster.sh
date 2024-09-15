@@ -1,6 +1,8 @@
 #!/bin/sh
 #This script will upgrade factory default state OS from Jessie to Buster on UniFi Cloud Key Model: UC-CK
 #Factory reset Cloud Key: sudo ubnt-systool reset2defaults
+#Default SSH user: root
+#Default SSH password: ubnt
 #Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
 #Make script executable: chmod +x 1-Upgrade-To-Buster.sh
 #Run script: ./1-Upgrade-To-Buster.sh
