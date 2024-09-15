@@ -38,13 +38,11 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
     * ) echo '\033[0;31m'"\033[1mInvalid kernel. Script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
       exit 1;;
   esac
-echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-echo "****Deleting old source lists****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-echo "************************************************************" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
   rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
-echo "****Uninstalling unifi and freeradius packages****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mUninstalling unifi and freeradius packages...\033[0m"
   apt-get -y --purge autoremove unifi freeradius
-echo "****Creating new source list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
   touch /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb-src https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
@@ -52,24 +50,24 @@ echo "****Creating new source list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$
   echo "deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb-src https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
-echo "****Updating repository package list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mUpdating repository package list...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   apt update
-echo "****Updating Debian keyring****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mUpdating Debian keyring...\033[0m"
   apt -y --force-yes --reinstall install debian-archive-keyring
-echo "****Install nano****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mInstalling nano...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y install nano
-echo "****Initial upgrade to Buster****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mInitial upgrade to Buster...\033[0m"
   apt-get -y clean
   apt update
   DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  echo $(date)":" "****Initial upgrade complete****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+  echo $(date)":" '\033[0;36m'"\033[1Initial upgrade complete\033[0m"
   sleep 2
-echo "****Install full Buster upgrade****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1Install full Buster upgrade...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   apt -y autoremove
-echo $(date)":" '\033[0;36m'"\033[1m****Full upgrade complete****\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo $(date)":" '\033[0;36m'"\033[1m****Full upgrade complete****\033[0m"
 #Option to change hostname
 read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
   if [ -z "$New_Name" ]; then
