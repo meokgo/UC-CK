@@ -42,12 +42,12 @@ echo "************************************************************" | sed  -e :a
   rm /etc/apt/sources.list
 echo "****Creating new source list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   touch /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian bullseye main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian bullseye main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian-security/ bullseye/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian-security/ bullseye/updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian bullseye-updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" | sudo tee -a /etc/apt/sources.list
+  echo "deb https://deb.debian.org/debian bullseye main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://deb.debian.org/debian bullseye main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb https://deb.debian.org/debian-security/ bullseye/updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://deb.debian.org/debian-security/ bullseye/updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb https://deb.debian.org/debian bullseye-updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" | tee -a /etc/apt/sources.list
 echo "****Updating repository package list****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   apt update
 echo "****Initial upgrade to Bullseye****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
