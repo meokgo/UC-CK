@@ -109,6 +109,7 @@ read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m")" yn
         else
           adduser $New_User
           usermod -aG sudo $New_User
+          echo "$New_User added to sudo group."
         fi;;
     [nN]) echo '\033[0;35m'"\033[1mNot adding new sudo user.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
