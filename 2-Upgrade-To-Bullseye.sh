@@ -60,7 +60,7 @@ echo "****Install full Bullseye upgrade****" | sed  -e :a -e "s/^.\{1,$(tput col
   echo $(date)":" '\033[0;36m'"\033[1m****Full upgrade complete****\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 #Remove un-needed packages.
 echo "****Cleanup****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-  apt update && apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui && apt -y --purge autoremove
+  apt update && apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui && apt -y --purge autoremove && rm -R /etc/bt-proxy
 #Fix network settings.
   update-alternatives --set iptables /usr/sbin/iptables-legacy
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
