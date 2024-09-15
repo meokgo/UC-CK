@@ -1,6 +1,7 @@
 #!/bin/sh
 #First upgrade OS from Jessie to Buster using instructions in 1-Upgrade-To-Buster.txt.
 #This script will upgrade OS from Buster to Bullseye on UniFi Cloud Key Model: UC-CK.
+#Factory reset Cloud Key: sudo ubnt-systool reset2defaults
 #Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Upgrade-To-Bullseye.sh.
 #Make script executable: chmod +x 2-Upgrade-To-Bullseye.sh.
 #Run script: ./2-Upgrade-To-Bullseye.sh.
