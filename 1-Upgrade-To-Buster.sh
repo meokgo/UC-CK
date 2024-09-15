@@ -126,6 +126,6 @@ read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m")" yn
     [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
-echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
   sleep 5
   reboot
