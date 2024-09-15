@@ -114,6 +114,20 @@ read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m")" yn
     [nN]) echo '\033[0;35m'"\033[1mNot adding new sudo user.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
+#Option to harden SSH
+read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m")" yn
+  case $yn in
+    [yY]) sed -i 's|#ListenAddress ::|ListenAddress inet|g' /etc/ssh/sshd_config && sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config && sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config && echo "MaxAuthTries 5" >> /etc/ssh/sshd_config && echo "MaxSessions 1" >> /etc/ssh/sshd_config && read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port && 
+      if [ -z "$New_Port" ]; then
+        echo '\033[0;35m'"\033[1mNothing entered, not updating SSH port.\033[0m"
+      else
+        sed -i "s|Port 22|Port $New_Port|g" /etc/ssh/sshd_config
+      fi
+      /etc/init.d/ssh restart
+      echo "SSH settings updated.";;
+    [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m";;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   reboot
