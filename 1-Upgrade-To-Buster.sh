@@ -16,6 +16,7 @@ read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
       exit 1;;
   esac
+echo $(date)":" '\033[0;36m'"\033[1mStarting upgrade.\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
   OS_Version=$(lsb_release -a | grep Codename)
@@ -59,13 +60,13 @@ echo "****Initial upgrade to Buster****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}
   apt-get -y clean
   apt update
   DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  echo $(date)":" "Initial upgrade complete" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+  echo $(date)":" "****Initial upgrade complete****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 2
 echo "****Install full Buster upgrade****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   apt -y autoremove
-echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo $(date)":" '\033[0;36m'"\033[1m****Full upgrade complete****\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 #Option to change hostname
 read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
   if [ -z "$New_Name" ]; then
