@@ -77,6 +77,13 @@ read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m")" yn
     [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
+#Option to replace motd
+read -p "$(echo '\033[0;106m'"\033[30mReplace motd? (y/n)\033[0m")" yn
+  case $yn in
+    [yY]) wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd;;
+    [nN]) echo '\033[0;35m'"\033[1mNot replacing motd.\033[0m";;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   reboot
