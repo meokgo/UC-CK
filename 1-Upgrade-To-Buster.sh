@@ -98,6 +98,21 @@ read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates? (y/n)\033[0m")" 
     [nN]) echo '\033[0;35m'"\033[1mNot enabling automatic updates.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
+#Update root password, option to add user
+echo '\033[0;106m'"\033[30mUpdate root user password\033[0m"
+passwd root
+read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m")" yn
+  case $yn in
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new user name:\033[0m ")" New_User && 
+        if [ -z "$New_User" ]; then
+          echo '\033[0;35m'"\033[1mNothing entered, not adding new sudo user.\033[0m"
+        else
+          adduser $New_User
+          usermod -aG sudo $New_User
+        fi;;
+    [nN]) echo '\033[0;35m'"\033[1mNot adding new sudo user.\033[0m";;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   reboot
