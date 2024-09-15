@@ -117,7 +117,7 @@ read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m")" yn
 #Option to harden SSH
 read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m")" yn
   case $yn in
-    [yY]) sed -i 's|#ListenAddress ::|ListenAddress inet|g' /etc/ssh/sshd_config && sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config && sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config && echo "MaxAuthTries 5" >> /etc/ssh/sshd_config && echo "MaxSessions 1" >> /etc/ssh/sshd_config && read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port && 
+    [yY]) sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config && sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config && echo "MaxAuthTries 5" >> /etc/ssh/sshd_config && echo "MaxSessions 1" >> /etc/ssh/sshd_config && echo "AddressFamily inet" >> /etc/ssh/sshd_config && read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port && 
       if [ -z "$New_Port" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not updating SSH port.\033[0m"
       else
