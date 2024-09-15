@@ -63,34 +63,6 @@ echo "****Cleanup****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d
   apt update && apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui && apt -y --purge autoremove
 #Fix network settings.
   update-alternatives --set iptables /usr/sbin/iptables-legacy
-#Option to change hostname.
-read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
-  if [ -z "$New_Name" ]; then
-    echo '\033[0;35m'"\033[1mNot updating hostname.\033[0m"
-  else
-    hostnamectl set-hostname $New_Name --static
-  fi
-#Option to change timezone.
-read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m")" yn
-  case $yn in
-    [yY]) dpkg-reconfigure tzdata;;
-    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m";;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-#Option to replace motd
-read -p "$(echo '\033[0;106m'"\033[30mReplace motd? (y/n)\033[0m")" yn
-  case $yn in
-    [yY]) wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd;;
-    [nN]) echo '\033[0;35m'"\033[1mNot replacing motd.\033[0m";;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-#Option to enable automatic updates
-read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates? (y/n)\033[0m")" yn
-  case $yn in
-    [yY]) apt -y install unattended-upgrades && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades && sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades && systemctl start unattended-upgrades && systemctl enable unattended-upgrades;;
-    [nN]) echo '\033[0;35m'"\033[1mNot enabling automatic updates.\033[0m";;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   reboot
