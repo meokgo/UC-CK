@@ -58,7 +58,7 @@ echo "****Install full Bullseye upgrade****" | sed  -e :a -e "s/^.\{1,$(tput col
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1m****Full upgrade complete****\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-#Remove un-needed packages.
+#Remove unnecessary packages.
 echo "****Cleanup****" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   apt update && apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui && apt -y --purge autoremove && rm -R /etc/bt-proxy
 #Fix network settings.
