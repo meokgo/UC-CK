@@ -122,10 +122,18 @@ read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m")" yn
         sed -i "s|Port 22|Port $New_Port|g" /etc/ssh/sshd_config
       fi
       /etc/init.d/ssh restart
-      echo "SSH settings updated.";;
+      echo '\033[0;36m'"\033[1mSSH settings updated.\033[0m";;
     [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
+echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
+  apt -y install ufw
+  sed -i 's|IPV6=yes|IPV6=no|g' /etc/default/ufw
+  SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
+  echo '\033[0;36m'"\033[1mCurrent SSH port:\033[0m "$SSH_Port
+  ufw allow 7722/tcp comment 'SSH Port'
+  ufw status verbose
+  ufw enable
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
   sleep 5
   reboot
