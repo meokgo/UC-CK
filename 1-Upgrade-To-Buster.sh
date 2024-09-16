@@ -23,7 +23,7 @@ echo $(date)":" '\033[0;36m'"\033[1mStarting upgrade...\033[0m"
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
   OS_Version=$(lsb_release -a | grep Codename)
-    echo "Current OS $OS_Version"
+    echo '\033[0;36m'"\033[1mCurrent OS $OS_Version\033[0m"
   case $OS_Version in
     *"jessie") echo '\033[0;36m'"\033[1mValid OS.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid OS. Script only upgrades OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
@@ -32,7 +32,7 @@ echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
 #Check for valid kernel version
 echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
   Kernel_Version=$(uname -r)
-    echo "Kernel version: $Kernel_Version"
+    echo '\033[0;36m'"\033[1mKernel version: $Kernel_Version\033[0m"
   case $Kernel_Version in
     3.10.20-ubnt-mtk ) echo '\033[0;36m'"\033[1mValid kernel.\033[0m";;
     * ) echo '\033[0;31m'"\033[1mInvalid kernel. Script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
@@ -50,7 +50,7 @@ echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
   echo "deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb-src https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
-echo '\033[0;36m'"\033[1mUpdating repository package list...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
+echo '\033[0;36m'"\033[1mUpdating repository package list...\033[0m"
   apt update
 echo '\033[0;36m'"\033[1mUpdating Debian keyring...\033[0m"
   apt -y --force-yes --reinstall install debian-archive-keyring
@@ -61,7 +61,7 @@ echo '\033[0;36m'"\033[1mInitial upgrade to Buster...\033[0m"
   apt-get -y clean
   apt update
   DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  echo $(date)":" '\033[0;36m'"\033[1Initial upgrade complete\033[0m"
+  echo $(date)":" '\033[0;36m'"\033[1Initial upgrade complete.\033[0m"
   sleep 2
 echo '\033[0;36m'"\033[1Install full Buster upgrade...\033[0m"
   apt update
@@ -107,7 +107,7 @@ read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m")" yn
         else
           adduser $New_User
           usermod -aG sudo $New_User
-          echo "$New_User added to sudo group."
+          echo '\033[0;36m'"\033[1m$New_User added to sudo group.\033[0m"
         fi;;
     [nN]) echo '\033[0;35m'"\033[1mNot adding new sudo user.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
