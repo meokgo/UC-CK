@@ -19,11 +19,11 @@ read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
       exit 1;;
   esac
-echo $(date)":" '\033[0;36m'"\033[1mStarting upgrade.\033[0m"
+echo $(date)":" '\033[0;36m'"\033[1mStarting upgrade...\033[0m"
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
   OS_Version=$(lsb_release -a | grep Codename)
-    echo "OS Version $OS_Version"
+    echo "Current OS $OS_Version"
   case $OS_Version in
     *"jessie") echo '\033[0;36m'"\033[1mValid OS.\033[0m";;
     *) echo '\033[0;31m'"\033[1mInvalid OS. Script only upgrades OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
