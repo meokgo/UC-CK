@@ -24,6 +24,24 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /
 #Install tools
 apt update && apt -y install fzf tldr cmatrix iperf3 speedtest-cli stress s-tui nnn ncdu links2 telnet tailscale
 #Enable device as a subnet router
-echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.d/99-tailscale.conf && echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.d/99-tailscale.conf && sysctl -p /etc/sysctl.d/99-tailscale.conf
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mEnable device as subnet router? (y/n)\033[0m")" yn
+  case $yn in
+    [yY]) echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.d/99-tailscale.conf && echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.d/99-tailscale.conf && sysctl -p /etc/sysctl.d/99-tailscale.conf
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot enabling as subnet router.\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
 #Advertise subnet routes
-tailscale up --advertise-routes=192.0.2.0/24,198.51.100.0/24
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mUpdate advertised subnet routes? (y/n)\033[0m")" yn
+  case $yn in
+    [yY]) tailscale up --advertise-routes=192.0.2.0/24,198.51.100.0/24
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot updating advertised subnet routes.\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
