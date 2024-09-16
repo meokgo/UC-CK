@@ -38,7 +38,12 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate advertised subnet routes? (y/n)\033[0m")" yn
   case $yn in
-    [yY]) tailscale up --advertise-routes=192.0.2.0/24,198.51.100.0/24
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise: (e.g., 192.168.1.0/24 or 192.168.1.0/24,10.1.1.0/24)\033[0m ")" New_Subnet && 
+      if [ -z "$New_Subnet" ]; then
+        echo '\033[0;35m'"\033[1mNothing entered, not updating advertised subnet routes.\033[0m"
+      else
+        tailscale up --advertise-routes=$New_Subnet
+      fi
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot updating advertised subnet routes.\033[0m"
       break;;
