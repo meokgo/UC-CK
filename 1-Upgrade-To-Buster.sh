@@ -82,8 +82,10 @@ read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current)
 #Option to change timezone
 read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m")" yn
   case $yn in
-    [yY]) dpkg-reconfigure tzdata;;
-    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m";;
+    [yY]) dpkg-reconfigure tzdata
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m"
+      break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 #Option to replace motd
