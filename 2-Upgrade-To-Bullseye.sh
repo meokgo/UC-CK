@@ -22,6 +22,7 @@ read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Bullseye? (y/n)\03
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
   esac
 done
+echo $(date)":" '\033[0;36m'"\033[1mStarting upgrade...\033[0m"
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
   OS_Version=$(lsb_release -a | grep Codename)
