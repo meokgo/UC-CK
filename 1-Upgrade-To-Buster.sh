@@ -152,8 +152,8 @@ echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\03
   SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
   echo '\033[0;36m'"\033[1mCurrent SSH port:\033[0m "$SSH_Port
   ufw allow $SSH_Port/tcp comment 'SSH Port'
-  ufw status verbose
   ufw enable
+  ufw status verbose
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
   sleep 5
   reboot
