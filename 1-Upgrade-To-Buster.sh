@@ -70,6 +70,8 @@ echo '\033[0;36m'"\033[1Install full Buster upgrade...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   apt -y autoremove
 echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
+#Fix network settings
+  update-alternatives --set iptables /usr/sbin/iptables-legacy
 #Option to change hostname
 read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
   if [ -z "$New_Name" ]; then
