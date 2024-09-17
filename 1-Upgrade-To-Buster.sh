@@ -12,7 +12,7 @@ if ! [ $(id -u) = 0 ]; then
   exit 1
 fi
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) echo '\033[0;36m'"\033[1mProceeding with upgrade.\033[0m"
       break;;
@@ -80,7 +80,7 @@ read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current)
   fi
 #Option to change timezone
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) dpkg-reconfigure tzdata
       break;;
@@ -91,7 +91,7 @@ while : ; do
 done
 #Option to replace motd
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mReplace motd? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mReplace motd? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
       break;;
@@ -102,7 +102,7 @@ while : ; do
 done
 #Option to enable automatic updates
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) apt -y install unattended-upgrades && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades && sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades && systemctl start unattended-upgrades && systemctl enable unattended-upgrades
       break;;
@@ -115,7 +115,7 @@ done
 echo '\033[0;106m'"\033[30mUpdate root user password\033[0m"
 passwd root
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new user name:\033[0m ")" New_User && 
       if [ -z "$New_User" ]; then
@@ -133,7 +133,7 @@ while : ; do
 done
 #Option to harden SSH
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config && sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config && echo "MaxAuthTries 5" >> /etc/ssh/sshd_config && echo "MaxSessions 1" >> /etc/ssh/sshd_config && echo "AddressFamily inet" >> /etc/ssh/sshd_config && read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port && 
       if [ -z "$New_Port" ]; then
