@@ -23,26 +23,43 @@ echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
 apt update && apt -y install fzf tldr cmatrix iperf3 speedtest-cli stress s-tui nnn ncdu links2 telnet tailscale
-#Tailscale/Headscale initial setup
+#!/bin/sh
+#Option for Tailscale/Headscale initial setup
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mSetup Tailscale/Headscale? (y/n)\033[0m ")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mRun Tailscale/Headscale initial setup? (y/n)\033[0m ")" yn
+  echo '\033[0;36m'"\033[1mCreate a preauth-key in Tailscale or on your Headscale server.\033[0m"
   case $yn in
-    echo '\033[0;106m'"\033[30mCreate a preauth-key in Tailscale (https://tailscale.com/kb/1099/device-approval) or on your Headscale server (headscale preauthkeys create --user <User> --reusable --expiration 2h).\033[0m"
-    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale server and preauth-key:\033[0m ")" Server_Name Preauth_Key
-      while : ; do
-        if [ -z "$Server_Name" ]; then
-          echo '\033[0;35m'"\033[1mNothing entered try again.\033[0m"
-        else
-          tailscale up --login-server=$Server_Name --authkey=$Preauth_Key
-          break
-        fi
-      done;;
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale server:\033[0m ")" Server_Name
+    read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale preauth-key:\033[0m ")" Preauth_Key
+      if test -z "$Server_Name" || test -z "$Preauth_Key" ; then
+        echo '\033[0;35m'"\033[1mServer or preauth-key not entered, not running Tailscale/Headscale initial setup.\033[0m"
+      else
+        tailscale up --login-server=$Server_Name --authkey=$Preauth_Key
+        tailscale status --peers=false
+      fi
+      break;;
     [nN]) echo '\033[0;35m'"\033[1mSkipping Tailscale/Headscale initial setup.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Tailscale/Headscale enable device as a subnet router
+#Option to enable access to advertised routes on other Tailscale/Headscale devices
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mEnable access to advertised routes on other Tailscale/Headscale devices? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) tailscale set --accept-routes
+    tailscale debug prefs | grep RouteAll
+    echo '\033[0;36m'"\033[1mAccess is enabled\033[0m"
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mDisabling access to advertised routes on other Tailscale/Headscale devices.\033[0m"
+    tailscale set --accept-routes=false
+    tailscale debug prefs | grep RouteAll
+    echo '\033[0;36m'"\033[1mAccess is disabled\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
+#Option to enable device as a Tailscale/Headscale subnet router
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mEnable device as Tailscale/Headscale subnet router? (y/n)\033[0m ")" yn
   case $yn in
@@ -53,15 +70,15 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Tailscale/Headscale advertise subnet routes
+#Option to advertise Tailscale/Headscale subnet routes
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate Tailscale/Headscale advertised subnet routes? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise: (e.g., 192.168.1.0/24 or 192.168.1.0/24,10.1.1.0/24)\033[0m ")" New_Subnet && 
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise:\033[0m ")" New_Subnet
       if [ -z "$New_Subnet" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not updating Tailscale/Headscale advertised subnet routes.\033[0m"
       else
-        tailscale up --advertise-routes=$New_Subnet
+        tailscale set --advertise-routes=$New_Subnet
       fi
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot updating Tailscale/Headscale advertised subnet routes.\033[0m"
