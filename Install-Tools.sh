@@ -34,9 +34,9 @@ while : ; do
           echo '\033[0;35m'"\033[1mNothing entered try again.\033[0m"
         else
           tailscale up --login-server=$Server_Name --authkey=$Preauth_Key
-          break;;
+          break
         fi
-      done
+      done;;
     [nN]) echo '\033[0;35m'"\033[1mSkipping Tailscale/Headscale setup.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
