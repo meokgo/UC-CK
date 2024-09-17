@@ -47,8 +47,8 @@ echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
   touch /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian bullseye main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb-src https://deb.debian.org/debian bullseye main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian-security/ bullseye/updates main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian-security/ bullseye/updates main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb https://security.debian.org/debian-security bullseye-security main contrib non-free" | tee -a /etc/apt/sources.list
+  echo "deb-src https://security.debian.org/debian-security/ bullseye-security main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian bullseye-updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" | tee -a /etc/apt/sources.list
 echo '\033[0;36m'"\033[1mUpdating repository package list...\033[0m"
