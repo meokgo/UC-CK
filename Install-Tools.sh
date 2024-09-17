@@ -23,9 +23,28 @@ echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
 apt update && apt -y install fzf tldr cmatrix iperf3 speedtest-cli stress s-tui nnn ncdu links2 telnet tailscale
-#Enable device as a subnet router
+#Tailscale/Headscale setup
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mEnable device as subnet router? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mSetup Tailscale/Headscale? (y/n)\033[0m ")" yn
+  echo '\033[0;106m'"\033[30mCreate a preauth-key in Tailscale (https://tailscale.com/kb/1099/device-approval) or on your Headscale server (headscale preauthkeys create --user <User> --reusable --expiration 2h).\033[0m"
+  case $yn in
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale server and preauth-key:\033[0m ")" Server_Name Preauth_Key
+      while : ; do
+        if [ -z "$Server_Name" ]; then
+          echo '\033[0;35m'"\033[1mNothing entered try again.\033[0m"
+        else
+          tailscale up --login-server=$Server_Name --authkey=$Preauth_Key
+          break
+        fi
+      done
+    [nN]) echo '\033[0;35m'"\033[1mSkipping Tailscale/Headscale setup.\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
+#Tailscale/Headscale enable device as a subnet router
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mEnable device as subnet router? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) echo 'net.ipv4.ip_forward = 1' | tee -a /etc/sysctl.d/99-tailscale.conf && echo 'net.ipv6.conf.all.forwarding = 1' | tee -a /etc/sysctl.d/99-tailscale.conf && sysctl -p /etc/sysctl.d/99-tailscale.conf
       break;;
@@ -34,9 +53,9 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Advertise subnet routes
+#Tailscale/Headscale advertise subnet routes
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpdate advertised subnet routes? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mUpdate advertised subnet routes? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise: (e.g., 192.168.1.0/24 or 192.168.1.0/24,10.1.1.0/24)\033[0m ")" New_Subnet && 
       if [ -z "$New_Subnet" ]; then
