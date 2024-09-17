@@ -9,7 +9,7 @@ if ! [ $(id -u) = 0 ]; then
   exit 1
 fi
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) echo '\033[0;36m'"\033[1mProceeding with install.\033[0m"
       break;;
