@@ -26,8 +26,8 @@ apt update && apt -y install fzf tldr cmatrix iperf3 speedtest-cli stress s-tui 
 #Tailscale/Headscale setup
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mSetup Tailscale/Headscale? (y/n)\033[0m ")" yn
-  echo '\033[0;106m'"\033[30mCreate a preauth-key in Tailscale (https://tailscale.com/kb/1099/device-approval) or on your Headscale server (headscale preauthkeys create --user <User> --reusable --expiration 2h).\033[0m"
   case $yn in
+    echo '\033[0;106m'"\033[30mCreate a preauth-key in Tailscale (https://tailscale.com/kb/1099/device-approval) or on your Headscale server (headscale preauthkeys create --user <User> --reusable --expiration 2h).\033[0m"
     [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale server and preauth-key:\033[0m ")" Server_Name Preauth_Key
       while : ; do
         if [ -z "$Server_Name" ]; then
