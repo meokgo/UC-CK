@@ -3,8 +3,8 @@ Upgrade from Buster to Bullseye:
   Edit /etc/apt/sources.list:
     sudo rm /etc/apt/sources.list && sudo echo "deb https://deb.debian.org/debian bullseye main contrib non-free
 deb-src https://deb.debian.org/debian bullseye main contrib non-free
-deb https://deb.debian.org/debian-security/ bullseye-security main contrib non-free
-deb-src https://deb.debian.org/debian-security/ bullseye-security main contrib non-free
+deb https://security.debian.org/debian-security bullseye-security main contrib non-free
+deb-src https://security.debian.org/debian-security/ bullseye-security main contrib non-free
 deb https://deb.debian.org/debian bullseye-updates main contrib non-free
 deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > /etc/apt/sources.list
   Upgrade to Bullseye:
