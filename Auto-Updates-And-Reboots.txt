@@ -1,0 +1,11 @@
+Setup Auto Updates And Reboots - use PuTTY to SSH to IP of Cloud Key:
+  Install updates and unattended upgrades:
+    sudo apt -y update && sudo apt -y upgrade && sudo apt -y install unattended-upgrades
+  Edit configuration file:
+    sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+      Change: //Unattended-Upgrade::Automatic-Reboot "false";
+      To: Unattended-Upgrade::Automatic-Reboot "true";
+  Enable service and test:
+    sudo systemctl start unattended-upgrades && sudo systemctl enable unattended-upgrades && sudo unattended-upgrades --dry-run --debug
+  Check if service is running:
+    sudo systemctl status unattended-upgrades
