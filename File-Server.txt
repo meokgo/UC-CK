@@ -1,0 +1,16 @@
+Upgrade from Jessie to Buster (1-Upgrade-To-Buster.txt) then upgrade to Bullseye (2-Upgrading-To-Bullseye.txt)
+
+SSH to IP of Cloud Key
+  sudo apt -y install samba
+
+SSH to IP of Cloud Key
+  sudo nano /etc/samba/smb.conf
+    [share]
+    comment = Debian File Server
+    path = /srv/samba/share
+    browsable = yes
+    guest ok = yes
+    read only = no
+    create mask = 0755
+
+sudo mkdir -p /srv/samba/share && sudo chown nobody:nogroup /srv/samba/share/ && sudo systemctl restart smbd.service nmbd.service
