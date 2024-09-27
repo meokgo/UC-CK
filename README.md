@@ -3,8 +3,7 @@ UniFi Cloud Key Model: UC-CK
 
 Gen1 version of Cloud Key
 
-Scripts, fixes, updates, etc.
-
+## Scripts, fixes, updates, etc.
 
 Download and run script to upgrade to Buster:
 ```Shell
