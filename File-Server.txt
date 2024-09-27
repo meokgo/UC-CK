@@ -2,7 +2,6 @@ Upgrade from Jessie to Buster (1-Upgrade-To-Buster.txt) then upgrade to Bullseye
 
 SSH to IP of Cloud Key
   sudo apt -y install samba
-
 SSH to IP of Cloud Key
   sudo nano /etc/samba/smb.conf
     [share]
@@ -12,5 +11,4 @@ SSH to IP of Cloud Key
     guest ok = yes
     read only = no
     create mask = 0755
-
-sudo mkdir -p /srv/samba/share && sudo chown nobody:nogroup /srv/samba/share/ && sudo systemctl restart smbd.service nmbd.service
+  sudo mkdir -p /srv/samba/share && sudo chown nobody:nogroup /srv/samba/share/ && sudo systemctl restart smbd.service nmbd.service
