@@ -2,9 +2,7 @@ Upgrade from Jessie to Buster:
   Factory reset Cloud Key:
     Use web browser go to IP (fallback IP: 192.168.1.30) of Cloud Key - Maintenance - RESET TO DEFAULTS
     Or use PuTTY to SSH to IP of Cloud Key:
-      ```Shell
       sudo ubnt-systool reset2defaults
-      ```
     Or reset from Emergency Recovery UI:
       Power off device
         Hold down reset button then power on device
