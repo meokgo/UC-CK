@@ -6,7 +6,7 @@ Gen1 version of Cloud Key
 Scripts, fixes, updates, etc.
 
 Download and run script to upgrade to Buster:
-```shell
+```Shell
 wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh && chmod +x 1-Upgrade-To-Buster.sh && ./1-Upgrade-To-Buster.sh
 ```
 Download and run script to upgrade to Bullseye (must run 1-Upgrade-To-Buster.sh first):
