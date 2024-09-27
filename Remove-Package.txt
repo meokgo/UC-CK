@@ -1,1 +1,1 @@
-sudo apt -y --purge autoremove <Package Name>
+sudo apt -y --purge autoremove <Package>
