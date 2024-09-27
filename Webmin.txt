@@ -1,0 +1,4 @@
+Install Webmin (https://webmin.com/faq):
+  sudo curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh && sudo sh setup-repos.sh && sudo apt-get -y install webmin
+Web UI:
+  https://<IP>:10000/
