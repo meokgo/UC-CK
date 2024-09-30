@@ -107,7 +107,7 @@ Name = eth0
 [Network]
 DHCP=yes
 #DNS = 192.168.1.1
-#DNS = 8.8.8.8" | sudo tee /etc/systemd/network/eth0.network && sudo nano /etc/systemd/network/eth0.network && sudo systemctl restart systemd-networkd.service
+#DNS = 8.8.8.8" | tee /etc/systemd/network/eth0.network && nano /etc/systemd/network/eth0.network && systemctl restart systemd-networkd.service
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
       break;;
