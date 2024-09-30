@@ -4,9 +4,9 @@
 #Factory reset Cloud Key: sudo ubnt-systool reset2defaults
 #Default SSH user: root
 #Default SSH password: ubnt
-#Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Upgrade-To-Bullseye.sh
-#Make script executable: chmod +x 2-Upgrade-To-Bullseye.sh
-#Run script: ./2-Upgrade-To-Bullseye.sh
+#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Upgrade-To-Bullseye.sh
+#Make script executable: sudo chmod +x 2-Upgrade-To-Bullseye.sh
+#Run script: sudo ./2-Upgrade-To-Bullseye.sh
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
