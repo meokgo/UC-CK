@@ -89,6 +89,31 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
+#Option to set static IP
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mConfigure static IP? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) echo "#*****************************
+#To set static IP change DHCP to no.
+#Uncomment *Address *Gateway *DNS.
+#Update with static IP info.
+#*****************************
+[Match]
+Name = eth0
+[Address]
+#Address = 192.168.1.100/24
+[Route]
+#Gateway = 192.168.1.1
+[Network]
+DHCP=yes
+#DNS = 192.168.1.1
+#DNS = 8.8.8.8" | sudo tee /etc/systemd/network/eth0.network && sudo nano /etc/systemd/network/eth0.network && sudo systemctl restart systemd-networkd.service
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
 #Option to replace motd
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mReplace motd? (y/n)\033[0m ")" yn
