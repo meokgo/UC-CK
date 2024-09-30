@@ -1,6 +1,4 @@
 Set static IP
-  Use web browser to go to IP of Cloud Key
-    Configuration - edit IP information
   sudo nano /etc/systemd/network/eth0.network
 [Match]
 Name = eth0
