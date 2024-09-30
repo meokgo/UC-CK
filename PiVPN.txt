@@ -1,0 +1,60 @@
+Set static IP
+  Use web browser to go to IP of Cloud Key
+    Configuration - edit IP information
+  sudo nano /etc/systemd/network/eth0.network
+[Match]
+Name = eth0
+[Address]
+Address = 192.168.1.100/24
+[Route]
+Gateway = 192.168.1.1
+[Network]
+DNS = 192.168.1.1
+DNS = 8.8.8.8
+  sudo systemctl restart systemd-networkd.service
+
+Install DDClient (https://www.dynu.com/DynamicDNS/IPUpdateClient/DDClient):
+  sudo apt -y install ddclient
+  Modify config:
+    sudo nano /etc/ddclient.conf
+#ddclient configuration for Dynu
+#/etc/ddclient.conf
+daemon=300
+syslog=yes
+pid=/var/run/ddclient.pid
+use=web, web=checkip.dynu.com/, web-skip='IP Address'
+server=api.dynu.com
+protocol=dyndns2
+login=<User>
+password='<Password>'
+<DDNS>
+  Set to start on reboot:
+    sudo /usr/sbin/ddclient -daemon 300 -syslog
+  Check if ddclient is running:
+    sudo /etc/init.d/ddclient status
+  Manually run IP update:
+    sudo ddclient -daemon=0 -debug -verbose -noquiet
+Install PiVPN (https://pivpn.io):
+  Manually download repo:
+    sudo apt -y install git && git clone https://github.com/pivpn/pivpn.git
+  Modify install script:
+    sudo nano pivpn/auto_install/install.sh
+      CTRL + W or F6
+        state UP
+        Enter
+      replace state UP with state UNKNOWN
+    Run install script:
+      bash pivpn/auto_install/install.sh
+        <DDNS>
+Add VPN user:
+  sudo pivpn -a
+  Use WinSCP to connect to IP of Cloud Key:
+    client files are saved to /home/<Username>/ovpns/
+  View connected clients:
+    sudo pivpn -c
+  Config files:
+    /etc/openvpn/server.conf
+    /etc/pivpn/openvpn/setupVars.conf
+
+(https://winaero.com/speed-up-openvpn-and-get-faster-speed-over-its-channel)
+(https://serverfault.com/questions/927616/fixing-70-transfer-speed-slowdown-over-vpn-compared-as-compared-to-ssh-tested)
