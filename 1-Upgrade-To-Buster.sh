@@ -3,9 +3,9 @@
 #Factory reset Cloud Key: sudo ubnt-systool reset2defaults
 #Default SSH user: root
 #Default SSH password: ubnt
-#Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
-#Make script executable: chmod +x 1-Upgrade-To-Buster.sh
-#Run script: ./1-Upgrade-To-Buster.sh
+#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
+#Make script executable: sudo chmod +x 1-Upgrade-To-Buster.sh
+#Run script: sudo ./1-Upgrade-To-Buster.sh
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
