@@ -1,8 +1,8 @@
 #!/bin/sh
 #This script will install some useful tools
-#Download script: wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
-#Make script executable: chmod +x Install-Tools.sh
-#Run script: ./Install-Tools.sh
+#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
+#Make script executable: sudo chmod +x Install-Tools.sh
+#Run script: sudo ./Install-Tools.sh
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
