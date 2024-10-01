@@ -97,7 +97,7 @@ while : ; do
   case $yn in
     [yY]) echo "#*****************************
 #To set static IP change DHCP to no.
-#Uncomment *Address *Gateway *DNS.
+#Uncomment #Address #Gateway #DNS.
 #Update with static IP info.
 #*****************************
 [Match]
