@@ -109,7 +109,9 @@ Name = eth0
 [Network]
 DHCP=yes
 #DNS = 192.168.1.1
-#DNS = 8.8.8.8" | tee /etc/systemd/network/eth0.network && nano /etc/systemd/network/eth0.network && systemctl restart systemd-networkd.service
+#DNS = 8.8.8.8" | tee /etc/systemd/network/eth0.network
+      nano /etc/systemd/network/eth0.network
+      systemctl restart systemd-networkd.service
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
       break;;
@@ -131,7 +133,11 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) apt -y install unattended-upgrades && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades && sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades && systemctl start unattended-upgrades && systemctl enable unattended-upgrades
+    [yY]) apt -y install unattended-upgrades
+      DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades
+      sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
+      systemctl start unattended-upgrades
+      systemctl enable unattended-upgrades
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot enabling automatic updates.\033[0m"
       break;;
@@ -162,7 +168,12 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config && sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config && echo "MaxAuthTries 5" >> /etc/ssh/sshd_config && echo "MaxSessions 1" >> /etc/ssh/sshd_config && echo "AddressFamily inet" >> /etc/ssh/sshd_config && read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port && 
+    [yY]) sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config
+      sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config
+      echo "MaxAuthTries 5" >> /etc/ssh/sshd_config
+      echo "MaxSessions 1" >> /etc/ssh/sshd_config
+      echo "AddressFamily inet" >> /etc/ssh/sshd_config
+      read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port
       if [ -z "$New_Port" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not updating SSH port.\033[0m"
       else
