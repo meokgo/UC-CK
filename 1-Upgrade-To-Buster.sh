@@ -76,7 +76,7 @@ read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current)
   if [ -z "$New_Name" ]; then
     echo '\033[0;35m'"\033[1mNot updating hostname.\033[0m"
   else
-    hostnamectl set-hostname $New_Name --static
+    hostnamectl set-hostname $New_Name --static && sed -i "s|UniFi-CloudKey|$New_Name|g" /etc/hosts
   fi
 #Option to change timezone
 while : ; do
