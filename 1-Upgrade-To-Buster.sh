@@ -40,10 +40,10 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
     * ) echo '\033[0;31m'"\033[1mInvalid kernel. Script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
       exit 1;;
   esac
-echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
-  rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
 echo '\033[0;36m'"\033[1mUninstalling unifi and freeradius packages...\033[0m"
   apt-get -y --purge autoremove unifi freeradius
+echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
+  rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
 echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
   touch /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
@@ -52,9 +52,8 @@ echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
   echo "deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
   echo "deb-src https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
-echo '\033[0;36m'"\033[1mUpdating repository package list...\033[0m"
-  apt update
 echo '\033[0;36m'"\033[1mUpdating Debian keyring...\033[0m"
+  apt update
   apt -y --force-yes --reinstall install debian-archive-keyring
 echo '\033[0;36m'"\033[1mInstalling nano...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt -y install nano -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
@@ -67,7 +66,6 @@ echo '\033[0;36m'"\033[1mInitial upgrade to Buster...\033[0m"
 echo '\033[0;36m'"\033[1mInstall full Buster upgrade...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  apt -y autoremove
 echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
 #Fix network settings
   update-alternatives --set iptables /usr/sbin/iptables-legacy
