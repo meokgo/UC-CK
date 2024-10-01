@@ -142,7 +142,7 @@ while : ; do
   esac
 done
 #Update root password, option to add user
-echo '\033[0;106m'"\033[30mUpdate root user password\033[0m"
+echo '\033[0;106m'"\033[30mUpdate root user password:\033[0m"
 passwd root
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m ")" yn
@@ -172,7 +172,7 @@ while : ; do
       echo "AddressFamily inet" >> /etc/ssh/sshd_config
       read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port
       if [ -z "$New_Port" ]; then
-        echo '\033[0;35m'"\033[1mNothing entered, not updating SSH port.\033[0m"
+        echo '\033[0;35m'"\033[1mNothing entered, SSH port: 22.\033[0m"
       else
         sed -i "s|Port 22|Port $New_Port|g" /etc/ssh/sshd_config
       fi
