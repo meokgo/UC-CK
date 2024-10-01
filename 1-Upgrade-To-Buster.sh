@@ -57,7 +57,7 @@ echo '\033[0;36m'"\033[1mUpdating repository package list...\033[0m"
 echo '\033[0;36m'"\033[1mUpdating Debian keyring...\033[0m"
   apt -y --force-yes --reinstall install debian-archive-keyring
 echo '\033[0;36m'"\033[1mInstalling nano...\033[0m"
-  DEBIAN_FRONTEND=noninteractive apt -y install nano
+  DEBIAN_FRONTEND=noninteractive apt -y install nano -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 echo '\033[0;36m'"\033[1mInitial upgrade to Buster...\033[0m"
   apt-get -y clean
   apt update
