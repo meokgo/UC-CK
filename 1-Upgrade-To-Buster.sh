@@ -95,7 +95,8 @@ while : ; do
   case $yn in
     [yY]) echo "#*****************************
 #To set static IP change DHCP to no.
-#Then uncomment #Address #Gateway #DNS and update with static IP info.
+#Uncomment #Address #Gateway #DNS.
+#Update with static IP info.
 #*****************************
 [Match]
 Name = eth0
@@ -105,10 +106,33 @@ Name = eth0
 #Gateway = 192.168.1.1
 [Network]
 DHCP=yes
-#DNS = 192.168.1.1
-#DNS = 8.8.8.8" | tee /etc/systemd/network/eth0.network
-      nano /etc/systemd/network/eth0.network
-      systemctl restart systemd-networkd.service
+#DNS = 8.8.4.4 8.8.8.8" > /etc/systemd/network/eth0.network
+      read -p "$(echo '\033[0;106m'"\033[30mStatic IP in 0.0.0.0/24 format (leave blank to keep DHCP):\033[0m ")" New_IP
+        if [ -z "$New_IP" ]; then
+          echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
+          rm /etc/systemd/network/eth0.network
+        else
+          sed -i "s|192.168.1.100/24|$New_IP|g" /etc/systemd/network/eth0.network
+          sed -i 's|#Address|Address|g' /etc/systemd/network/eth0.network
+          sed -i 's|DHCP=yes|DHCP=no|g' /etc/systemd/network/eth0.network
+          read -p "$(echo '\033[0;106m'"\033[30mStatic gateway in 0.0.0.0 format (leave blank to keep DHCP):\033[0m ")" New_Gateway
+            if [ -z "$New_Gateway" ]; then
+              echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
+              rm /etc/systemd/network/eth0.network
+            else
+               sed -i "s|192.168.1.1|$New_Gateway|g" /etc/systemd/network/eth0.network
+               sed -i 's|#Gateway|Gateway|g' /etc/systemd/network/eth0.network
+               read -p "$(echo '\033[0;106m'"\033[30mStatic DNS in 0.0.0.0 format (leave blank to keep DHCP):\033[0m ")" New_DNS
+                 if [ -z "$New_DNS" ]; then
+                   echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
+                   rm /etc/systemd/network/eth0.network
+                 else
+                   sed -i "s|8.8.4.4|$New_DNS|g" /etc/systemd/network/eth0.network
+                   sed -i 's|#DNS|DNS|g' /etc/systemd/network/eth0.network
+                   systemctl restart systemd-networkd.service
+                 fi
+            fi
+        fi
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
       break;;
