@@ -65,11 +65,13 @@ echo '\033[0;36m'"\033[1mInstall full Bullseye upgrade...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
 #Remove unnecessary packages
-echo '\033[0;36m'"\033[1mCleanup.\033[0m"
+echo '\033[0;36m'"\033[1mCleanup...\033[0m"
   apt update
   apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui
   apt -y --purge autoremove
   rm -R /etc/bt-proxy
+echo '\033[0;36m'"\033[1mCleanup complete.\033[0m"
+sleep 2
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   reboot
