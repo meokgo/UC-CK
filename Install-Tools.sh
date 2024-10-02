@@ -3,6 +3,7 @@
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
 #Make script executable: sudo chmod +x Install-Tools.sh
 #Run script: sudo ./Install-Tools.sh
+(
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
@@ -86,3 +87,4 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
+) 2>&1 | tee -a Install-Tools.log
