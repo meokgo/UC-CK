@@ -6,6 +6,9 @@
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
 #Make script executable: sudo chmod +x 1-Upgrade-To-Buster.sh
 #Run script: sudo ./1-Upgrade-To-Buster.sh
+#Start time
+echo "$(date) - Script started" >> 1-Upgrade-To-Buster.log
+(
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
@@ -219,3 +222,6 @@ echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\03
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
   sleep 5
   reboot
+#End time
+echo "$(date) - Script finished" >> 1-Upgrade-To-Buster.log
+) 2>&1 | tee -a 1-Upgrade-To-Buster.log
