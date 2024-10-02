@@ -67,8 +67,8 @@ echo '\033[0;36m'"\033[1mInstall full Bullseye upgrade...\033[0m"
 #Remove unnecessary packages
 echo '\033[0;36m'"\033[1mCleanup...\033[0m"
   apt update
-  apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui
-  apt -y --purge autoremove
+  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   rm -R /etc/bt-proxy
 echo '\033[0;36m'"\033[1mCleanup complete.\033[0m"
 sleep 2
