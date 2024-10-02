@@ -5,6 +5,7 @@
 #Run script: sudo ./Install-Tools.sh
 #Start time
 echo "$(date) - Script started" >> Install-Tools.log
+(
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
@@ -90,3 +91,4 @@ while : ; do
 done
 #End time
 echo "$(date) - Script finished" >> Install-Tools.log
+) 2>&1 | tee -a Install-Tools.log
