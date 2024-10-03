@@ -80,6 +80,15 @@ echo '\033[0;36m'"\033[1mCleanup...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 echo '\033[0;36m'"\033[1mCleanup complete.\033[0m"
+#Option to change hostname
+read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
+  if [ -z "$New_Name" ]; then
+    echo '\033[0;35m'"\033[1mNot updating hostname.\033[0m"
+  else
+    hostnamectl set-hostname $New_Name --static
+    sed -i "s|UniFi-CloudKey|$New_Name|g" /etc/hosts
+    sed -i "s|localhost|$New_Name|g" /etc/hosts
+  fi
 #Option to set static IP
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mConfigure static IP? (y/n)\033[0m ")" yn
