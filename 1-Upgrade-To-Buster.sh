@@ -94,7 +94,14 @@ echo '\033[0;36m'"\033[1mInstall full Buster upgrade...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
 #Fix network settings
-  update-alternatives --set iptables /usr/sbin/iptables-legacy
+update-alternatives --set iptables /usr/sbin/iptables-legacy
+  #Fix DNS:
+  systemctl disable systemd-resolved.service
+  systemctl stop systemd-resolved
+  echo "nameserver 8.8.8.8
+nameserver 8.8.4.4" > /etc/resolv1.conf
+  rm /etc/resolv.conf
+  mv /etc/resolv1.conf /etc/resolv.conf
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
   sleep 5
   reboot
