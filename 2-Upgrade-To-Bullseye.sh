@@ -190,8 +190,7 @@ while : ; do
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
-done
-echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
+  echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
   apt -y install ufw
   sed -i 's|IPV6=yes|IPV6=no|g' /etc/default/ufw
   SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
@@ -199,6 +198,7 @@ echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\03
   ufw allow $SSH_Port/tcp comment 'SSH Port'
   ufw enable
   ufw status verbose
+done
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
   sleep 5
   reboot
