@@ -53,7 +53,7 @@ read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current)
     sed -i "s|UniFi-CloudKey|$New_Name|g" /etc/hosts
     sed -i "s|localhost|$New_Name|g" /etc/hosts
   fi
-#Option to change timezone
+#Option to change timezone, default is PDT
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
   case $yn in
