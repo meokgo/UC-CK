@@ -1,6 +1,6 @@
 #!/bin/sh
 #This script will upgrade factory default state OS from Debian Jessie to Debian Buster on UniFi Cloud Key Model: UC-CK
-#This script will disabling or removing most UniFi packages, the device will no longer function as a Cloud Key for UniFi devices, but Emergency Recovery UI still works.
+#This script will disabe or remove most UniFi packages, the device will no longer function as a Cloud Key for UniFi devices, but Emergency Recovery UI still works.
 #Factory reset Cloud Key: sudo ubnt-systool reset2defaults
 #Default SSH user: root
 #Default SSH password: ubnt
