@@ -70,13 +70,12 @@ echo '\033[0;36m'"\033[1mUninstalling unifi and freeradius packages...\033[0m"
 echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
   rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
 echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
-  touch /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian buster main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
-  echo "deb-src https://deb.debian.org/debian buster-updates main contrib non-free" | tee -a /etc/apt/sources.list
+echo "deb https://deb.debian.org/debian buster main contrib non-free
+deb-src https://deb.debian.org/debian buster main contrib non-free
+deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free
+deb https://deb.debian.org/debian buster-updates main contrib non-free
+deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /etc/apt/sources.list
 echo '\033[0;36m'"\033[1mUpdating Debian keyring...\033[0m"
   apt update
   apt -y --force-yes --reinstall install debian-archive-keyring
