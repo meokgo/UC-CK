@@ -198,7 +198,7 @@ while : ; do
   ufw enable
   ufw status verbose
 done
-#Install tools using Install-Tools.sh
+#Option to install tools using Install-Tools.sh
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
   case $yn in
