@@ -200,8 +200,8 @@ while : ; do
   ufw status verbose
 done
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-  sleep 5
-  reboot
 #End time stamp
 echo "$(date) - Script finished" >> 2-Upgrade-To-Bullseye.log
 ) 2>&1 | tee -a 2-Upgrade-To-Bullseye.log
+sleep 5
+reboot
