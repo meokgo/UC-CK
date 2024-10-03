@@ -198,6 +198,18 @@ while : ; do
   ufw enable
   ufw status verbose
 done
+#Install tools using Install-Tools.sh
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) echo '\033[0;36m'"\033[1mInstalling tools...\033[0m"
+      wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot installing tools.\033[0m";
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
+  esac
+done
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
 #Script end time stamp
 echo "$(date) - Script finished" >> 2-Upgrade-To-Bullseye.log
