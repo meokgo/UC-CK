@@ -68,9 +68,9 @@ echo '\033[0;36m'"\033[1mInstall full Bullseye upgrade...\033[0m"
 #Remove unnecessary packages
 echo '\033[0;36m'"\033[1mCleanup...\033[0m"
   apt update
-  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros liblqr-1-0 libwebp6 poppler-data qrencode rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 libwayland-client0 gpg-wks-server libwebp6:armhf ubnt-systemhub -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  rm -R /etc/bt-proxy
+  rm -r /usr/share/fonts/cmap /usr/share/fonts/cMap /usr/share/poppler /var/www/html /etc/bt-proxy
 echo '\033[0;36m'"\033[1mCleanup complete.\033[0m"
 #Option to set static IP
 while : ; do
