@@ -7,7 +7,7 @@
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Upgrade-To-Buster.sh
 #Make script executable: sudo chmod +x 1-Upgrade-To-Buster.sh
 #Run script: sudo ./1-Upgrade-To-Buster.sh
-#Start time stamp
+#Script start time stamp
 echo "$(date) - Script started" >> 1-Upgrade-To-Buster.log
 (
 #Check if script is run as root
@@ -25,7 +25,6 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
   esac
 done
-echo $(date)":" '\033[0;36m'"\033[1mStarting upgrade...\033[0m"
 #Check for valid OS version
 echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
   OS_Version=$(lsb_release -a | grep Codename)
@@ -64,7 +63,7 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Start upgrade time stamp
+#Start OS upgrade time stamp
 echo "$(date) - Upgrade started" >> 1-Upgrade-To-Buster.log
 echo '\033[0;36m'"\033[1mUninstalling unifi and freeradius packages...\033[0m"
   apt-get -y --purge autoremove unifi freeradius
