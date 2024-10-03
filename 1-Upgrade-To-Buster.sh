@@ -96,8 +96,8 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
   echo "nameserver 8.8.8.8
 nameserver 8.8.4.4" > /etc/resolv.conf
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
-  sleep 5
-  reboot
 #End time stamp
 echo "$(date) - Script finished" >> 1-Upgrade-To-Buster.log
 ) 2>&1 | tee -a 1-Upgrade-To-Buster.log
+sleep 5
+reboot
