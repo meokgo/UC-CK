@@ -43,15 +43,13 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
     * ) echo '\033[0;31m'"\033[1mInvalid kernel. Script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
       exit 1;;
   esac
-#Option to change hostname
-read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
-  if [ -z "$New_Name" ]; then
-    echo '\033[0;35m'"\033[1mNot updating hostname.\033[0m"
-  else
-    hostnamectl set-hostname $New_Name --static
-    sed -i "s|UniFi-CloudKey|$New_Name|g" /etc/hosts
-    sed -i "s|localhost|$New_Name|g" /etc/hosts
-  fi
+#Remove unnecessary packages
+echo '\033[0;36m'"\033[1mCleanup...\033[0m"
+  apt update
+  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros liblqr-1-0 libwebp6 poppler-data qrencode rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 libwayland-client0 gpg-wks-server libwebp6:armhf ubnt-systemhub -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  rm -r /usr/share/fonts/cmap /usr/share/fonts/cMap /usr/share/poppler /var/www/html /etc/bt-proxy
+  echo '\033[0;36m'"\033[1mCleanup complete.\033[0m"
 #Start OS upgrade time stamp
 echo "$(date) - Upgrade started" >> 1-Upgrade-To-Buster.log
 echo '\033[0;36m'"\033[1mUninstalling unifi and freeradius packages...\033[0m"
