@@ -8,7 +8,7 @@
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Upgrade-To-Bullseye.sh
 #Make script executable: sudo chmod +x 2-Upgrade-To-Bullseye.sh
 #Run script: sudo ./2-Upgrade-To-Bullseye.sh
-#Start time stamp
+#Script start time stamp
 echo "$(date) - Script started" >> 2-Upgrade-To-Bullseye.log
 (
 #Check if script is run as root
@@ -200,7 +200,7 @@ while : ; do
   ufw status verbose
 done
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m" | sed  -e :a -e "s/^.\{1,$(tput cols)\}$/ & /;ta" | tr -d '\n' | head -c $(tput cols)
-#End time stamp
+#Script end time stamp
 echo "$(date) - Script finished" >> 2-Upgrade-To-Bullseye.log
 ) 2>&1 | tee -a 2-Upgrade-To-Bullseye.log
 sleep 5
