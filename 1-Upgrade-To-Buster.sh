@@ -94,9 +94,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
   systemctl disable systemd-resolved.service
   systemctl stop systemd-resolved
   echo "nameserver 8.8.8.8
-nameserver 8.8.4.4" > /etc/resolv1.conf
-  rm /etc/resolv.conf
-  mv /etc/resolv1.conf /etc/resolv.conf
+nameserver 8.8.4.4" > /etc/resolv.conf
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
   sleep 5
   reboot
