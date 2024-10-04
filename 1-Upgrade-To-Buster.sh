@@ -45,7 +45,9 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
   esac
 #Remove unnecessary packages
 echo '\033[0;36m'"\033[1mCRemoving unnecessary packages...\033[0m"
-  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 ubnt-systemhub -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros liblqr-1-0 libwebp6 poppler-data qrencode rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 libwayland-client0 gpg-wks-server libwebp6:armhf ubnt-systemhub -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  rm -r /usr/share/fonts/cmap /usr/share/fonts/cMap /usr/share/poppler /var/www/html /etc/bt-proxy
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 #Start OS upgrade time stamp
 echo "$(date) - Upgrade started" >> 1-Upgrade-To-Buster.log
