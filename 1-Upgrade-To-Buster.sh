@@ -44,7 +44,7 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
       exit 1;;
   esac
 #Remove unnecessary packages
-echo '\033[0;36m'"\033[1mCRemoving unnecessary packages...\033[0m"
+echo '\033[0;36m'"\033[1mRemoving unnecessary packages...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 libwayland-client0 ubnt-systemhub -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   rm -r /usr/share/fonts/cmap /usr/share/fonts/cMap /usr/share/poppler /var/www/html /etc/bt-proxy
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
