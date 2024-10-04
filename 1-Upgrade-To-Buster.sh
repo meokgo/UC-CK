@@ -46,7 +46,7 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
 #Remove unnecessary packages
 echo '\033[0;36m'"\033[1mRemoving unnecessary packages...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 ubnt-systemhub unifi freeradius -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  rm -r /var/www/html /etc/bt-proxy
+  rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 #Start OS upgrade time stamp
 echo "$(date) - Upgrade started" >> 1-Upgrade-To-Buster.log
