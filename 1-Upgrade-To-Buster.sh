@@ -45,13 +45,11 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
   esac
 #Remove unnecessary packages
 echo '\033[0;36m'"\033[1mRemoving unnecessary packages...\033[0m"
-  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 ubnt-systemhub -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 ubnt-systemhub unifi freeradius -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   rm -r /var/www/html /etc/bt-proxy
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 #Start OS upgrade time stamp
 echo "$(date) - Upgrade started" >> 1-Upgrade-To-Buster.log
-echo '\033[0;36m'"\033[1mUninstalling unifi and freeradius packages...\033[0m"
-  apt-get -y --purge autoremove unifi freeradius
 echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
   rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
 echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
