@@ -122,6 +122,7 @@ nameserver 8.8.4.4" > /etc/resolv1.conf
     esac
   done
   #Update NTP servers
+  echo '\033[0;35m'"\033[1mUpdating NTP servers.\033[0m"
   sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
   systemctl restart systemd-timesyncd
   timedatectl
