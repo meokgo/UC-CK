@@ -60,7 +60,7 @@ echo '\033[0;36m'"\033[1mInitial upgrade to Bullseye...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt -y upgrade --without-new-pkgs -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mInitial upgrade complete.\033[0m"
   sleep 2
-echo '\033[0;36m'"\033[1mInstall full Bullseye upgrade...\033[0m"
+echo '\033[0;36m'"\033[1mInstalling full Bullseye upgrade...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
