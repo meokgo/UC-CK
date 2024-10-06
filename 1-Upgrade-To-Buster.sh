@@ -126,18 +126,6 @@ nameserver 8.8.4.4" > /etc/resolv1.conf
   sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
   systemctl restart systemd-timesyncd
   timedatectl
-#Option to change timezone, default is PDT
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) dpkg-reconfigure tzdata
-      clear
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m"
-      break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-done
 #Remove unnecessary packages
 echo "$(date) - Removing unnecessary packages." >> 1-Upgrade-To-Buster.log
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
