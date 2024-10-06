@@ -156,7 +156,7 @@ while : ; do
 done
 #Option to enable automatic updates
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates? (y/n)\033[0m ")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates and reboots? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) apt -y install unattended-upgrades
       DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades
@@ -164,7 +164,7 @@ while : ; do
       systemctl start unattended-upgrades
       systemctl enable unattended-upgrades
       break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot enabling automatic updates.\033[0m"
+    [nN]) echo '\033[0;35m'"\033[1mNot enabling automatic updates and reboots.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
