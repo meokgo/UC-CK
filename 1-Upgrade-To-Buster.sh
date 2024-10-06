@@ -130,6 +130,7 @@ while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) dpkg-reconfigure tzdata
+      clear
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m"
       break;;
