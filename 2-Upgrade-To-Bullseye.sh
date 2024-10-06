@@ -65,10 +65,13 @@ echo '\033[0;36m'"\033[1mInstalling full Bullseye upgrade...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
 #Remove unnecessary packages
-echo '\033[0;36m'"\033[1mCleanup...\033[0m"
+echo '\033[0;36m'"\033[1mRemoving unnecessary packages....\033[0m"
   apt update
-  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-echo '\033[0;36m'"\033[1mCleanup complete.\033[0m"
+  DEBIAN_FRONTEND=noninteractive apt -y --purge autoremove libx11-6 -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  #Remove unnecessary directories
+  echo "$(date) - Removing unnecessary directories." >> 1-Upgrade-To-Buster.log
+  rm -r /etc/freeradius
+echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 #Option to change timezone, default is PDT
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
