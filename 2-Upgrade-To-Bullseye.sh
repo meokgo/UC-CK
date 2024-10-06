@@ -165,9 +165,10 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Update root password, option to add user
+#Update root and ubnt user passwords, option to add user
 echo '\033[0;106m'"\033[30mUpdate root user password:\033[0m"
 passwd root
+passwd ubnt
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m ")" yn
   case $yn in
