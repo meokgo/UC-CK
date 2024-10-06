@@ -79,6 +79,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
   echo "$(date) - Fixing DNS settings." >> 1-Upgrade-To-Buster.log
   systemctl disable systemd-resolved.service
   systemctl stop systemd-resolved
+    #Option to change DNS servers
   echo "nameserver 8.8.8.8
 nameserver 8.8.4.4" > /etc/resolv1.conf
   rm /etc/resolv.conf
