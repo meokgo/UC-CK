@@ -3,7 +3,7 @@ UniFi Cloud Key Model: UC-CK
 
 Gen1 version of Cloud Key
 
-Scripts, fixes, updates, etc. to help repurpose UC-CK as a general SBC running Debian
+Scripts, fixes, updates, etc. to help repurpose UC-CK as a general SBC running Debian Bullseye
 <br/>
 <br/>
 <br/>
