@@ -84,9 +84,11 @@ nameserver 8.8.4.4" > /etc/resolv1.conf
   rm /etc/resolv.conf
   mv /etc/resolv1.conf /etc/resolv.conf
 #Remove unnecessary packages
+echo "$(date) - Removing unnecessary directories." >> 1-Upgrade-To-Buster.log
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-#Remove unnecessary directories
-  rm -r /var/www/html /etc/bt-proxy /etc/freeradius
+  #Remove unnecessary directories
+    rm -r /var/www/html /etc/bt-proxy /etc/freeradius
+  echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
 echo "$(date) - Script finished" >> 1-Upgrade-To-Buster.log
 ) 2>&1 | tee -a 1-Upgrade-To-Buster.log
