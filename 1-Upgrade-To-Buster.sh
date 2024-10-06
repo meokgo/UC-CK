@@ -43,13 +43,11 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
     * ) echo '\033[0;31m'"\033[1mInvalid kernel. Script only works on kernel 3.10.20-ubnt-mtk.\033[0m"
       exit 1;;
   esac
-#Remove unnecessary packages
-echo '\033[0;36m'"\033[1mRemoving unnecessary packages...\033[0m"
+#Remove UniFi packages
+echo '\033[0;36m'"\033[1mRemoving UniFi packages...\033[0m"
   echo "$(date) - Killing all processes owned by unifi user." >> 1-Upgrade-To-Buster.log
   killall -v -u unifi
-  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui libcups2 libxml2 firmware-Atheros rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 ubnt-systemhub unifi freeradius -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  echo "$(date) - Removing unnecessary directories." >> 1-Upgrade-To-Buster.log
-  rm -r /var/www/html /etc/bt-proxy /etc/freeradius
+  DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui firmware-Atheros ubnt-systemhub unifi -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 #Start OS upgrade
 echo "$(date) - Upgrade started" >> 1-Upgrade-To-Buster.log
