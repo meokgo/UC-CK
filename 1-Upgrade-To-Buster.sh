@@ -77,13 +77,50 @@ echo "$(date) - Fixing network settings." >> 1-Upgrade-To-Buster.log
 update-alternatives --set iptables /usr/sbin/iptables-legacy
   #Fix DNS
   echo "$(date) - Fixing DNS settings." >> 1-Upgrade-To-Buster.log
-  systemctl disable systemd-resolved.service
+  echo '\033[0;36m'"\033[1mStopping and disabling systemd-resolved...\033[0m"
   systemctl stop systemd-resolved
+    systemctl is-active systemd-resolved
+  systemctl disable systemd-resolved.service
+    systemctl is-enabled systemd-resolved
     #Option to change DNS servers
-  echo "nameserver 8.8.8.8
+    while : ; do
+      read -p "$(echo '\033[0;106m'"\033[30mManualy update DNS servers? (y/n)\033[0m ")" yn
+      case $yn in
+        [yY]) echo "nameserver 8.8.8.8
 nameserver 8.8.4.4" > /etc/resolv1.conf
-  rm /etc/resolv.conf
-  mv /etc/resolv1.conf /etc/resolv.conf
+          read -p "$(echo '\033[0;106m'"\033[30mNew primary DNS (leave blank to use 8.8.8.8):\033[0m ")" New_DNS1
+          if [ -z "$New_DNS1" ]; then
+            echo '\033[0;35m'"\033[1mSetting DNS servers to 8.8.8.8 and 8.8.4.4.\033[0m"
+            rm /etc/resolv.conf
+            mv /etc/resolv1.conf /etc/resolv.conf
+            cat /etc/resolv.conf
+          else
+            sed -i "s|8.8.8.8|$New_DNS1|g" /etc/resolv1.conf
+            read -p "$(echo '\033[0;106m'"\033[30mNew secondary DNS (leave blank to use 8.8.4.4):\033[0m ")" New_DNS2
+            if [ -z "$New_DNS2" ]; then
+              echo '\033[0;35m'"\033[1mSetting DNS servers to $New_DNS1 and 8.8.4.4.\033[0m"
+              rm /etc/resolv.conf
+              mv /etc/resolv1.conf /etc/resolv.conf
+              cat /etc/resolv.conf
+            else
+              sed -i "s|8.8.4.4|$New_DNS2|g" /etc/resolv1.conf
+              echo '\033[0;35m'"\033[1mSetting DNS servers to $New_DNS1 and $New_DNS2.\033[0m"
+              rm /etc/resolv.conf
+              mv /etc/resolv1.conf /etc/resolv.conf
+              cat /etc/resolv.conf
+            fi
+          fi
+          break;;
+      [nN]) echo '\033[0;35m'"\033[1mSetting DNS servers to 8.8.8.8 and 8.8.4.4.\033[0m"
+        echo "nameserver 8.8.8.8
+nameserver 8.8.4.4" > /etc/resolv1.conf
+        rm /etc/resolv.conf
+        mv /etc/resolv1.conf /etc/resolv.conf
+        cat /etc/resolv.conf
+        break;;
+      *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+    esac
+  done
   #Update NTP servers
   sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
   systemctl restart systemd-timesyncd
