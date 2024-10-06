@@ -207,19 +207,19 @@ while : ; do
       fi
       /etc/init.d/ssh restart
       echo '\033[0;36m'"\033[1mSSH settings updated.\033[0m"
+      echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
+      apt -y install ufw
+      sed -i 's|IPV6=yes|IPV6=no|g' /etc/default/ufw
+      SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
+      echo '\033[0;36m'"\033[1mCurrent SSH port:\033[0m "$SSH_Port
+      ufw allow $SSH_Port/tcp comment 'SSH Port'
+      ufw enable
+      ufw status verbose
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
-  echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
-  apt -y install ufw
-  sed -i 's|IPV6=yes|IPV6=no|g' /etc/default/ufw
-  SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
-  echo '\033[0;36m'"\033[1mCurrent SSH port:\033[0m "$SSH_Port
-  ufw allow $SSH_Port/tcp comment 'SSH Port'
-  ufw enable
-  ufw status verbose
 done
 #Option to install tools using Install-Tools.sh
 while : ; do
