@@ -83,6 +83,10 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 nameserver 8.8.4.4" > /etc/resolv1.conf
   rm /etc/resolv.conf
   mv /etc/resolv1.conf /etc/resolv.conf
+  #Update NTP servers
+  sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
+  systemctl restart systemd-timesyncd
+  timedatectl
 #Remove unnecessary packages
 echo "$(date) - Removing unnecessary directories." >> 1-Upgrade-To-Buster.log
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
