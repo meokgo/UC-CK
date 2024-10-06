@@ -1,3 +1,9 @@
+<!--
+  Title: UC-CK
+  Description: Scripts, fixes, updates, etc. to help repurpose UC-CK as a general SBC running Debian Bullseye.
+  Author: meokgo
+  -->
+
 # UC-CK
 UniFi Cloud Key Model: UC-CK
 
