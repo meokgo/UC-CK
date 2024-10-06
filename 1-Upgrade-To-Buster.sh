@@ -68,7 +68,7 @@ echo '\033[0;36m'"\033[1mInitial upgrade to Buster...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mInitial upgrade complete.\033[0m"
-echo '\033[0;36m'"\033[1mInstall full Buster upgrade...\033[0m"
+echo '\033[0;36m'"\033[1mInstalling full Buster upgrade...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
