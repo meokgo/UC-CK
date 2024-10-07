@@ -138,7 +138,7 @@ echo "$(date) - Script finished" >> 1-Upgrade-To-Buster.log
 ) 2>&1 | tee -a 1-Upgrade-To-Buster.log
 #Option to reboot
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mDevice must be rebooted before running next scritp. Reboot now? (y/n)\033[0m ")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mDevice must be rebooted before running next script. Reboot now? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
       sleep 5
