@@ -18,7 +18,7 @@ fi
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) echo '\033[0;36m'"\033[1mProceeding with upgrade.\033[0m"
+    [yY]) echo '\033[0;36m'"\033[1m$(date) - Proceeding with upgrade.\033[0m"
       break;;
     [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
       exit;;
@@ -26,7 +26,7 @@ while : ; do
   esac
 done
 #Check for valid OS version
-echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
+echo '\033[0;36m'"\033[1m$(date) - Checking OS version...\033[0m"
   OS_Version=$(lsb_release -a | grep Codename)
   echo '\033[0;36m'"\033[1mCurrent OS $OS_Version\033[0m"
   case $OS_Version in
@@ -35,7 +35,7 @@ echo '\033[0;36m'"\033[1mChecking OS version...\033[0m"
       exit 1;;
   esac
 #Check for valid kernel version
-echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
+echo '\033[0;36m'"\033[1m$(date) - Checking kernel version...\033[0m"
   Kernel_Version=$(uname -r)
   echo '\033[0;36m'"\033[1mKernel version: $Kernel_Version\033[0m"
   case $Kernel_Version in
@@ -44,7 +44,7 @@ echo '\033[0;36m'"\033[1mChecking kernel version...\033[0m"
       exit 1;;
   esac
 #Remove UniFi packages
-echo '\033[0;36m'"\033[1mRemoving UniFi packages...\033[0m"
+echo '\033[0;36m'"\033[1m$(date) - Removing UniFi packages...\033[0m"
   echo "$(date) - Killing all processes owned by unifi user." >> 1-Upgrade-To-Buster.log
   killall -v -u unifi
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui firmware-Atheros ubnt-systemhub unifi -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
@@ -61,15 +61,15 @@ deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb-src https://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb https://deb.debian.org/debian buster-updates main contrib non-free
 deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /etc/apt/sources.list
-echo '\033[0;36m'"\033[1mUpdating Debian keyring...\033[0m"
+echo '\033[0;36m'"\033[1m$(date) - Updating Debian keyring...\033[0m"
   apt update
   apt -y --force-yes --reinstall install debian-archive-keyring
-echo '\033[0;36m'"\033[1mInitial upgrade to Buster...\033[0m"
+echo '\033[0;36m'"\033[1m$(date) - Initial upgrade to Buster...\033[0m"
   apt-get -y clean
   apt update
   DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mInitial upgrade complete.\033[0m"
-echo '\033[0;36m'"\033[1mInstalling full Buster upgrade...\033[0m"
+echo '\033[0;36m'"\033[1m$(date) - Installing full Buster upgrade...\033[0m"
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y full-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   echo $(date)":" '\033[0;36m'"\033[1mFull upgrade complete.\033[0m"
