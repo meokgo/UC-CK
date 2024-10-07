@@ -49,8 +49,10 @@ echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
   killall -v -u unifi
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui firmware-Atheros ubnt-systemhub unifi libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius freeradius-common freeradius-utils libfreeradius2 libjpeg62-turbo:armhf libpng12-0:armhf libx11-data ubnt-mtk-initramfs cloudkey-mtk7623-base-files -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   userdel -rf unifi
+  #Fix for dpkg hook error
   touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
+  #Remove directories
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 #Start OS upgrade
@@ -133,8 +135,15 @@ nameserver 8.8.4.4" > /etc/resolv1.conf
 #Remove packages
 echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius freeradius-common freeradius-utils libjpeg62-turbo:armhf libx11-data -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  #Fix for dpkg hook error
   touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
+  #Fix for dpkg unknown system group error
+  rm /var/lib/dpkg/statoverride
+  rm /var/lib/dpkg/lock
+  dpkg --configure -a
+  apt-get -f install
+  #Remove directories
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 echo "$(date): Script finished" >> 1-Upgrade-To-Buster.log
