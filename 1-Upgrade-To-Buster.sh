@@ -49,7 +49,7 @@ echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
   killall -v -u unifi
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui firmware-Atheros ubnt-systemhub unifi libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius freeradius-common freeradius-utils libfreeradius2 libjpeg62-turbo:armhf libpng12-0:armhf libx11-data ubnt-mtk-initramfs cloudkey-mtk7623-base-files -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   userdel -rf unifi
-  touch /sbin/{ubnt-dpkg-status-pre,ubnt-dpkg-status-post,ubnt-dpkg-cache}
+  touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
@@ -128,16 +128,12 @@ nameserver 8.8.4.4" > /etc/resolv1.conf
   #Update NTP servers
   echo '\033[0;35m'"\033[1mUpdating NTP servers...\033[0m"
   sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
-  sleep 5
   systemctl restart systemd-timesyncd
-  sleep 5
   timedatectl
 #Remove packages
 echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius freeradius-common freeradius-utils libjpeg62-turbo:armhf libx11-data -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  sleep 5
-  touch /sbin/{ubnt-dpkg-status-pre,ubnt-dpkg-status-post,ubnt-dpkg-cache}
-  sleep 5
+  touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
