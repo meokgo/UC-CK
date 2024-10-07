@@ -136,7 +136,7 @@ echo "$(date) - Removing unnecessary packages." >> 1-Upgrade-To-Buster.log
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 echo "$(date) - Script finished" >> 1-Upgrade-To-Buster.log
 ) 2>&1 | tee -a 1-Upgrade-To-Buster.log
-#Option to reboot
+#Option to reboot device
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mDevice must be rebooted before running next script. Reboot now? (y/n)\033[0m ")" yn
   case $yn in
