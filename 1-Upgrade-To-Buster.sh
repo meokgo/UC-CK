@@ -134,8 +134,17 @@ echo "$(date) - Removing unnecessary packages." >> 1-Upgrade-To-Buster.log
   echo "$(date) - Removing unnecessary directories." >> 1-Upgrade-To-Buster.log
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
-echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
 echo "$(date) - Script finished" >> 1-Upgrade-To-Buster.log
 ) 2>&1 | tee -a 1-Upgrade-To-Buster.log
-sleep 5
-reboot
+#Option to reboot
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mDevice must be rebooted before running next scritp. Reboot now? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) echo $(date)":" '\033[0;32m'"\033[1mRebooting in 5 seconds...\033[0m"
+      sleep 5
+      reboot
+    [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
+      exit;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
+  esac
+done
