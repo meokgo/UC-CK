@@ -132,17 +132,17 @@ nameserver 8.8.4.4" > /etc/resolv1.conf
   sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
   systemctl restart systemd-timesyncd
   timedatectl
+#Fix for dpkg hook error
+touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
+chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
+#Fix for dpkg unknown system group error
+rm /var/lib/dpkg/statoverride
+rm /var/lib/dpkg/lock
+dpkg --configure -a
+apt-get -f install
 #Remove packages
 echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius freeradius-common freeradius-utils libjpeg62-turbo:armhf libx11-data -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  #Fix for dpkg hook error
-  touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
-  chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
-  #Fix for dpkg unknown system group error
-  rm /var/lib/dpkg/statoverride
-  rm /var/lib/dpkg/lock
-  dpkg --configure -a
-  apt-get -f install
   #Remove directories
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
