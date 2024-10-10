@@ -91,7 +91,7 @@ read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current)
   else
     hostnamectl set-hostname $New_Name --static
     sed -i "s|UniFi-CloudKey|$New_Name|g" /etc/hosts
-    sed -i "s|localhost|$New_Name|g" /etc/hosts
+    #sed -i "s|localhost|$New_Name|g" /etc/hosts
   fi
 #Option to set static IP
 while : ; do
