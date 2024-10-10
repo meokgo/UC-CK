@@ -74,7 +74,7 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
       dpkg --configure -a
       apt-get -f install
       remove_packages
-      echo '\033[0;36m'"\033[1mTo continue upgrading to Bullseye, reboot the device then re-run script (sudo ./1-Combined-Upgrade.sh):\033[0m"
+      echo '\033[0;35m'"\033[1mTo continue upgrading to Bullseye, reboot the device then re-run script (sudo ./1-Combined-Upgrade.sh):\033[0m"
     done
   *"buster") echo '\033[0;36m'"\033[1mValid OS.\033[0m";;
     while : ; do
