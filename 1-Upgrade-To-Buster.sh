@@ -100,7 +100,7 @@ echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
   echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
 echo "$(date): Script finished" >> 1-Upgrade-To-Buster.log
 ) 2>&1 | tee -a 1-Upgrade-To-Buster.log
-echo '\033[0;36m'"\033[1mTo continue upgrade to Bullseye after rebooting device run: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Upgrade-To-Bullseye.sh && sudo chmod +x 2-Upgrade-To-Bullseye.sh && sudo ./2-Upgrade-To-Bullseye.sh\033[0m"
+echo '\033[0;36m'"\033[1mTo continue upgrading to Bullseye, reboot the device then run: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Upgrade-To-Bullseye.sh && sudo chmod +x 2-Upgrade-To-Bullseye.sh && sudo ./2-Upgrade-To-Bullseye.sh\033[0m"
 #Option to reboot device
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mDevice must be rebooted before running next script. Reboot now? (y/n)\033[0m ")" yn
