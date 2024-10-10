@@ -86,9 +86,6 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
   sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
   systemctl restart systemd-timesyncd
   timedatectl
-#Fix for dpkg hook error
-touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
-chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
 #Fix for dpkg unknown system group error
 rm /var/lib/dpkg/statoverride
 rm /var/lib/dpkg/lock
