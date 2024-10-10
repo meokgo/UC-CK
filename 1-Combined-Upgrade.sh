@@ -21,13 +21,13 @@ remove_packages ()
   chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   #Remove directories
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
-  echo '\033[0;36m'"\033[1mRemoval complete.\033[0m"
+  echo '\033[0;36m'"\033[1m$(date): Removal complete.\033[0m"
 }
 initial_upgrade ()
 {
   apt update
   DEBIAN_FRONTEND=noninteractive apt -y upgrade --without-new-pkgs -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-  echo $(date)":" '\033[0;36m'"\033[1mInitial upgrade complete.\033[0m"
+  echo '\033[0;36m'"\033[1m$(date): Initial upgrade complete.\033[0m"
 }
 full_upgrade ()
 {
