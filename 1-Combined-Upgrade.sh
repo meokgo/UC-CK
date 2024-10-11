@@ -127,7 +127,7 @@ deb-src https://security.debian.org/debian-security/ bullseye-security main cont
 deb https://deb.debian.org/debian bullseye-updates main contrib non-free
 deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > /etc/apt/sources.list
       echo '\033[0;36m'"\033[1mInitial upgrade to Bullseye...\033[0m"
-        initial_upgrde
+        initial_upgrade
       echo '\033[0;36m'"\033[1mInstalling full Bullseye upgrade...\033[0m"
         full_upgrade
       remove_packages
