@@ -135,6 +135,18 @@ deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > 
     *) echo '\033[0;31m'"\033[1mInvalid OS. Script only upgrades OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
       exit 1;;
   esac
+#Option to install tools using Install-Tools.sh
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) echo '\033[0;36m'"\033[1mInstalling tools...\033[0m"
+      wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot installing tools.\033[0m";
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
+  esac
+done
 echo "$(date): Script finished" >> 1-Combined-Upgrade.log
 ) 2>&1 | tee -a 1-Combined-Upgrade.log
 #Option to reboot device
