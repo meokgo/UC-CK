@@ -1,13 +1,12 @@
 #!/bin/sh
-#This script will upgrade the factory default state OS from Debian Jessie to Debian Buster or Debian Buster to Debian Bullseye on UniFi Cloud Key Model: UC-CK
-#This script will disabe or remove most UniFi packages, the device will no longer function as a Cloud Key for UniFi devices, but Emergency Recovery UI still works.
-#****It is highly recommended to factory reset the Cloud Key before running script the first time****
+#This script will help configure device settings on UniFi Cloud Key Model: UC-CK
 #Factory reset Cloud Key: sudo ubnt-systool reset2defaults
 #Default SSH user: root
 #Default SSH password: ubnt
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Device-Config.sh
 #Make script executable: sudo chmod +x Device-Config.sh
 #Run script: sudo ./Device-Config.sh
+
 #Option to change timezone, default is PDT
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
