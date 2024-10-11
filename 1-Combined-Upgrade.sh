@@ -147,6 +147,17 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
   esac
 done
+#Option to run Device-Config.sh
+read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) echo '\033[0;36m'"\033[1mRunning config...\033[0m"
+      wget 
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot running config.\033[0m";
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
+  esac
+done
 echo "$(date): Script finished" >> 1-Combined-Upgrade.log
 ) 2>&1 | tee -a 1-Combined-Upgrade.log
 #Option to reboot device
