@@ -6,7 +6,14 @@
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Device-Config.sh
 #Make script executable: sudo chmod +x Device-Config.sh
 #Run script: sudo ./Device-Config.sh
-
+(
+echo "$(date): Script started." >> Device-Config.log
+#Check if script is run as root
+echo "$(date): Checking if script is run as root." >> Device-Config.log
+if ! [ $(id -u) = 0 ]; then
+  echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
+  exit 1
+fi
 #Option to change timezone, default is PDT
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
@@ -156,3 +163,5 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
+echo "$(date): Script finished" >> Device-Config.log
+) 2>&1 | tee -a 1-Combined-Upgrade.log
