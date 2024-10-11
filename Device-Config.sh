@@ -1,8 +1,5 @@
 #!/bin/sh
 #This script will help configure device settings on UniFi Cloud Key Model: UC-CK
-#Factory reset Cloud Key: sudo ubnt-systool reset2defaults
-#Default SSH user: root
-#Default SSH password: ubnt
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Device-Config.sh
 #Make script executable: sudo chmod +x Device-Config.sh
 #Run script: sudo ./Device-Config.sh
