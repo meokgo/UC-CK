@@ -136,6 +136,7 @@ deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > 
       exit 1;;
   esac
 #Option to run Device-Config.sh
+while : ; do
 read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) echo '\033[0;36m'"\033[1mRunning config...\033[0m"
