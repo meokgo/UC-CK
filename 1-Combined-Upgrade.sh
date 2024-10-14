@@ -91,11 +91,6 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
       #Fix network settings
       echo "$(date): Fixing network settings." >> 1-Combined-Upgrade.log
         update-alternatives --set iptables /usr/sbin/iptables-legacy
-      #Update NTP servers
-      echo '\033[0;35m'"\033[1mUpdating NTP servers...\033[0m"
-        sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
-        systemctl restart systemd-timesyncd
-        timedatectl
       #Fix for dpkg unknown system group error
       rm /var/lib/dpkg/statoverride
       rm /var/lib/dpkg/lock
@@ -126,11 +121,16 @@ deb https://security.debian.org/debian-security bullseye-security main contrib n
 deb-src https://security.debian.org/debian-security/ bullseye-security main contrib non-free
 deb https://deb.debian.org/debian bullseye-updates main contrib non-free
 deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > /etc/apt/sources.list
-      echo '\033[0;36m'"\033[1mInitial upgrade to Bullseye...\033[0m"
+      echo '\033[0;36m'"\033[1m$(date): Initial upgrade to Bullseye...\033[0m"
         initial_upgrade
-      echo '\033[0;36m'"\033[1mInstalling full Bullseye upgrade...\033[0m"
+      echo '\033[0;36m'"\033[1m$(date): Installing full Bullseye upgrade...\033[0m"
         full_upgrade
       remove_packages
+      #Update NTP servers
+      echo '\033[0;35m'"\033[1mUpdating NTP servers...\033[0m"
+        sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
+        systemctl restart systemd-timesyncd
+        timedatectl
       #Option to run Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
