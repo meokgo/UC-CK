@@ -69,8 +69,8 @@ echo '\033[0;36m'"\033[1m$(date): Checking OS version...\033[0m"
         esac
       done
       remove_packages
-      #Start OS upgrade
-      echo "$(date): Upgrade started" >> 1-Combined-Upgrade.log
+      #Start Buster OS upgrade
+      echo "$(date): Upgrade to Buster started" >> 1-Combined-Upgrade.log
       echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
         rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
       echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
@@ -110,8 +110,8 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
           *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
         esac
       done
-      #Start OS upgrade
-      echo "$(date): Upgrade started" >> 1-Combined-Upgrade.log
+      #Start Bullseye OS upgrade
+      echo "$(date): Upgrade to Bullseye started" >> 1-Combined-Upgrade.log
       echo '\033[0;36m'"\033[1mDeleting old source list...\033[0m"
         rm /etc/apt/sources.list
       echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
