@@ -11,18 +11,6 @@ if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
   exit 1
 fi
-#Option to change timezone, default is PDT
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) dpkg-reconfigure tzdata
-      clear
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m"
-      break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-done
 #Option to change hostname
 read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current):\033[0m ")" New_Name
   if [ -z "$New_Name" ]; then
@@ -156,6 +144,18 @@ while : ; do
       ufw status verbose
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
+#Option to change timezone, default is PDT
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) dpkg-reconfigure tzdata
+      clear
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
