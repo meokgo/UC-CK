@@ -152,7 +152,7 @@ while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) echo '\033[0;36m'"\033[1mInstalling tools...\033[0m"
-      wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
+      sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh && sudo chmod +x Install-Tools.sh && sudo ./Install-Tools.sh
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot installing tools.\033[0m";
       break;;
