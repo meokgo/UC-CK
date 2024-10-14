@@ -91,8 +91,23 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
       echo '\033[0;36m'"\033[1m$(date): Installing full Buster upgrade...\033[0m"
         full_upgrade
       #Fix network settings
-      echo "$(date): Fixing network settings." >> 1-Combined-Upgrade.log
+      echo "$(date): Fixing network settings..." >> 1-Combined-Upgrade.log
         update-alternatives --set iptables /usr/sbin/iptables-legacy
+        #Fix DNS and free up port 53
+        rm /etc/systemd/resolved.conf
+          echo"[Resolve]
+DNS=1.1.1.1
+FallbackDNS=8.8.8.8 8.8.4.4
+#Domains=
+#LLMNR=no
+#MulticastDNS=no
+#DNSSEC=no
+#DNSOverTLS=no
+#Cache=no
+DNSStubListener=no
+#ReadEtcHosts=yes" > /etc/systemd/resolved.conf
+          ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+          service systemd-resolved restart
       #Fix for dpkg unknown system group error
       rm /var/lib/dpkg/statoverride
       rm /var/lib/dpkg/lock
