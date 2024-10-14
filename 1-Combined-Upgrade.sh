@@ -36,6 +36,8 @@ full_upgrade ()
   echo '\033[0;36m'"\033[1m$(date): Full upgrade complete.\033[0m"
 }
 (
+#Set timezone to CST, default is PDT
+timedatectl set-timezone America/Chicago
 echo "$(date): Script started." >> 1-Combined-Upgrade.log
 #Check if script is run as root
 echo "$(date): Checking if script is run as root." >> 1-Combined-Upgrade.log
