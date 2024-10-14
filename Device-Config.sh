@@ -148,17 +148,5 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Option to change timezone, default is PDT
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpdate timezone? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) dpkg-reconfigure tzdata
-      clear
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot updating timezone.\033[0m"
-      break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-done
 echo "$(date): Script finished" >> Device-Config.log
 ) 2>&1 | tee -a 1-Combined-Upgrade.log
