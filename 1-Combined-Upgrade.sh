@@ -127,6 +127,7 @@ deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > 
         initial_upgrade
       echo '\033[0;36m'"\033[1m$(date): Installing full Bullseye upgrade...\033[0m"
         full_upgrade
+      #Remove unnecessary packages
       remove_packages
       DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove cpp-8 fdisk libapt-inst2.0 libapt-pkg5.0 libasan5 libevent-2.1-6 libfdisk1 libhogweed4 libicu63 libip4tc0 libip6tc0 libiptc0 libisl19 libjson-c3 libnettle6 libnftables0 libperl5.28 libprocps7 libpython2-stdlib libpython3.7-minimal libpython3.7-stdlib libreadline7 perl-modules-5.28 python2 python2-minimal python3.7-minimal usb.ids exim4-config exim4-base exim4-daemon-light -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
       #Update NTP servers
