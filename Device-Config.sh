@@ -98,7 +98,7 @@ done
 #Enforce strong passwords
 echo '\033[0;36m'"\033[1mEnforcing strong passwords...\033[0m"
 apt -y install libpam-pwquality
-  cp /etc/pam.d/common-password /etc/pam.d/common-password1.bak
+  cp /etc/pam.d/common-password /etc/pam.d/common-password.bak
   sed -i "s|\[default=ignore\]|requisite|g" /etc/pam.d/common-password
   sed -i "s|pam_pwquality.so retry=3|pam_pwquality.so remember=99 use_authok|g" /etc/pam.d/common-password
   sed -i "s| pam_usermapper.so mapfile=/etc/security/usermap.conf|			pam_pwquality.so minlen=16 difok=3 ucredit=-1 lcredit=-2 dcredit=-2 ocredit=-2 retry=3 enforce_for_root|g" /etc/pam.d/common-password
@@ -128,7 +128,8 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) if grep -Fxq "AddressFamily inet" /etc/ssh/sshd_config
+    [yY]) cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+      if grep -Fxq "AddressFamily inet" /etc/ssh/sshd_config
       then
         echo '\033[0;35m'"\033[1mAddressFamily inet already exists.\033[0m"
       else
