@@ -18,7 +18,6 @@ read -p "$(echo '\033[0;106m'"\033[30mNew hostname (leave blank to keep current)
   else
     hostnamectl set-hostname $New_Name --static
     sed -i "s|UniFi-CloudKey|$New_Name|g" /etc/hosts
-    #sed -i "s|localhost|$New_Name|g" /etc/hosts
   fi
 #Option to set static IP
 while : ; do
@@ -96,14 +95,22 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Update root and ubnt user passwords, option to add user
-echo '\033[0;106m'"\033[30mUpdate root user password:\033[0m"
-passwd root
-passwd ubnt
+#Enforce strong passwords
+echo '\033[0;36m'"\033[1mEnforcing strong passwords...\033[0m"
+apt -y install libpam-pwquality
+  cp /etc/pam.d/common-password /etc/pam.d/common-password1.bak
+  sed -i "s|\[default=ignore\]|requisite|g" /etc/pam.d/common-password
+  sed -i "s|pam_pwquality.so retry=3|pam_pwquality.so remember=99 use_authok|g" /etc/pam.d/common-password
+  sed -i "s| pam_usermapper.so mapfile=/etc/security/usermap.conf|			pam_pwquality.so minlen=16 difok=3 ucredit=-1 lcredit=-2 dcredit=-2 ocredit=-2 retry=3 enforce_for_root|g" /etc/pam.d/common-password
+#Update root and ubnt user passwords, option to add sudo user
+echo '\033[0;106m'"\033[30mUpdate root user password (Must be at least 16 characters, contain 3 different characters vs current, 1 uppercase character, 2 lowercase characters, 2 numbers and 2 special characters.):\033[0m"
+  passwd root
+echo '\033[0;106m'"\033[30mUpdate ubnt user password (Must be at least 16 characters, contain 3 different characters vs current, 1 uppercase character, 2 lowercase characters, 2 numbers and 2 special characters.):\033[0m"
+  passwd ubnt
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mAdd new sudo user? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new user name:\033[0m ")" New_User && 
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new sudo user name:\033[0m ")" New_User && 
       if [ -z "$New_User" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not adding new sudo user.\033[0m"
       else
@@ -121,12 +128,74 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) sed -i 's|LoginGraceTime 120|LoginGraceTime 2m|g' /etc/ssh/sshd_config
+    [yY]) if grep -Fxq "AddressFamily inet" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mAddressFamily inet already exists.\033[0m"
+      else
+        sed -i 's|Port 22|Port 22\x0AAddressFamily inet|g' /etc/ssh/sshd_config
+      fi
+      sed -i 's|ServerKeyBits 1024|ServerKeyBits 2048|g' /etc/ssh/sshd_config
+      sed -i 's|LogLevel INFO|LogLevel VERBOSE|g' /etc/ssh/sshd_config
+      sed -i 's|LoginGraceTime 120|LoginGraceTime 30|g' /etc/ssh/sshd_config
       sed -i 's|PermitRootLogin yes|PermitRootLogin no|g' /etc/ssh/sshd_config
-      echo "MaxAuthTries 5" >> /etc/ssh/sshd_config
-      echo "MaxSessions 1" >> /etc/ssh/sshd_config
-      echo "AddressFamily inet" >> /etc/ssh/sshd_config
-      read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port:\033[0m ")" New_Port
+      if grep -Fxq "MaxAuthTries 3" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mMaxAuthTries 3 already exists.\033[0m"
+      else
+        sed -i 's|StrictModes yes|StrictModes yes\x0AMaxAuthTries 3|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "MaxSessions 1" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mMaxSessions 1 already exists.\033[0m"
+      else
+        sed -i 's|MaxAuthTries 3|MaxAuthTries 3\x0AMaxSessions 1|g' /etc/ssh/sshd_config
+      fi
+      sed -i 's|X11Forwarding yes|X11Forwarding no|g' /etc/ssh/sshd_config
+      sed -i 's|X11DisplayOffset 10|#X11DisplayOffset 10|g' /etc/ssh/sshd_config
+      sed -i 's|PrintMotd no|PrintMotd yes|g' /etc/ssh/sshd_config
+      if grep -Fxq "HashKnownHosts yes" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mHashKnownHosts yes already exists.\033[0m"
+      else
+        sed -i 's|UseDNS no|UseDNS no\x0AHashKnownHosts yes|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "AllowTcpForwarding no" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mAllowTcpForwarding no already exists.\033[0m"
+      else
+        sed -i 's|UseDNS no|UseDNS no\x0AAllowTcpForwarding no|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "AllowAgentForwarding no" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mAllowAgentForwarding no already exists.\033[0m"
+      else
+        sed -i 's|UseDNS no|UseDNS no\x0AAllowAgentForwarding no|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "ClientAliveInterval 300" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mClientAliveInterval 300 already exists.\033[0m"
+      else
+        sed -i 's|TCPKeepAlive yes|TCPKeepAlive yes\x0AClientAliveInterval 300|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "ClientAliveCountMax 3" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mClientAliveCountMax 3 already exists.\033[0m"
+      else
+        sed -i 's|TCPKeepAlive yes|TCPKeepAlive yes\x0AClientAliveCountMax 3|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "Compression yes" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mCompression yes already exists.\033[0m"
+      else
+        sed -i 's|UseDNS no|UseDNS no\x0ACompression yes|g' /etc/ssh/sshd_config
+      fi
+      if grep -Fxq "DenyUsers ubnt root" /etc/ssh/sshd_config
+      then
+        echo '\033[0;35m'"\033[1mDenyUsers already exists.\033[0m"
+      else
+        sed -i 's|UseDNS no|UseDNS no\x0ADenyUsers ubnt root|g' /etc/ssh/sshd_config
+      fi
+      read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port (leave blank to use default port: 22):\033[0m ")" New_Port
       if [ -z "$New_Port" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, SSH port: 22.\033[0m"
       else
@@ -140,7 +209,7 @@ while : ; do
       SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
       echo '\033[0;36m'"\033[1mCurrent SSH port:\033[0m "$SSH_Port
       ufw allow $SSH_Port/tcp comment 'SSH Port'
-      ufw enable
+      ufw --force enable
       ufw status verbose
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m"
@@ -148,5 +217,16 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
+#Option to enable 2FA for SSH login
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mEnable 2FA for SSH login? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) ##########https://www.linuxbabe.com/debian/ssh-two-factor-authentication-debian
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mNot enabling 2FA for SSH login.\033[0m"
+      break;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+  esac
+done
 echo "$(date): Script finished" >> Device-Config.log
-) 2>&1 | tee -a 1-Combined-Upgrade.log
+) 2>&1 | tee -a Device-Config.log
