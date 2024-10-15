@@ -153,13 +153,6 @@ while : ; do
       fi
       sed -i 's|X11Forwarding yes|X11Forwarding no|g' /etc/ssh/sshd_config
       sed -i 's|X11DisplayOffset 10|#X11DisplayOffset 10|g' /etc/ssh/sshd_config
-      sed -i 's|PrintMotd no|PrintMotd yes|g' /etc/ssh/sshd_config
-      if grep -Fxq "HashKnownHosts yes" /etc/ssh/sshd_config
-      then
-        echo '\033[0;35m'"\033[1mHashKnownHosts yes already exists.\033[0m"
-      else
-        sed -i 's|UseDNS no|UseDNS no\x0AHashKnownHosts yes|g' /etc/ssh/sshd_config
-      fi
       if grep -Fxq "AllowTcpForwarding no" /etc/ssh/sshd_config
       then
         echo '\033[0;35m'"\033[1mAllowTcpForwarding no already exists.\033[0m"
@@ -171,18 +164,6 @@ while : ; do
         echo '\033[0;35m'"\033[1mAllowAgentForwarding no already exists.\033[0m"
       else
         sed -i 's|UseDNS no|UseDNS no\x0AAllowAgentForwarding no|g' /etc/ssh/sshd_config
-      fi
-      if grep -Fxq "ClientAliveInterval 300" /etc/ssh/sshd_config
-      then
-        echo '\033[0;35m'"\033[1mClientAliveInterval 300 already exists.\033[0m"
-      else
-        sed -i 's|TCPKeepAlive yes|TCPKeepAlive yes\x0AClientAliveInterval 300|g' /etc/ssh/sshd_config
-      fi
-      if grep -Fxq "ClientAliveCountMax 3" /etc/ssh/sshd_config
-      then
-        echo '\033[0;35m'"\033[1mClientAliveCountMax 3 already exists.\033[0m"
-      else
-        sed -i 's|TCPKeepAlive yes|TCPKeepAlive yes\x0AClientAliveCountMax 3|g' /etc/ssh/sshd_config
       fi
       if grep -Fxq "Compression yes" /etc/ssh/sshd_config
       then
@@ -202,6 +183,12 @@ while : ; do
       else
         sed -i "s|Port 22|Port $New_Port|g" /etc/ssh/sshd_config
       fi
+      echo "#Script logs out idle SSH connections
+if [ "$SSH_CONNECTION" != "" ]; then
+  TMOUT=900 #15 minutes
+  readonly TMOUT
+  export TMOUT
+fi" > /etc/profile.d/ssh-timeout.sh
       /etc/init.d/ssh restart
       echo '\033[0;36m'"\033[1mSSH settings updated.\033[0m"
       echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
