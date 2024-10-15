@@ -94,6 +94,7 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
       echo "$(date): Fixing network settings..." >> 1-Combined-Upgrade.log
         update-alternatives --set iptables /usr/sbin/iptables-legacy
         #Fix DNS and free up port 53
+        cp /etc/systemd/resolved.conf /etc/systemd/resolved.conf.bak
         rm /etc/systemd/resolved.conf
           echo"[Resolve]
 DNS=1.1.1.1
