@@ -114,7 +114,7 @@ while : ; do
       if [ -z "$New_User" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not adding new sudo user.\033[0m"
       else
-        adduser $New_User
+        adduser --gecos GECOS $New_User
         usermod -aG sudo $New_User
         echo '\033[0;36m'"\033[1m$New_User added to sudo group.\033[0m"
       fi
