@@ -189,6 +189,30 @@ if [ "$SSH_CONNECTION" != "" ]; then
   readonly TMOUT
   export TMOUT
 fi" > /etc/profile.d/ssh-timeout.sh
+      #Set login limits for $New_User root and ubnt users
+      if [ -z "$New_User" ]; then
+        echo '\033[0;35m'"\033[1mNew sudo user was not setup, only adding login limits for root and ubnt users.\033[0m"
+      else
+        if grep -q $New_User /etc/security/limits.conf;
+        then
+          echo '\033[0;35m'"\033[1mLogin limit for $New_User already exists.\033[0m";
+        else
+          sed -i "s|# End of file|$New_User	 	hard	 maxlogins	 1\x0A# End of file|g" /etc/security/limits.conf;
+          echo '\033[0;36m'"\033[1mLogin limit set for $New_User.\033[0m"
+        fi
+      fi
+      if grep -q "^root" /etc/security/limits.conf;
+      then
+        echo '\033[0;35m'"\033[1mLogin limit for root already exists.\033[0m";
+      else
+        sed -i 's|# End of file|root	 	 hard	 maxlogins	 1\x0A# End of file|g' /etc/security/limits.conf;
+      fi
+      if grep -q "ubnt" /etc/security/limits.conf;
+      then
+        echo '\033[0;35m'"\033[1mLogin limit for ubnt already exists.\033[0m";
+      else
+        sed -i 's|# End of file|ubnt	 	 hard	 maxlogins	 1\x0A# End of file|g' /etc/security/limits.conf;
+      fi
       /etc/init.d/ssh restart
       echo '\033[0;36m'"\033[1mSSH settings updated.\033[0m"
       echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
