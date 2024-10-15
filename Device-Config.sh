@@ -218,7 +218,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
       echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
       apt -y install ufw
       sed -i 's|IPV6=yes|IPV6=no|g' /etc/default/ufw
-      SSH_Port=$(cat /etc/ssh/sshd_config | grep Port | sed 's|Port ||g')
+      SSH_Port=$(cat /etc/ssh/sshd_config | grep "^Port" | sed 's|Port ||g')
       echo '\033[0;36m'"\033[1mCurrent SSH port:\033[0m "$SSH_Port
       ufw allow $SSH_Port/tcp comment 'SSH Port'
       ufw --force enable
