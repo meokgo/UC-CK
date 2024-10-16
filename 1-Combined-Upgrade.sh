@@ -152,12 +152,11 @@ deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > 
         systemctl restart systemd-timesyncd
         timedatectl
       #Set LED to blue after network interface comes up
-      echo '#!/bin/sh
-#This script turns off white LED and turns on blue LED when network interface comes up.
+      cp /etc/rc.local /etc/rc.local.bak
+      echo '
 echo rfkill0 > /sys/class/leds/blue/trigger
-echo none > /sys/class/leds/white/trigger' > /etc/network/if-up.d/0-led-blue.sh
-        chmod +x /etc/network/if-up.d/0-led-blue.sh
-        sh /etc/network/if-up.d/0-led-blue.sh
+echo none > /sys/class/leds/white/trigger
+exit 0' >> /etc/rc.local
       #Option to run Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
