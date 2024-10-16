@@ -151,7 +151,7 @@ deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > 
         sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
         systemctl restart systemd-timesyncd
         timedatectl
-      #Set LED to blue after network interface comes up
+      #Set LED to blue after finished booting
       cp /etc/rc.local /etc/rc.local.bak
       echo '
 echo rfkill0 > /sys/class/leds/blue/trigger
