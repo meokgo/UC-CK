@@ -96,7 +96,7 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
         #Fix DNS and free up port 53
         cp /etc/systemd/resolved.conf /etc/systemd/resolved.conf.bak
         rm /etc/systemd/resolved.conf
-          echo"[Resolve]
+          echo "[Resolve]
 DNS=1.1.1.1
 FallbackDNS=8.8.8.8 8.8.4.4
 #Domains=
