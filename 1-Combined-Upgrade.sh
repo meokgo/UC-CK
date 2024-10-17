@@ -156,6 +156,7 @@ deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > 
       echo '
 echo rfkill0 > /sys/class/leds/blue/trigger
 echo none > /sys/class/leds/white/trigger
+
 exit 0' >> /etc/rc.local
       #Option to run Device-Config.sh
       while : ; do
