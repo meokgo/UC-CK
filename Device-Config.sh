@@ -229,16 +229,5 @@ fi" > /etc/profile.d/ssh-timeout.sh
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Option to enable 2FA for SSH login
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mEnable 2FA for SSH login? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) ##########https://www.linuxbabe.com/debian/ssh-two-factor-authentication-debian
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot enabling 2FA for SSH login.\033[0m"
-      break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-done
 echo "$(date): Script finished" >> Device-Config.log
 ) 2>&1 | tee -a Device-Config.log
