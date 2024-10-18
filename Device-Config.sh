@@ -223,6 +223,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
       ufw allow $SSH_Port/tcp comment 'SSH Port'
       ufw --force enable
       ufw status verbose
+      ufw reload
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot hardening SSH settings.\033[0m"
       break;;
