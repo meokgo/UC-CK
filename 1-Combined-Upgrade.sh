@@ -158,6 +158,13 @@ echo rfkill0 > /sys/class/leds/blue/trigger
 echo none > /sys/class/leds/white/trigger
 
 exit 0' >> /etc/rc.local
+      #Display stats before motd
+      echo '#!/bin/sh
+echo "Date: " $(date)
+echo "Logged in users: " $(who)
+echo "Uptime: " $(uptime)
+ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/20-stats
+      sudo chmod +x /etc/update-motd.d/20-stats
       #Option to run Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
