@@ -168,6 +168,8 @@ exit 0' >> /etc/rc.local
       ln -s /srv/var/lib/apt /var/lib/apt
       mv /var/lib/dpkg /srv/var/lib/dpkg
       ln -s /srv/var/lib/dpkg /var/lib/dpkg
+      apt purge ~c
+      apt-get clean
       #Display stats before motd
       echo '#!/bin/sh
 echo "Date: " $(date)
