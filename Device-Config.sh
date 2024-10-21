@@ -69,21 +69,13 @@ DHCP=yes
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Option to enable automatic updates
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates and reboots? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) apt -y install unattended-upgrades
-      DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades
-      sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
-      systemctl start unattended-upgrades
-      systemctl enable unattended-upgrades
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot enabling automatic updates and reboots.\033[0m"
-      break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-done
+#Enable automatic updates and reboots
+echo '\033[0;36m'"\033[1mEnabling automatic updates and reboots...\033[0m"
+apt -y install unattended-upgrades
+  DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades
+  sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
+  systemctl start unattended-upgrades
+  systemctl enable unattended-upgrades
 #Enforce strong passwords
 echo '\033[0;36m'"\033[1mEnforcing strong passwords...\033[0m"
 apt -y install libpam-pwquality
