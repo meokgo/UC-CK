@@ -174,7 +174,7 @@ exit 0' >> /etc/rc.local
       echo '#!/bin/sh
 echo "Date: " $(date)
 echo "Logged in users: " $(who)
-echo "Uptime: " $(uptime)
+echo "Uptime: " $(uptime -p)
 ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/30-stats
       chmod +x /etc/update-motd.d/30-stats
       #Option to run Device-Config.sh
