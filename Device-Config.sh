@@ -69,17 +69,6 @@ DHCP=yes
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Option to replace motd
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mReplace motd? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot replacing motd.\033[0m"
-      break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
-  esac
-done
 #Option to enable automatic updates
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mEnable automatic updates and reboots? (y/n)\033[0m ")" yn
