@@ -158,6 +158,16 @@ echo rfkill0 > /sys/class/leds/blue/trigger
 echo none > /sys/class/leds/white/trigger
 
 exit 0' >> /etc/rc.local
+      #Move storage using symlink
+      mkdir -p /srv/var/lib
+      mv /var/cache /srv/var/cache
+      ln -s /srv/var/cache /var/cache
+      mv /var/log /srv/var/log
+      ln -s /srv/var/log /var/log
+      mv /var/lib/apt /srv/var/lib/apt
+      ln -s /srv/var/lib/apt /var/lib/apt
+      mv /var/lib/dpkg /srv/var/lib/dpkg
+      ln -s /srv/var/lib/dpkg /var/lib/dpkg
       #Display stats before motd
       echo '#!/bin/sh
 echo "Date: " $(date)
