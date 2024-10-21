@@ -111,7 +111,8 @@ while : ; do
 done
 #Option to harden SSH
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings (make sure you have create a new sudo user as SSH hardening will block login for root and ubnt users)? (y/n)\033[0m ")" yn
+  read -p "$(echo -e "\e[1;33m\e[1;41m****MAKE SURE YOU HAVE CREATED A NEW SUDO USER AS SSH HARDENING WILL BLOCK LOGIN FOR root AND ubnt USERS****\e[0m
+\e[1;106m\e[1;30mHarden SSH settings? (y/n)\e[0m ")" yn
   case $yn in
     [yY]) cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
       if grep -Fxq "AddressFamily inet" /etc/ssh/sshd_config
