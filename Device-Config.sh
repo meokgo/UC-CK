@@ -117,6 +117,10 @@ while : ; do
         adduser --gecos GECOS $New_User
         usermod -aG sudo $New_User
         echo '\033[0;36m'"\033[1m$New_User added to sudo group.\033[0m"
+        #Move storage using symlink
+        mkdir -p /srv/home
+        mv /home/$New_User /srv/home/$New_User
+        ln -s /srv/home/$New_User /home/$New_User
       fi
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot adding new sudo user.\033[0m"
