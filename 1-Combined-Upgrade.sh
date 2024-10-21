@@ -138,7 +138,9 @@ deb-src https://deb.debian.org/debian bullseye main contrib non-free
 deb https://security.debian.org/debian-security bullseye-security main contrib non-free
 deb-src https://security.debian.org/debian-security/ bullseye-security main contrib non-free
 deb https://deb.debian.org/debian bullseye-updates main contrib non-free
-deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free" > /etc/apt/sources.list
+deb-src https://deb.debian.org/debian bullseye-updates main contrib non-free
+deb https://deb.debian.org/debian bullseye-backports main contrib non-free
+deb-src https://deb.debian.org/debian bullseye-backports main contrib non-free" > /etc/apt/sources.list
       echo '\033[0;36m'"\033[1m$(date): Initial upgrade to Bullseye...\033[0m"
         initial_upgrade
       echo '\033[0;36m'"\033[1m$(date): Installing full Bullseye upgrade...\033[0m"
