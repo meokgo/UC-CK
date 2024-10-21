@@ -170,13 +170,20 @@ exit 0' >> /etc/rc.local
       ln -s /srv/var/lib/dpkg /var/lib/dpkg
       apt purge ~c
       apt-get clean
-      #Display stats before motd
+      #Update motd
+      wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
+      echo '#!/bin/sh
+cat /etc/motd
+' > /etc/update-motd.d/10-motd
+      mv /etc/update-motd.d/10-uname /etc/update-motd.d/20-uname
+      sed -i 's|uname -snrvm|uname -nmo|g' /etc/update-motd.d/20-uname
       echo '#!/bin/sh
 echo "Date: " $(date)
 echo "Logged in users: " $(who)
 echo "Uptime: " $(uptime -p)
 ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/30-stats
-      chmod +x /etc/update-motd.d/30-stats
+      chmod +x /etc/update-motd.d/10-motd /etc/update-motd.d/30-stats
+      run-parts /etc/update-motd.d
       #Option to run Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
