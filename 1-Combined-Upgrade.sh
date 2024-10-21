@@ -148,6 +148,8 @@ deb-src https://deb.debian.org/debian bullseye-backports main contrib non-free" 
       #Remove unnecessary packages
       DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove cpp-8 fdisk libapt-inst2.0 libapt-pkg5.0 libasan5 libevent-2.1-6 libfdisk1 libhogweed4 libicu63 libip4tc0 libip6tc0 libiptc0 libisl19 libjson-c3 libnettle6 libnftables0 libperl5.28 libprocps7 libpython2-stdlib libpython3.7-minimal libpython3.7-stdlib libreadline7 perl-modules-5.28 python2 python2-minimal python3.7-minimal usb.ids exim4-config exim4-base exim4-daemon-light -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
       remove_packages
+      DEBIAN_FRONTEND=noninteractive apt-get -y purge ~c -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+      DEBIAN_FRONTEND=noninteractive apt-get -y clean ~c -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
       #Update NTP servers
       echo '\033[0;35m'"\033[1mUpdating NTP servers...\033[0m"
         sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
@@ -170,8 +172,6 @@ exit 0' >> /etc/rc.local
       ln -s /srv/var/lib/apt /var/lib/apt
       mv /var/lib/dpkg /srv/var/lib/dpkg
       ln -s /srv/var/lib/dpkg /var/lib/dpkg
-      apt purge ~c
-      apt-get clean
       #Update motd
       wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
       echo '#!/bin/sh
