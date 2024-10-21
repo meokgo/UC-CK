@@ -175,8 +175,8 @@ exit 0' >> /etc/rc.local
 echo "Date: " $(date)
 echo "Logged in users: " $(who)
 echo "Uptime: " $(uptime)
-ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/20-stats
-      sudo chmod +x /etc/update-motd.d/20-stats
+ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/30-stats
+      sudo chmod +x /etc/update-motd.d/30-stats
       #Option to run Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
