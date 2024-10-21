@@ -4,6 +4,7 @@
 #Make script executable: sudo chmod +x Device-Config.sh
 #Run script: sudo ./Device-Config.sh
 
+#Function for setting up 2FA users
 setup_users ()
 {
   #Prompt for which user to setup 2FA for
