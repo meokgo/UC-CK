@@ -241,7 +241,7 @@ done
 while : ; do
   read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m ")" yn
   case $yn in
-    [yY] apt install -y libpam-google-authenticator
+    [yY]) apt install -y libpam-google-authenticator
       sed -i 's|UsePAM no|UsePAM yes|g' /etc/ssh/sshd_config
       sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
       if grep -Fxq "#2FA via Google Authenticator" /etc/pam.d/sshd
