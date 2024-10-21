@@ -12,8 +12,7 @@ setup_users ()
     read  -p "$(echo '\033[0;106m'"\033[30mSetup 2FA for users? (y/n)\033[0m ")" yn
     case $yn in
       [yY] read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup 2FA:\033[0m ")" 2FA_User
-        if [ -z "2FA_User" ];
-        then
+        if [ -z "2FA_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
           runuser -l $2FA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
