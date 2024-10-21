@@ -18,6 +18,7 @@ setup_users ()
           runuser -l $2FA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
         fi
       [nN])  echo '\033[0;35m'"\033[1mDone setting up 2FA users.\033[0m"
+        break;;
       *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
     esac
   done
