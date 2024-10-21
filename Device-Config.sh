@@ -9,7 +9,7 @@ setup_users ()
 {
   #Prompt for which user to setup 2FA for
   while : ; do
-    read  -p "$(echo '\033[0;106m'"\033[30mSetup 2FA for users? (y/n)\033[0m ")" yn
+    read -p "$(echo '\033[0;106m'"\033[30mSetup 2FA for users? (y/n)\033[0m ")" yn
     case $yn in
       [yY] read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup 2FA:\033[0m ")" 2FA_User
         if [ -z "2FA_User" ]; then
