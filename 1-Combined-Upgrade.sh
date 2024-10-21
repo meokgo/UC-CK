@@ -183,7 +183,8 @@ cat /etc/motd
 echo "Date: " $(date)
 echo "Logged in users: " $(who)
 echo "Uptime: " $(uptime -p)
-ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/30-stats
+ip -c -f inet addr show eth0 | awk '\''/inet / {print "IP: " $2}'\''
+ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "IP: " $2}'\''' > /etc/update-motd.d/30-stats
       chmod +x /etc/update-motd.d/10-motd /etc/update-motd.d/30-stats
       run-parts /etc/update-motd.d
       #Option to run Device-Config.sh
