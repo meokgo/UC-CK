@@ -98,7 +98,7 @@ while : ; do
         adduser --gecos GECOS $New_User
         usermod -aG sudo $New_User
         echo '\033[0;36m'"\033[1m$New_User added to sudo group.\033[0m"
-        #Move user home directory using symlink
+        #Move $New_User home directory using symlink
         mkdir -p /srv/home
         mv /home/$New_User /srv/home/$New_User
         ln -s /srv/home/$New_User /home/$New_User
@@ -111,7 +111,7 @@ while : ; do
 done
 #Option to harden SSH
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings? (y/n)\033[0m ")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mHarden SSH settings (make sure you have create a new sudo user as SSH hardening will block login for root and ubnt users)? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
       if grep -Fxq "AddressFamily inet" /etc/ssh/sshd_config
