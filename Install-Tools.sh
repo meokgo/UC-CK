@@ -94,6 +94,6 @@ echo '
 #Enter tmux automatically when logging in via SSH
 if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
   tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
-fi' >> ~/.bashrc
+fi' >> /etc/bash.bashrc
 echo "$(date) - Script finished" >> Install-Tools.log
 ) 2>&1 | tee -a Install-Tools.log
