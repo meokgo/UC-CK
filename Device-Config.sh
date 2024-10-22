@@ -184,9 +184,9 @@ while : ; do
       else
         sed -i 's|UseDNS no|UseDNS no\x0ADenyUsers ubnt root|g' /etc/ssh/sshd_config
       fi
-      read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port (leave blank to use default port: 22):\033[0m ")" New_Port
+      SSH_Port=$(cat /etc/ssh/sshd_config | grep "^Port" | sed 's|Port ||g')
+      read -p "$(echo '\033[0;106m'"\033[30mEnter new SSH port (leave blank to use current port: $SSH_Port):\033[0m ")" New_Port
       if [ -z "$New_Port" ]; then
-        SSH_Port=$(cat /etc/ssh/sshd_config | grep "^Port" | sed 's|Port ||g')
         echo '\033[0;35m'"\033[1mNothing entered, SSH port: $SSH_Port.\033[0m"
       else
         sed -i "s|Port 22|Port $New_Port|g" /etc/ssh/sshd_config
