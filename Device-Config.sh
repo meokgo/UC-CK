@@ -173,7 +173,7 @@ while : ; do
         sed -i 's|MaxAuthTries 3|MaxAuthTries 3\x0AMaxSessions 1|g' /etc/ssh/sshd_config
       fi
       sed -i 's|X11Forwarding yes|X11Forwarding no|g' /etc/ssh/sshd_config
-      sed -i 's|X11DisplayOffset 10|#X11DisplayOffset 10|g' /etc/ssh/sshd_config
+      sed -i 's|^X11DisplayOffset 10|#X11DisplayOffset 10|g' /etc/ssh/sshd_config
       if grep -Fxq "AllowTcpForwarding no" /etc/ssh/sshd_config
       then
         echo '\033[0;35m'"\033[1mAllowTcpForwarding no already exists.\033[0m"
