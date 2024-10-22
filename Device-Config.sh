@@ -4,22 +4,34 @@
 #Make script executable: sudo chmod +x Device-Config.sh
 #Run script: sudo ./Device-Config.sh
 
-#Function for setting up 2FA users
+#Function for setting up MFA users
 setup_users ()
 {
-  #Prompt for which user to setup MFA for
   while : ; do
-    unset MFA_User
+    #Continue setting up MFA for users?
     read -p "$(echo '\033[0;106m'"\033[30mSetup MFA for users? (y/n)\033[0m ")" yn
     case $yn in
-      [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup MFA:\033[0m ")" MFA_User
+      [yY]) unset MFA_User
+        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup MFA:\033[0m ")" MFA_User
         if [ -z "$MFA_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
-          
-          runuser -l $MFA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
-        fi
-        break;;
+          #Check is user exists in system
+          if id -u $MFA_User >/dev/null 2>&1; then
+            #Check if user has a login limit set
+            if grep -q $MFA_User /etc/security/limits.conf; then
+              echo '\033[0;35m'"\033[1mIncreasing $MFA_User login limit to 2.\033[0m"
+              sed -i "s|$MFA_User	hard	maxlogins	1|debian-admin	hard	maxlogins	2|g" /etc/security/limits.conf
+            else
+              echo '\033[0;35m'"\033[1mUser does not have login limit set.\033[0m"
+            fi
+            runuser -l $MFA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
+            echo '\033[0;35m'"\033[1mDecreasing $MFA_User login limit back to 1.\033[0m"
+            sed -i "s|$MFA_User	hard	maxlogins	2|debian-admin	hard	maxlogins	1|g" /etc/security/limits.conf
+          else
+            echo '\033[0;31m'"\033[1m$MFA_User does not exist in system.\033[0m"
+          fi
+        fi;;
       [nN]) echo '\033[0;35m'"\033[1mDone setting up MFA users.\033[0m"
         break;;
       *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
