@@ -77,7 +77,7 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate Tailscale/Headscale advertised subnet routes? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise:\033[0m ")" New_Subnet
+    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise (in 0.0.0.0/24 format):\033[0m ")" New_Subnet
       if [ -z "$New_Subnet" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not updating Tailscale/Headscale advertised subnet routes.\033[0m"
       else
