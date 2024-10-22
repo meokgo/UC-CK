@@ -253,6 +253,7 @@ while : ; do
       fi
       systemctl restart ssh
       setup_users
+      break;;
     [nN]) echo '\033[0;35m'"\033[1mNot setting up 2FA.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
