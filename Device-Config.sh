@@ -9,12 +9,14 @@ setup_users ()
 {
   #Prompt for which user to setup MFA for
   while : ; do
+    unset MFA_User
     read -p "$(echo '\033[0;106m'"\033[30mSetup MFA for users? (y/n)\033[0m ")" yn
     case $yn in
       [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup MFA:\033[0m ")" MFA_User
-        if [ -z "MFA_User" ]; then
+        if [ -z "$MFA_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
+          
           runuser -l $MFA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
         fi
         break;;
@@ -205,7 +207,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
         then
           echo '\033[0;35m'"\033[1mLogin limit for $New_User already exists.\033[0m";
         else
-          sed -i "s|# End of file|$New_User	 	hard	 maxlogins	 1\x0A# End of file|g" /etc/security/limits.conf;
+          sed -i "s|# End of file|$New_User  hard  maxlogins  1\x0A# End of file|g" /etc/security/limits.conf;
           echo '\033[0;36m'"\033[1mLogin limit set for $New_User.\033[0m"
         fi
       fi
@@ -213,13 +215,13 @@ fi" > /etc/profile.d/ssh-timeout.sh
       then
         echo '\033[0;35m'"\033[1mLogin limit for root already exists.\033[0m";
       else
-        sed -i 's|# End of file|root	 	 hard	 maxlogins	 1\x0A# End of file|g' /etc/security/limits.conf;
+        sed -i 's|# End of file|root  hard  maxlogins  1\x0A# End of file|g' /etc/security/limits.conf;
       fi
       if grep -q "ubnt" /etc/security/limits.conf;
       then
         echo '\033[0;35m'"\033[1mLogin limit for ubnt already exists.\033[0m";
       else
-        sed -i 's|# End of file|ubnt	 	 hard	 maxlogins	 1\x0A# End of file|g' /etc/security/limits.conf;
+        sed -i 's|# End of file|ubnt  hard  maxlogins  1\x0A# End of file|g' /etc/security/limits.conf;
       fi
       /etc/init.d/ssh restart
       echo '\033[0;36m'"\033[1mSSH settings updated.\033[0m"
