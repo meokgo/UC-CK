@@ -7,18 +7,18 @@
 #Function for setting up 2FA users
 setup_users ()
 {
-  #Prompt for which user to setup 2FA for
+  #Prompt for which user to setup MFA for
   while : ; do
-    read -p "$(echo '\033[0;106m'"\033[30mSetup 2FA for users? (y/n)\033[0m ")" yn
+    read -p "$(echo '\033[0;106m'"\033[30mSetup MFA for users? (y/n)\033[0m ")" yn
     case $yn in
-      [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup 2FA:\033[0m ")" 2FA_User
-        if [ -z "2FA_User" ]; then
+      [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup MFA:\033[0m ")" MFA_User
+        if [ -z "MFA_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
-          runuser -l $2FA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
+          runuser -l $MFA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
         fi
         break;;
-      [nN]) echo '\033[0;35m'"\033[1mDone setting up 2FA users.\033[0m"
+      [nN]) echo '\033[0;35m'"\033[1mDone setting up MFA users.\033[0m"
         break;;
       *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
     esac
@@ -248,7 +248,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#Option to enable 2FA
+#Option to enable MFA
 while : ; do
   read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m ")" yn
   case $yn in
@@ -265,7 +265,7 @@ while : ; do
       systemctl restart ssh
       setup_users
       break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot setting up 2FA.\033[0m"
+    [nN]) echo '\033[0;35m'"\033[1mNot setting up MFA.\033[0m"
       break;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
