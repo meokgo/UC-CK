@@ -255,11 +255,13 @@ while : ; do
     [yY]) apt install -y libpam-google-authenticator
       sed -i 's|UsePAM no|UsePAM yes|g' /etc/ssh/sshd_config
       sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
-      if grep -Fxq "#2FA via Google Authenticator" /etc/pam.d/sshd
+      if grep -Fxq "#MFA via Google Authenticator" /etc/pam.d/sshd
       then
-        echo '\033[0;35m'"\033[1m#2FA via Google Authenticator already exists.\033[0m"
+        echo '\033[0;35m'"\033[1m#MFA via Google Authenticator already exists.\033[0m"
       else
-        echo "#2FA via Google Authenticator\x0Aauth   required   pam_google_authenticator.so|g" >> /etc/pam.d/sshd
+        echo "
+#MFA via Google Authenticator
+auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
       fi
       systemctl restart ssh
       setup_users
