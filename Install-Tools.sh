@@ -3,7 +3,7 @@
 #Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
 #Make script executable: sudo chmod +x Install-Tools.sh
 #Run script: sudo ./Install-Tools.sh
-#Start time
+
 echo "$(date) - Script started" >> Install-Tools.log
 (
 #Check if script is run as root
@@ -25,7 +25,7 @@ echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
 #Add tailscale to repository
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
-apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui nnn ncdu telnet tailscale
+apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui nnn ncdu telnet tailscale tmux btop
 #!/bin/sh
 #Option for Tailscale/Headscale initial setup
 while : ; do
@@ -89,6 +89,11 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-#End time
+#Set SSH to use tmux
+echo '
+#Enter tmux automatically when logging in via SSH
+if [[ $- =~ i ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_TTY" ]]; then
+  tmux attach-session -t ssh_tmux || tmux new-session -s ssh_tmux
+fi' >> ~/.bashrc
 echo "$(date) - Script finished" >> Install-Tools.log
 ) 2>&1 | tee -a Install-Tools.log
