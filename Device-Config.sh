@@ -259,8 +259,7 @@ while : ; do
       then
         echo '\033[0;35m'"\033[1m#2FA via Google Authenticator already exists.\033[0m"
       else
-        sed -i 's|@include common-auth
-|@include common-auth\x0A\x0A#2FA via Google Authenticator\x0Aauth   required   pam_google_authenticator.so|g' /etc/pam.d/sshd
+        echo "#2FA via Google Authenticator\x0Aauth   required   pam_google_authenticator.so|g" >> /etc/pam.d/sshd
       fi
       systemctl restart ssh
       setup_users
