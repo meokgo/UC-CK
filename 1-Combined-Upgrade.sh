@@ -189,6 +189,9 @@ ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "tailnet IP: " $2}'\
         sed -i 's|^session    optional     pam_motd.so noupdate|#session    optional     pam_motd.so noupdate|g' /etc/pam.d/sshd
         #Display motd
         run-parts /etc/update-motd.d
+        #Update color settings from 8 to 256
+        sudo echo "
+TERM=xterm-256color" >> /etc/bash.bashrc
       #Option to run Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
