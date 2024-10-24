@@ -26,7 +26,42 @@ echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
 apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap
-#!/bin/sh
+#Configure tmux session
+echo "#Disable idle log out for tmux
+setenv -ug TMOUT
+#Enable 256 color
+set -g default-terminal "screen-256color"
+#Start new session if ssh_tmux does not exist
+new-session -s ssh_tmux
+#Split and resize panes
+splitw -h -p 50 -t ssh_tmux
+splitw -v -p 50 -t ssh_tmux
+#Load info into panes
+respawn-pane -t ssh_tmux:0.0 -k 'run-parts /etc/update-motd.d && bash'
+respawn-pane -t ssh_tmux:0.1 -k 'btop && bash'
+respawn-pane -t ssh_tmux:0.2 -k 'cmatrix && bash'
+#Select left pane
+select-pane -t 0
+#Enable mouse
+set -g mouse on
+#Status line
+set -g status on
+set -g status-interval 1
+set -g status-justify centre
+set -g status-style fg=white,bg=black
+#Highlight current window
+setw -g window-status-current-style fg=white,bg=red,bright
+#Highlight current pane
+set -g pane-active-border-style fg=cyan
+set -g pane-active-border-style bg=cyan
+#Left status
+set -g status-left-length 100
+set -g status-left-style default
+set -g status-left " "
+#Right status
+set -g status-right-length 100
+set -g status-right-style default
+set -g status-right "#h %D %r"" > ~/.tmux.conf
 #Option for Tailscale/Headscale initial setup
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mRun Tailscale/Headscale initial setup? (y/n)\033[0m ")" yn
