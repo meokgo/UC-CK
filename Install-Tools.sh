@@ -38,7 +38,7 @@ splitw -h -p 50 -t ssh_tmux
 splitw -v -p 50 -t ssh_tmux
 #Load info into panes
 set pane-border-status bottom
-set -g pane-border-format '#[fg=black, bg=green] #{pane_index} #T'
+set -g pane-border-format '#[fg=black, bg=cyan] #{pane_index} #T'
 respawn-pane -t ssh_tmux:0.0 -k 'run-parts /etc/update-motd.d && bash'
 respawn-pane -t ssh_tmux:0.1 -k 'btop && bash'
 respawn-pane -t ssh_tmux:0.2 -k 'cmatrix && bash'
