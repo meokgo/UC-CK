@@ -30,7 +30,7 @@ apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s
 echo "#Disable idle log out for tmux
 setenv -ug TMOUT
 #Enable 256 color
-set -g default-terminal "screen-256color"
+set -g default-terminal 'screen-256color'
 #Start new session if ssh_tmux does not exist
 new-session -s ssh_tmux
 #Split and resize panes
@@ -57,11 +57,11 @@ set -g pane-active-border-style bg=cyan
 #Left status
 set -g status-left-length 100
 set -g status-left-style default
-set -g status-left " "
+set -g status-left ' '
 #Right status
 set -g status-right-length 100
 set -g status-right-style default
-set -g status-right "#h %D %r"" > ~/.tmux.conf
+set -g status-right '#h %D %r'" > ~/.tmux.conf
 #Option for Tailscale/Headscale initial setup
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mRun Tailscale/Headscale initial setup? (y/n)\033[0m ")" yn
