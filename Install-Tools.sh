@@ -62,7 +62,7 @@ set -g status-left 'Help:  Ctrl+b ? | Detach: Ctrl+b d | Exit: Ctlr+b &'
 #Right status
 set -g status-right-length 100
 set -g status-right-style default
-set -g status-right '#h %D %r'" > ~/.tmux.conf
+set -g status-right '#h %r %D'" > ~/.tmux.conf
 #Option for Tailscale/Headscale initial setup
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mRun Tailscale/Headscale initial setup? (y/n)\033[0m ")" yn
