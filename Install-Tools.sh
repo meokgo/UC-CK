@@ -58,7 +58,7 @@ set -g pane-active-border-style bg=cyan
 #Left status
 set -g status-left-length 100
 set -g status-left-style default
-set -g status-left 'Help:  Ctrl+b ?'
+set -g status-left 'Help:  Ctrl+b ? | Detach: Ctrl+b d | Exit: Ctlr+b &'
 #Right status
 set -g status-right-length 100
 set -g status-right-style default
