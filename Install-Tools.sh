@@ -47,7 +47,7 @@ select-pane -t 0 -T bash
 #Enable mouse
 set -g mouse on
 #Status line
-set pane-border-status top
+set pane-border-status bottom
 set -g pane-border-format '#[fg=black, bg=green] #{pane_index} #T'
 set -g status on
 set -g status-interval 1
