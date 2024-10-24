@@ -52,8 +52,6 @@ set -g status on
 set -g status-interval 1
 set -g status-justify centre
 set -g status-style fg=white,bg=black
-#Highlight current window
-setw -g window-status-current-style fg=white,bg=red,bright
 #Highlight current pane
 set -g pane-active-border-style fg=cyan
 set -g pane-active-border-style bg=cyan
