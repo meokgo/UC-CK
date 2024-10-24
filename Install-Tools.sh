@@ -37,18 +37,17 @@ new-session -s ssh_tmux
 splitw -h -p 50 -t ssh_tmux
 splitw -v -p 50 -t ssh_tmux
 #Load info into panes
+set pane-border-status bottom
+set -g pane-border-format '#[fg=black, bg=green] #{pane_index} #T'
 respawn-pane -t ssh_tmux:0.0 -k 'run-parts /etc/update-motd.d && bash'
 respawn-pane -t ssh_tmux:0.1 -k 'btop && bash'
 respawn-pane -t ssh_tmux:0.2 -k 'cmatrix && bash'
 select-pane -t 0.2 -T cmatrix
 select-pane -t 0.1 -T btop
-#Select left pane
 select-pane -t 0 -T bash
 #Enable mouse
 set -g mouse on
 #Status line
-set pane-border-status bottom
-set -g pane-border-format '#[fg=black, bg=green] #{pane_index} #T'
 set -g status on
 set -g status-interval 1
 set -g status-justify centre
