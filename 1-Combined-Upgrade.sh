@@ -192,24 +192,24 @@ ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "tailnet IP: " $2}'\
         #Update color settings from 8 to 256
         sudo echo "
 TERM=xterm-256color" >> /etc/bash.bashrc
-      #Option to run Device-Config.sh
+      #Option to run 2-Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
         case $yn in
           [yY]) echo '\033[0;36m'"\033[1mRunning config...\033[0m"
-            sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Device-Config.sh && sudo chmod +x Device-Config.sh && sudo ./Device-Config.sh
+            sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && sudo chmod +x Device-Config.sh && sudo ./Device-Config.sh
             break;;
           [nN]) echo '\033[0;35m'"\033[1mNot running config.\033[0m";
             break;;
           *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
         esac
       done
-      #Option to install tools using Install-Tools.sh
+      #Option to install tools using 3-Install-Tools.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
         case $yn in
           [yY]) echo '\033[0;36m'"\033[1mInstalling tools...\033[0m"
-            sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh && sudo chmod +x Install-Tools.sh && sudo ./Install-Tools.sh
+            sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && sudo chmod +x Install-Tools.sh && sudo ./Install-Tools.sh
             break;;
           [nN]) echo '\033[0;35m'"\033[1mNot installing tools.\033[0m";
             break;;
