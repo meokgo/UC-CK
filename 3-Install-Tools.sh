@@ -1,10 +1,10 @@
 #!/bin/sh
 #This script will install some useful tools
-#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh
-#Make script executable: sudo chmod +x Install-Tools.sh
-#Run script: sudo ./Install-Tools.sh
+#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh
+#Make script executable: sudo chmod +x 3-Install-Tools.sh
+#Run script: sudo ./3-Install-Tools.sh
 
-echo "$(date) - Script started" >> Install-Tools.log
+echo "$(date) - Script started" >> 3-Install-Tools.log
 (
 #Check if script is run as root
 if ! [ $(id -u) = 0 ]; then
@@ -125,5 +125,5 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-echo "$(date) - Script finished" >> Install-Tools.log
+echo "$(date) - Script finished" >> 3-Install-Tools.log
 ) 2>&1 | tee -a Install-Tools.log
