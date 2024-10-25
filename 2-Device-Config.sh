@@ -219,6 +219,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
         then
           echo '\033[0;35m'"\033[1mLogin limit for $New_User already exists.\033[0m";
         else
+          #Set to 5 to allow for tmux use. 1 for running tmux, 3 for total of 3 tmux panels and 1 for allowing SSH reconnect
           sed -i "s|# End of file|$New_User	hard	maxlogins	5\x0A# End of file|g" /etc/security/limits.conf;
           echo '\033[0;36m'"\033[1mLogin limit set for $New_User.\033[0m"
         fi
