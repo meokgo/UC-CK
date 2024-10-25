@@ -286,4 +286,4 @@ auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
   esac
 done
 echo "$(date): Script finished" >> 2-Device-Config.log
-) 2>&1 | tee -a Device-Config.log
+) 2>&1 | tee -a 2-Device-Config.log
