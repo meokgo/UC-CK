@@ -126,4 +126,4 @@ while : ; do
   esac
 done
 echo "$(date) - Script finished" >> 3-Install-Tools.log
-) 2>&1 | tee -a Install-Tools.log
+) 2>&1 | tee -a 3-Install-Tools.log
