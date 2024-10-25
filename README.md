@@ -19,9 +19,9 @@ sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/1-Combined-Upgrade
 ```
 Download and run device configuration script:
 ```shell
-sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Device-Config.sh && sudo chmod +x Device-Config.sh && sudo ./Device-Config.sh
+sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && sudo chmod +x 2-Device-Config.sh && sudo ./2-Device-Config.sh
 ```
 Download and run script to install tools:
 ```shell
-sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Install-Tools.sh && sudo chmod +x Install-Tools.sh && sudo ./Install-Tools.sh
+sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && sudo chmod +x 3-Install-Tools.sh && sudo ./3-Install-Tools.sh
 ```
