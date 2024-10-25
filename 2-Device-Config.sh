@@ -1,8 +1,8 @@
 #!/bin/sh
 #This script will help configure device settings on UniFi Cloud Key Model: UC-CK
-#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/Device-Config.sh
-#Make script executable: sudo chmod +x Device-Config.sh
-#Run script: sudo ./Device-Config.sh
+#Download script: sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh
+#Make script executable: sudo chmod +x 2-Device-Config.sh
+#Run script: sudo ./2-Device-Config.sh
 
 #Function for setting up MFA users
 setup_users ()
