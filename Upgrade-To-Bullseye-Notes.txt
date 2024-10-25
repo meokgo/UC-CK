@@ -1,4 +1,4 @@
-First upgrade from Jessie to Buster using instructions in "1-Upgrade-To-Buster.txt"
+First upgrade from Jessie to Buster using instructions in "Upgrade-To-Buster-Notes.txt"
 Upgrade from Buster to Bullseye:
   Edit /etc/apt/sources.list:
     sudo rm /etc/apt/sources.list && sudo echo "deb https://deb.debian.org/debian bullseye main contrib non-free
