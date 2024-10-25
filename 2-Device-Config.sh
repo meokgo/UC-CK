@@ -39,9 +39,9 @@ setup_users ()
   done
 }
 (
-echo "$(date): Script started." >> Device-Config.log
+echo "$(date): Script started." >> 2-Device-Config.log
 #Check if script is run as root
-echo "$(date): Checking if script is run as root." >> Device-Config.log
+echo "$(date): Checking if script is run as root." >> 2-Device-Config.log
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
   exit 1
@@ -285,5 +285,5 @@ auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-echo "$(date): Script finished" >> Device-Config.log
+echo "$(date): Script finished" >> 2-Device-Config.log
 ) 2>&1 | tee -a Device-Config.log
