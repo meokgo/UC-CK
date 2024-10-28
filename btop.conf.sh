@@ -4,7 +4,7 @@
   sed -i 's|color_theme = "Default"|color_theme = "TTY"|g' ~/.config/btop/btop.conf
   sed -i 's|theme_background = True|theme_background = False|g' ~/.config/btop/btop.conf
   sed -i 's|show_boxes =|show_boxes = "net mem"|g' ~/.config/btop/btop.conf
-  sed -i 's|rouded_corners = True|rouded_corners = False|g' ~/.config/btop/btop.conf
+  sed -i 's|rounded_corners = True|rounded_corners = False|g' ~/.config/btop/btop.conf
   sed -i 's|graph_symbol_mem = "default"|graph_symbol_mem = "block"|g' ~/.config/btop/btop.conf
   sed -i 's|graph_symbol_net = "default"|graph_symbol_net = "braille"|g' ~/.config/btop/btop.conf
   sed -i 's|disk_filter =|disk_filter = "/ /srv"|g' ~/.config/btop/btop.conf
