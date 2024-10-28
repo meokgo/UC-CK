@@ -1,7 +1,7 @@
 #!/bin/sh
 #This script creates btop config file for use in split screen tmux session
   cp ~/.config/btop/btop.conf ~/.config/btop/btop.conf.bak
-  sed -i 's|color_theme "Default"|color_theme "TTY"|g' ~/.config/btop/btop.conf
+  sed -i 's|color_theme = "Default"|color_theme = "TTY"|g' ~/.config/btop/btop.conf
   sed -i 's|theme_background = True|theme_background = False|g' ~/.config/btop/btop.conf
   sed -i 's|show_boxes =|show_boxes = "net mem"|g' ~/.config/btop/btop.conf
   sed -i 's|rouded_corners = True|rouded_corners = False|g' ~/.config/btop/btop.conf
