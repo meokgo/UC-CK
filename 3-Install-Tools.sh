@@ -4,31 +4,22 @@
 #Make script executable: sudo chmod +x 3-Install-Tools.sh
 #Run script: sudo ./3-Install-Tools.sh
 
-echo "$(date) - Script started" >> 3-Install-Tools.log
-(
-#Check if script is run as root
-if ! [ $(id -u) = 0 ]; then
-  echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
-  exit 1
-fi
-while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
-  case $yn in
-    [yY]) echo '\033[0;36m'"\033[1mProceeding with install.\033[0m"
-      break;;
-    [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
-      exit;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
-  esac
-done
-echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
-#Add tailscale to repository
-curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
-#Install tools
-apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap
-tldr -u
-#Configure tmux session
-echo "#Disable idle log out for tmux
+#Function for setting up tmux session for users
+setup_users ()
+{
+  while : ; do
+    #Continue setting up tmux sessions for users?
+    read -p "$(echo '\033[0;106m'"\033[30mSetup tmux sessions for users? (y/n)\033[0m ")" yn
+    case $yn in
+      [yY]) unset MFA_User
+        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup tmux session:\033[0m ")" MFA_User
+        if [ -z "$Tmux_User" ]; then
+          echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
+        else
+          #Check if user exists in system
+          if id -u $Tmux_User >/dev/null 2>&1; then
+            #Configure tmux session
+            echo "#Disable idle log out for tmux
 setenv -ug TMOUT
 #Enable 256 color
 set -g default-terminal 'screen-256color'
@@ -64,6 +55,41 @@ set -g status-left 'Help:  Ctrl+b ? | Detach: Ctrl+b d | Exit: Ctlr+b &'
 set -g status-right-length 100
 set -g status-right-style default
 set -g status-right '#h %r %D'" > ~/.tmux.conf
+          else
+            echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
+          fi
+        fi;;
+      [nN]) echo '\033[0;35m'"\033[1mDone setting up tmux sessions or users.\033[0m"
+        break;;
+      *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+    esac
+  done
+}
+echo "$(date) - Script started" >> 3-Install-Tools.log
+(
+#Check if script is run as root
+if ! [ $(id -u) = 0 ]; then
+  echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
+  exit 1
+fi
+while : ; do
+  read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
+  case $yn in
+    [yY]) echo '\033[0;36m'"\033[1mProceeding with install.\033[0m"
+      break;;
+    [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
+      exit;;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
+  esac
+done
+echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
+#Add tailscale to repository
+curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
+#Install tools
+apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap
+tldr -u
+#Configure tmux session
+setup_users
 #Option for Tailscale/Headscale initial setup
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mRun Tailscale/Headscale initial setup? (y/n)\033[0m ")" yn
