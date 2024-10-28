@@ -4,15 +4,15 @@
 #Make script executable: sudo chmod +x 3-Install-Tools.sh
 #Run script: sudo ./3-Install-Tools.sh
 
-#Function for setting up tmux session for users
+#Function to create tmux session configs for users
 setup_users ()
 {
   while : ; do
-    #Continue setting up tmux sessions for users?
-    read -p "$(echo '\033[0;106m'"\033[30mSetup tmux sessions for users? (y/n)\033[0m ")" yn
+    #Continue setting up tmux session configs for users?
+    read -p "$(echo '\033[0;106m'"\033[30mSetup tmux session config for user? (y/n)\033[0m ")" yn
     case $yn in
       [yY]) unset Tmux_User
-        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup tmux session:\033[0m ")" Tmux_User
+        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup tmux session config:\033[0m ")" Tmux_User
         if [ -z "$Tmux_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
@@ -59,7 +59,7 @@ set -g status-right '#h %r %D'" > /home/$Tmux_User/.tmux.conf
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
         fi;;
-      [nN]) echo '\033[0;35m'"\033[1mDone setting up tmux sessions or users.\033[0m"
+      [nN]) echo '\033[0;35m'"\033[1mDone setting up tmux session configs or users.\033[0m"
         break;;
       *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
     esac
@@ -68,6 +68,7 @@ set -g status-right '#h %r %D'" > /home/$Tmux_User/.tmux.conf
 echo "$(date) - Script started" >> 3-Install-Tools.log
 (
 #Check if script is run as root
+echo '\033[0;36m'"\033[1mChecking if script is run as root...\033[0m"
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
   exit 1
@@ -75,20 +76,20 @@ fi
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) echo '\033[0;36m'"\033[1mProceeding with install.\033[0m"
+    [yY]) echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
       break;;
     [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
       exit;;
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";
   esac
 done
-echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
 #Add tailscale to repository
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
 apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap
+#Updte tldr database
 tldr -u
-#Configure tmux session
+#Create tmux session configs for users
 setup_users
 #Option for Tailscale/Headscale initial setup
 while : ; do
