@@ -3,7 +3,7 @@
   cp ~/.config/btop/btop.conf ~/.config/btop/btop.conf.bak
   sed -i 's|color_theme = "Default"|color_theme = "TTY"|g' ~/.config/btop/btop.conf
   sed -i 's|theme_background = True|theme_background = False|g' ~/.config/btop/btop.conf
-  sed -i 's|show_boxes =|show_boxes = "net mem"|g' ~/.config/btop/btop.conf
+  sed -i 's|shown_boxes = "cpu mem net proc"|shown_boxes = "net mem"|g' ~/.config/btop/btop.conf
   sed -i 's|rounded_corners = True|rounded_corners = False|g' ~/.config/btop/btop.conf
   sed -i 's|graph_symbol_mem = "default"|graph_symbol_mem = "block"|g' ~/.config/btop/btop.conf
   sed -i 's|graph_symbol_net = "default"|graph_symbol_net = "braille"|g' ~/.config/btop/btop.conf
