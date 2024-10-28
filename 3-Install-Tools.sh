@@ -11,8 +11,8 @@ setup_users ()
     #Continue setting up tmux sessions for users?
     read -p "$(echo '\033[0;106m'"\033[30mSetup tmux sessions for users? (y/n)\033[0m ")" yn
     case $yn in
-      [yY]) unset MFA_User
-        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup tmux session:\033[0m ")" MFA_User
+      [yY]) unset Tmux_User
+        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup tmux session:\033[0m ")" Tmux_User
         if [ -z "$Tmux_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
@@ -54,7 +54,7 @@ set -g status-left 'Help:  Ctrl+b ? | Detach: Ctrl+b d | Exit: Ctlr+b &'
 #Right status
 set -g status-right-length 100
 set -g status-right-style default
-set -g status-right '#h %r %D'" > ~/.tmux.conf
+set -g status-right '#h %r %D'" > /home/$Tmux_User/.tmux.conf
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
