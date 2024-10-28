@@ -32,7 +32,7 @@ setup_users ()
 (
 echo "$(date): Script started." >> 2-Device-Config.log
 #Check if script is run as root
-echo "$(date): Checking if script is run as root." >> 2-Device-Config.log
+echo '\033[0;36m'"\033[1mChecking if script is run as root...\033[0m"
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
   exit 1
