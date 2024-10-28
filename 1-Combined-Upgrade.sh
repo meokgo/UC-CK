@@ -201,7 +201,7 @@ ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "tailnet IP: " $2}'\
 TERM=xterm-256color" >> /etc/bash.bashrc
       #Option to run 2-Device-Config.sh
       while : ; do
-        read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
+        read -p "$(echo '\033[0;106m'"\033[30mRun 2-Device-Config.sh (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
         case $yn in
           [yY]) sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && sudo chmod +x 2-Device-Config.sh && sudo ./2-Device-Config.sh
             break;;
@@ -212,7 +212,7 @@ TERM=xterm-256color" >> /etc/bash.bashrc
       done
       #Option to install tools using 3-Install-Tools.sh
       while : ; do
-        read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
+        read -p "$(echo '\033[0;106m'"\033[30mRun 3-Install-tools.sh (install useful tools like tailscale, ncdu, iperf3, etc.)? (y/n)\033[0m ")" yn
         case $yn in
           [yY]) sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && sudo chmod +x 3-Install-Tools.sh && sudo ./3-Install-Tools.sh
             break;;
