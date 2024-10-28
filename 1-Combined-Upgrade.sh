@@ -63,7 +63,7 @@ echo '\033[0;36m'"\033[1m$(date): Checking OS version...\033[0m"
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) echo '\033[0;36m'"\033[1m$(date): Proceeding with upgrade.\033[0m"
+          [yY]) echo '\033[0;36m'"\033[1m$(date): Proceeding with Buster upgrade.\033[0m"
             break;;
           [nN]) echo '\033[0;35m'"\033[1mStopping upgrade...\033[0m";
             exit;;
@@ -72,7 +72,6 @@ echo '\033[0;36m'"\033[1m$(date): Checking OS version...\033[0m"
       done
       remove_packages
       #Start Buster OS upgrade
-      echo "$(date): Upgrade to Buster started" >> 1-Combined-Upgrade.log
       echo '\033[0;36m'"\033[1mDeleting old source lists...\033[0m"
         rm /etc/apt/sources.list /etc/apt/sources.list.d/nodejs.list /etc/apt/sources.list.d/security.list /etc/apt/sources.list.d/ubnt-unifi.list
       echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
@@ -91,9 +90,10 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
       echo '\033[0;36m'"\033[1m$(date): Installing full Buster upgrade...\033[0m"
         full_upgrade
       #Fix network settings
-      echo "$(date): Fixing network settings..." >> 1-Combined-Upgrade.log
+      echo '\033[0;36m'"\033[1m$(date): Fixing network settings...\033[0m"
         update-alternatives --set iptables /usr/sbin/iptables-legacy
         #Fix DNS and free up port 53
+        echo '\033[0;36m'"\033[1m$(date): Fix DNS and free up port 53...\033[0m"
         cp /etc/systemd/resolved.conf /etc/systemd/resolved.conf.bak
         rm /etc/systemd/resolved.conf
           echo "[Resolve]
@@ -110,6 +110,7 @@ DNSStubListener=no
           ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
           service systemd-resolved restart
       #Fix for dpkg unknown system group error
+      echo '\033[0;36m'"\033[1m$(date): Fix dpkg unkown system group error...\033[0m"
       rm /var/lib/dpkg/statoverride
       rm /var/lib/dpkg/lock
       dpkg --configure -a
@@ -121,7 +122,7 @@ DNSStubListener=no
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Bullseye? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) echo '\033[0;36m'"\033[1m$(date): Proceeding with upgrade.\033[0m"
+          [yY]) echo '\033[0;36m'"\033[1m$(date): Proceeding with Bullseye upgrade.\033[0m"
             break;;
           [nN]) echo '\033[0;35m'"\033[1mStopping upgrade...\033[0m";
             exit;;
@@ -129,7 +130,6 @@ DNSStubListener=no
         esac
       done
       #Start Bullseye OS upgrade
-      echo "$(date): Upgrade to Bullseye started" >> 1-Combined-Upgrade.log
       echo '\033[0;36m'"\033[1mDeleting old source list...\033[0m"
         rm /etc/apt/sources.list
       echo '\033[0;36m'"\033[1mCreating new source list...\033[0m"
@@ -151,11 +151,12 @@ deb-src https://deb.debian.org/debian bullseye-backports main contrib non-free" 
       DEBIAN_FRONTEND=noninteractive apt-get -y purge ~c -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
       DEBIAN_FRONTEND=noninteractive apt-get -y clean ~c -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
       #Update NTP servers
-      echo '\033[0;35m'"\033[1mUpdating NTP servers...\033[0m"
+      echo '\033[0;36m'"\033[1m$(date): Updating NTP servers...\033[0m"
         sed -i "s|0.ubnt.pool.ntp.org ||g" /etc/systemd/timesyncd.conf
         systemctl restart systemd-timesyncd
         timedatectl
       #Set LED to blue after finished booting
+      echo '\033[0;36m'"\033[1m$(date): LED settings...\033[0m"
       cp /etc/rc.local /etc/rc.local.bak
       echo '
 echo rfkill0 > /sys/class/leds/blue/trigger
@@ -163,6 +164,7 @@ echo none > /sys/class/leds/white/trigger
 
 exit 0' >> /etc/rc.local
       #Move storage using symlink
+      echo '\033[0;36m'"\033[1m$(date): Moving cache and temp storage using symlink...\033[0m"
       mkdir -p /srv/var/lib
       mv /var/cache /srv/var/cache
       ln -s /srv/var/cache /var/cache
@@ -173,6 +175,7 @@ exit 0' >> /etc/rc.local
       mv /var/lib/dpkg /srv/var/lib/dpkg
       ln -s /srv/var/lib/dpkg /var/lib/dpkg
       #Update motd
+      echo '\033[0;36m'"\033[1m$(date): Updating MOTD...\033[0m"
       wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
         echo '#!/bin/sh
 cat /etc/motd
@@ -190,6 +193,7 @@ ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "tailnet IP: " $2}'\
         #Display motd
         run-parts /etc/update-motd.d
         #Update color settings from 8 to 256
+        echo '\033[0;36m'"\033[1m$(date): Update color settings from 8 to 256...\033[0m"
         sudo echo "
 TERM=xterm-256color" >> /etc/bash.bashrc
       #Option to run 2-Device-Config.sh
