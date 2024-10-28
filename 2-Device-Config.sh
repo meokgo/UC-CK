@@ -18,16 +18,7 @@ setup_users ()
         else
           #Check if user exists in system
           if id -u $MFA_User >/dev/null 2>&1; then
-            #Check if user has a login limit set
-            if grep -q $MFA_User /etc/security/limits.conf; then
-              echo '\033[0;35m'"\033[1mIncreasing $MFA_User login limit.\033[0m"
-              sed -i "s|$MFA_User	hard	maxlogins	2|$MFA_User	hard	maxlogins	3|g" /etc/security/limits.conf
-            else
-              echo '\033[0;35m'"\033[1mUser does not have login limit set.\033[0m"
-            fi
             runuser -l $MFA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
-            echo '\033[0;35m'"\033[1mDecreasing $MFA_User login limit.\033[0m"
-            sed -i "s|$MFA_User	hard	maxlogins	3|$MFA_User	hard	maxlogins	2|g" /etc/security/limits.conf
           else
             echo '\033[0;31m'"\033[1m$MFA_User does not exist in system.\033[0m"
           fi
