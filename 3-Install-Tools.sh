@@ -126,5 +126,6 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
+echo '\033[0;36m'"\033[1mRemember to enable advertised subnet routes from the server.\033[0m"
 echo "$(date) - Script finished" >> 3-Install-Tools.log
 ) 2>&1 | tee -a 3-Install-Tools.log
