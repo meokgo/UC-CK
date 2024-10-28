@@ -36,7 +36,8 @@ respawn-pane -t ssh_tmux:0.1 -k 'btop && bash'
 respawn-pane -t ssh_tmux:0.2 -k 'cmatrix && bash'
 select-pane -t 0.2 -T cmatrix
 select-pane -t 0.1 -T btop
-select-pane -t 0 -T bash
+select-pane -t 0.0 -T bash
+select-pane -t 0.0
 #Enable mouse
 set -g mouse on
 #Status line
