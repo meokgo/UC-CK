@@ -12,14 +12,16 @@
 remove_packages ()
 {
   echo '\033[0;36m'"\033[1m$(date): Removing packages...\033[0m"
-  echo "$(date): Killing all processes owned by unifi user." >> 1-Combined-Upgrade.log
+  echo "Killing all processes owned by unifi user." >> 1-Combined-Upgrade.log
     killall -v -u unifi
   DEBIAN_FRONTEND=noninteractive apt-get -y --purge autoremove ubnt-archive-keyring ubnt-crash-report ubnt-unifi-setup bt-proxy cloudkey-webui firmware-Atheros ubnt-systemhub unifi libcups2 libxml2 rfkill bluez nginx nginx-light nginx-common x11-common libx11-6 freeradius freeradius-common freeradius-utils libfreeradius2 libjpeg62-turbo:armhf libpng12-0:armhf libx11-data ubnt-mtk-initramfs cloudkey-mtk7623-base-files -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   userdel -rf unifi
   #Fix for dpkg hook error
+  echo '\033[0;36m'"\033[1mFix for dpkg hook error...\033[0m"
   touch /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   chmod +x /sbin/ubnt-dpkg-status-pre /sbin/ubnt-dpkg-status-post /sbin/ubnt-dpkg-cache
   #Remove directories
+  echo '\033[0;36m'"\033[1mRemoving unnecessary directories...\033[0m"
   rm -r /var/www/html /etc/bt-proxy /etc/freeradius
   echo '\033[0;36m'"\033[1m$(date): Removal complete.\033[0m"
 }
@@ -37,10 +39,11 @@ full_upgrade ()
 }
 (
 #Set timezone to CST, default is PDT
+echo '\033[0;36m'"\033[1m$(date): Setting timezone to CST...\033[0m"
 timedatectl set-timezone America/Chicago
 echo "$(date): Script started." >> 1-Combined-Upgrade.log
 #Check if script is run as root
-echo "$(date): Checking if script is run as root." >> 1-Combined-Upgrade.log
+echo '\033[0;36m'"\033[1mChecking if script is run as root...\033[0m"
 if ! [ $(id -u) = 0 ]; then
   echo '\033[0;31m'"\033[1mMust run script as root.\033[0m"
   exit 1
@@ -63,7 +66,7 @@ echo '\033[0;36m'"\033[1m$(date): Checking OS version...\033[0m"
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) echo '\033[0;36m'"\033[1m$(date): Proceeding with Buster upgrade.\033[0m"
+          [yY]) echo '\033[0;36m'"\033[1mProceeding with Buster upgrade.\033[0m"
             break;;
           [nN]) echo '\033[0;35m'"\033[1mStopping upgrade...\033[0m";
             exit;;
@@ -93,7 +96,7 @@ deb-src https://deb.debian.org/debian buster-updates main contrib non-free" > /e
       echo '\033[0;36m'"\033[1m$(date): Fixing network settings...\033[0m"
         update-alternatives --set iptables /usr/sbin/iptables-legacy
         #Fix DNS and free up port 53
-        echo '\033[0;36m'"\033[1m$(date): Fix DNS and free up port 53...\033[0m"
+        echo '\033[0;36m'"\033[1mFix DNS and free up port 53...\033[0m"
         cp /etc/systemd/resolved.conf /etc/systemd/resolved.conf.bak
         rm /etc/systemd/resolved.conf
           echo "[Resolve]
@@ -156,7 +159,7 @@ deb-src https://deb.debian.org/debian bullseye-backports main contrib non-free" 
         systemctl restart systemd-timesyncd
         timedatectl
       #Set LED to blue after finished booting
-      echo '\033[0;36m'"\033[1m$(date): LED settings...\033[0m"
+      echo '\033[0;36m'"\033[1m$(date): Updating LED settings...\033[0m"
       cp /etc/rc.local /etc/rc.local.bak
       echo '
 echo rfkill0 > /sys/class/leds/blue/trigger
@@ -175,7 +178,7 @@ exit 0' >> /etc/rc.local
       mv /var/lib/dpkg /srv/var/lib/dpkg
       ln -s /srv/var/lib/dpkg /var/lib/dpkg
       #Update motd
-      echo '\033[0;36m'"\033[1m$(date): Updating MOTD...\033[0m"
+      echo '\033[0;36m'"\033[1m$(date): Updating motd...\033[0m"
       wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
         echo '#!/bin/sh
 cat /etc/motd
@@ -200,8 +203,7 @@ TERM=xterm-256color" >> /etc/bash.bashrc
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun Device-Config (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) echo '\033[0;36m'"\033[1mRunning config...\033[0m"
-            sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && sudo chmod +x 2-Device-Config.sh && sudo ./2-Device-Config.sh
+          [yY]) sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && sudo chmod +x 2-Device-Config.sh && sudo ./2-Device-Config.sh
             break;;
           [nN]) echo '\033[0;35m'"\033[1mNot running config.\033[0m";
             break;;
@@ -212,8 +214,7 @@ TERM=xterm-256color" >> /etc/bash.bashrc
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) echo '\033[0;36m'"\033[1mInstalling tools...\033[0m"
-            sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && sudo chmod +x 3-Install-Tools.sh && sudo ./3-Install-Tools.sh
+          [yY]) sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && sudo chmod +x 3-Install-Tools.sh && sudo ./3-Install-Tools.sh
             break;;
           [nN]) echo '\033[0;35m'"\033[1mNot installing tools.\033[0m";
             break;;
@@ -221,7 +222,7 @@ TERM=xterm-256color" >> /etc/bash.bashrc
         esac
       done
       ;;
-    *) echo '\033[0;31m'"\033[1mInvalid OS. Script only upgrades OS from Jessie (Debian 8) to Buster (Debian 10).\033[0m";
+    *) echo '\033[0;31m'"\033[1mInvalid OS. Script only upgrades OS from Jessie (Debian 8) to Buster (Debian 10) or from Buster (Debian 10) to Bullseye (Debian 11).\033[0m";
       exit 1;;
   esac
 echo "$(date): Script finished" >> 1-Combined-Upgrade.log
