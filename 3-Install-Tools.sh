@@ -26,6 +26,7 @@ echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
 apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap
+tldr -u
 #Configure tmux session
 echo "#Disable idle log out for tmux
 setenv -ug TMOUT
