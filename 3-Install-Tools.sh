@@ -18,7 +18,7 @@ setup_users ()
         else
           #Check if user exists in system
           if id -u $Tmux_User >/dev/null 2>&1; then
-            #Configure tmux session
+            #Create config file for tmux session
             echo "#Disable idle log out for tmux
 setenv -ug TMOUT
 #Enable 256 color
