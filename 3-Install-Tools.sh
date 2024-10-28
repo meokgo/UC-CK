@@ -86,7 +86,8 @@ done
 #Add tailscale to repository
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.tailscale-keyring.list | tee /etc/apt/sources.list.d/tailscale.list
 #Install tools
-apt update && apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap
+apt update
+DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 #Updte tldr database
 tldr -u
 #Create tmux session configs for users
@@ -139,7 +140,7 @@ while : ; do
 done
 #Option to update Tailscale/Headscale advertised subnet routes
 while : ; do
-  read -p "$(echo '\033[0;106m'"\033[30mUpdate Tailscale/Headscale advertised subnet routes? (y/n)\033[0m ")" yn
+  read -p "$(echo '\033[0;106m'"\033[30mUpdate Tailscale/Headscale advertised subnet router on this device? (y/n)\033[0m ")" yn
   case $yn in
     [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise (in 0.0.0.0/24 format):\033[0m ")" New_Subnet
       if [ -z "$New_Subnet" ]; then
