@@ -16,7 +16,7 @@ setup_users ()
         if [ -z "$MFA_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
-          #Check is user exists in system
+          #Check if user exists in system
           if id -u $MFA_User >/dev/null 2>&1; then
             #Check if user has a login limit set
             if grep -q $MFA_User /etc/security/limits.conf; then
