@@ -29,6 +29,7 @@ setup_users ()
     esac
   done
 }
+(
 echo "$(date): Script started." >> 2-Device-Config.log
 #Check if script is run as root
 echo '\033[0;36m'"\033[1mChecking if script is run as root...\033[0m"
@@ -269,6 +270,7 @@ while : ; do
 auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
       fi
       systemctl restart ssh
+      ) 2>&1 | tee -a 2-Device-Config.log
       setup_users
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot setting up MFA.\033[0m"
