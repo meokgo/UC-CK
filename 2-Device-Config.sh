@@ -29,7 +29,6 @@ setup_users ()
     esac
   done
 }
-(
 echo "$(date): Script started." >> 2-Device-Config.log
 #Check if script is run as root
 echo '\033[0;36m'"\033[1mChecking if script is run as root...\033[0m"
@@ -278,4 +277,3 @@ auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
   esac
 done
 echo "$(date): Script finished" >> 2-Device-Config.log
-) 2>&1 | tee -a 2-Device-Config.log
