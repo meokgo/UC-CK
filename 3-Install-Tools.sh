@@ -56,6 +56,9 @@ set -g status-left 'Help:  Ctrl+b ? | Detach: Ctrl+b d | Exit: Ctlr+b &'
 set -g status-right-length 100
 set -g status-right-style default
 set -g status-right '#h %r %D'" > /home/$Tmux_User/.tmux.conf
+            #Download btop config file for tmux user
+            cp /home/$Tmux_User/.config/btop/btop.conf /home/$Tmux_User/.config/btop/btop.conf.bak
+            wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
