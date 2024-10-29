@@ -74,7 +74,6 @@ alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && c
 echo "
 #root user alias for tldr update
 alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
-#Create tmux session configs for users
 setup_users
 #Option for Tailscale/Headscale initial setup
 while : ; do
