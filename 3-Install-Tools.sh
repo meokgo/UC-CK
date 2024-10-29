@@ -4,7 +4,7 @@
 #Make script executable: sudo chmod +x 3-Install-Tools.sh
 #Run script: sudo ./3-Install-Tools.sh
 
-#Function to create tmux session config, download btop config and create tldr update alias for users
+#Function to download tmux session config and btop config for users
 setup_users ()
 {
   while : ; do
@@ -66,6 +66,14 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /
 #Install tools
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+#Create global alias for tldr update
+echo "
+#Global alias for tldr update
+alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /etc/profile.d/00-alias.sh
+#Create root user alias for tldr update
+echo "
+#root user alias for tldr update
+alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
 #Create tmux session configs for users
 setup_users
 #Option for Tailscale/Headscale initial setup
