@@ -254,6 +254,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
+) 2>&1 | tee -a 2-Device-Config.log
 #Option to enable MFA
 while : ; do
   read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m ")" yn
@@ -270,7 +271,6 @@ while : ; do
 auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
       fi
       systemctl restart ssh
-      ) 2>&1 | tee -a 2-Device-Config.log
       setup_users
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot setting up MFA.\033[0m"
