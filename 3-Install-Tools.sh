@@ -92,8 +92,6 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /
 #Install tools
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-#Updte tldr database
-tldr -u
 #Create tmux session configs for users
 setup_users
 #Option for Tailscale/Headscale initial setup
