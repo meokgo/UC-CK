@@ -33,20 +33,6 @@ setup_users ()
             cp /home/$Tmux_User/.config/btop/btop.conf /home/$Tmux_User/.config/btop/btop.conf.bak
             wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
             fi
-            #Create tldr update alias for $Tmux_User
-            if grep -Fxq "#tldr update alias" /home/$Tmux_User/.bashrc
-            then
-              echo '\033[0;35m'"\033[1mtldr update alias already exists for $Tmux_User.\033[0m"
-            else
-              cp /home/debian-admin/.bashrc /home/$Tmux_User/.bashrc.bak
-              echo "
-#tldr update alias
-alias tldr-u='cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -'" >> /home/$Tmux_User/.bashrc
-              source /home/$Tmux_User/.bashrc
-              source ~/.bashrc
-              #Update tldr for $Tmux_User
-              #runuser -l $Tmux_User -c 'tldr-u'
-            fi
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
