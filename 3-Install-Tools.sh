@@ -4,11 +4,11 @@
 #Make script executable: sudo chmod +x 3-Install-Tools.sh
 #Run script: sudo ./3-Install-Tools.sh
 
-#Function to create tmux session configs for users
+#Function to create tmux session config, download btop config and create tldr update alias for users
 setup_users ()
 {
   while : ; do
-    #Continue setting up tmux session configs for users?
+    #Continue setting up users?
     read -p "$(echo '\033[0;106m'"\033[30mSetup tmux session config for user? (y/n)\033[0m ")" yn
     case $yn in
       [yY]) unset Tmux_User
@@ -16,7 +16,7 @@ setup_users ()
         if [ -z "$Tmux_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
-          #Check if user exists in system
+          #Check if $Tmux_User exists in system
           if id -u $Tmux_User >/dev/null 2>&1; then
             #Create config file for tmux session
             echo "#Disable idle log out for tmux
@@ -56,11 +56,23 @@ set -g status-left 'Help:  Ctrl+b ? | Detach: Ctrl+b d | Exit: Ctlr+b &'
 set -g status-right-length 100
 set -g status-right-style default
 set -g status-right '#h %r %D'" > /home/$Tmux_User/.tmux.conf
-            #Download btop config file for tmux user
+            #Download btop config file for $Tmux_User
             cp /home/$Tmux_User/.config/btop/btop.conf /home/$Tmux_User/.config/btop/btop.conf.bak
             wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
-            #Updte tldr database
-            runuser -l $Tmux_User -c 'tldr -u'
+            #Create tldr update alias for $Tmux_User
+            if grep -Fxq "#tldr update alias" /home/$Tmux_User/.bashrc
+            then
+              echo '\033[0;35m'"\033[1mtldr update alias already exists.\033[0m"
+            else
+              cp /home/debian-admin/.bashrc /home/$Tmux_User/.bashrc.bak
+              echo "
+#tldr update alias
+alias tldr-u='cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -'" >> /home/$Tmux_User/.bashrc
+              source /home/$Tmux_User/.bashrc
+              source ~/.bashrc
+              #Update tldr for $Tmux_User
+              #runuser -l $Tmux_User -c 'tldr-u'
+            fi
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
