@@ -180,12 +180,12 @@ exit 0' >> /etc/rc.local
       #Update motd
       echo '\033[0;36m'"\033[1m$(date): Updating motd...\033[0m"
       wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
-        echo '#!/bin/sh
+      echo '#!/bin/sh
 cat /etc/motd
 ' > /etc/update-motd.d/10-motd
-        mv /etc/update-motd.d/10-uname /etc/update-motd.d/20-uname
-        sed -i 's|uname -snrvm|uname -nmo|g' /etc/update-motd.d/20-uname
-        echo '#!/bin/sh
+      mv /etc/update-motd.d/10-uname /etc/update-motd.d/20-uname
+      sed -i 's|uname -snrvm|uname -nmo|g' /etc/update-motd.d/20-uname
+      echo '#!/bin/sh
 echo "Date: " $(date)
 echo "Logged in users: " $(who)
 echo "Uptime: " $(uptime -p)
