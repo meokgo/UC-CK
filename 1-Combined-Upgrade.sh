@@ -191,14 +191,21 @@ echo "Logged in users: " $(who)
 echo "Uptime: " $(uptime -p)
 ip -c -f inet addr show eth0 | awk '\''/inet / {print "eth0 IP: " $2}'\''
 ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "tailnet IP: " $2}'\''' > /etc/update-motd.d/30-stats
-        chmod +x /etc/update-motd.d/10-motd /etc/update-motd.d/30-stats
-        sed -i 's|^session    optional     pam_motd.so noupdate|#session    optional     pam_motd.so noupdate|g' /etc/pam.d/sshd
-        #Display motd
-        run-parts /etc/update-motd.d
-        #Update color settings from 8 to 256
-        echo '\033[0;36m'"\033[1m$(date): Update color settings from 8 to 256...\033[0m"
-        sudo echo "
+      chmod +x /etc/update-motd.d/10-motd /etc/update-motd.d/30-stats
+      sed -i 's|^session    optional     pam_motd.so noupdate|#session    optional     pam_motd.so noupdate|g' /etc/pam.d/sshd
+      #Display motd
+      run-parts /etc/update-motd.d
+      #Update color settings from 8 to 256
+      echo '\033[0;36m'"\033[1m$(date): Update color settings from 8 to 256...\033[0m"
+      echo "
 TERM=xterm-256color" >> /etc/bash.bashrc
+      #Create global alias for ls to show more detail
+      echo "
+#Global alias for ls to show more detail
+alias ls='ls -hAl --color=auto'" >> /etc/profile.d/00-alias.sh
+      #Update root user alias for ls to show more detail
+      sed -i "s|alias ls='ls -F --color=auto'|alias ls='ls -hAl --color=auto'|g" /root/.bashrc
+      source /root/.bashrc
       #Option to run 2-Device-Config.sh
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun 2-Device-Config.sh (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
