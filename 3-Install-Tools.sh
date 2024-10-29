@@ -62,7 +62,7 @@ set -g status-right '#h %r %D'" > /home/$Tmux_User/.tmux.conf
             #Create tldr update alias for $Tmux_User
             if grep -Fxq "#tldr update alias" /home/$Tmux_User/.bashrc
             then
-              echo '\033[0;35m'"\033[1mtldr update alias already exists.\033[0m"
+              echo '\033[0;35m'"\033[1mtldr update alias already exists for $Tmux_User.\033[0m"
             else
               cp /home/debian-admin/.bashrc /home/$Tmux_User/.bashrc.bak
               echo "
