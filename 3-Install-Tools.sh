@@ -56,7 +56,7 @@ fi
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mInstall tools? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) echo $(date)":" '\033[0;36m'"\033[1mStarting install...\033[0m"
+    [yY]) echo '\n\033[0;36m'"\033[1m$(date): Starting install...\033[0m"
       break;;
     [nN]) echo '\033[0;35m'"\033[1mExiting...\033[0m";
       exit;;
