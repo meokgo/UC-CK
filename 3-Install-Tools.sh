@@ -9,10 +9,10 @@ setup_users ()
 {
   while : ; do
     #Continue setting up users?
-    read -p "$(echo '\033[0;106m'"\033[30mSetup tmux session config for user? (y/n)\033[0m ")" yn
+    read -p "$(echo '\n\033[0;106m'"\033[30mSetup tmux session config for user? (y/n)\033[0m ")" yn
     case $yn in
       [yY]) unset Tmux_User
-        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup tmux session config:\033[0m ")" Tmux_User
+        read -p "$(echo '\n\033[0;106m'"\033[30mEnter user name to setup tmux session config:\033[0m ")" Tmux_User
         if [ -z "$Tmux_User" ]; then
           echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
         else
@@ -39,7 +39,7 @@ setup_users ()
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
         fi;;
-      [nN]) echo '\033[0;35m'"\033[1mDone setting up tmux session configs or users.\033[0m"
+      [nN]) echo '\n\033[0;35m'"\033[1mDone setting up tmux session configs or users.\033[0m"
         break;;
       *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
     esac
@@ -91,9 +91,9 @@ setup_users
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mRun Tailscale/Headscale initial setup? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) echo '\033[0;36m'"\033[1mCreate a preauth-key in Tailscale or on your Headscale server.\033[0m"
+    [yY]) echo '\n\033[0;36m'"\033[1mCreate a preauth-key in Tailscale or on your Headscale server.\033[0m"
     read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale server:\033[0m ")" Server_Name
-    read -p "$(echo '\033[0;106m'"\033[30mEnter Tailscale/Headscale preauth-key:\033[0m ")" Preauth_Key
+    read -p "$(echo '\n\033[0;106m'"\033[30mEnter Tailscale/Headscale preauth-key:\033[0m ")" Preauth_Key
       if test -z "$Server_Name" || test -z "$Preauth_Key" ; then
         echo '\033[0;35m'"\033[1mServer or preauth-key not entered, not running Tailscale/Headscale initial setup.\033[0m"
       else
@@ -137,11 +137,12 @@ done
 while : ; do
   read -p "$(echo '\033[0;106m'"\033[30mUpdate Tailscale/Headscale advertised subnet router on this device? (y/n)\033[0m ")" yn
   case $yn in
-    [yY]) read -p "$(echo '\033[0;106m'"\033[30mEnter new subnet/s to advertise (in 0.0.0.0/24 format):\033[0m ")" New_Subnet
+    [yY]) read -p "$(echo '\n\033[0;106m'"\033[30mEnter new subnet/s to advertise (in 0.0.0.0/24 format):\033[0m ")" New_Subnet
       if [ -z "$New_Subnet" ]; then
         echo '\033[0;35m'"\033[1mNothing entered, not updating Tailscale/Headscale advertised subnet routes.\033[0m"
       else
         tailscale set --advertise-routes=$New_Subnet
+        echo '\n\033[0;36m'"\033[1mRemember to enable advertised subnet routes from the server.\033[0m"
       fi
       break;;
     [nN]) echo '\033[0;35m'"\033[1mNot updating Tailscale/Headscale advertised subnet routes.\033[0m"
@@ -149,6 +150,5 @@ while : ; do
     *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
 done
-echo '\033[0;36m'"\033[1mRemember to enable advertised subnet routes from the server.\033[0m"
 echo "$(date) - Script finished" >> 3-Install-Tools.log
 ) 2>&1 | tee -a 3-Install-Tools.log
