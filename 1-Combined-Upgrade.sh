@@ -203,6 +203,9 @@ TERM=xterm-256color" >> /etc/bash.bashrc
       echo "
 #Global alias for ls to show more detail
 alias ls='ls -hAlF --color=auto'" >> /etc/profile.d/00-alias.sh
+      echo "
+#Global alias for ls to show more detail
+alias ls='ls -hAlF --color=auto'" >> /etc/bash.bashrc
       #Update root user alias for ls to show more detail
       sed -i "s|alias ls='ls -F --color=auto'|alias ls='ls -hAlF --color=auto'|g" /root/.bashrc
       source /root/.bashrc
