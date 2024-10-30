@@ -213,7 +213,7 @@ alias ls='ls -hAlF --color=auto'" >> /etc/bash.bashrc
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun 2-Device-Config.sh (set static IP, hostname, harden SSH, etc.)? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && sudo chmod +x 2-Device-Config.sh && sudo ./2-Device-Config.sh
+          [yY]) wget https://raw.githubusercontent.com/meokgo/UC-CK/main/2-Device-Config.sh && chmod +x 2-Device-Config.sh && ./2-Device-Config.sh
             break;;
           [nN]) echo '\033[0;35m'"\033[1mNot running config.\033[0m";
             break;;
@@ -224,7 +224,7 @@ alias ls='ls -hAlF --color=auto'" >> /etc/bash.bashrc
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mRun 3-Install-tools.sh (install useful tools like tailscale, ncdu, iperf3, etc.)? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) sudo wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && sudo chmod +x 3-Install-Tools.sh && sudo ./3-Install-Tools.sh
+          [yY]) wget https://raw.githubusercontent.com/meokgo/UC-CK/main/3-Install-Tools.sh && chmod +x 3-Install-Tools.sh && ./3-Install-Tools.sh
             break;;
           [nN]) echo '\033[0;35m'"\033[1mNot installing tools.\033[0m";
             break;;
