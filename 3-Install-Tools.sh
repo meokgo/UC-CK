@@ -70,6 +70,9 @@ DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speed
 echo "
 #Global alias for tldr update
 alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /etc/profile.d/00-alias.sh
+echo "
+#Global alias for tldr update
+alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /etc/bash.bashrc
 #Create root user alias for tldr update
 echo "
 #root user alias for tldr update
