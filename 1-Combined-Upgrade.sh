@@ -66,7 +66,7 @@ echo '\033[0;36m'"\033[1m$(date): Checking OS version...\033[0m"
       while : ; do
         read -p "$(echo '\033[0;106m'"\033[30mUpgrade Cloud Key OS to Buster? (y/n)\033[0m ")" yn
         case $yn in
-          [yY]) echo '\033[0;36m'"\033[1mProceeding with Buster upgrade.\033[0m"
+          [yY]) echo '\n\033[0;36m'"\033[1mProceeding with Buster upgrade.\033[0m"
             break;;
           [nN]) echo '\033[0;35m'"\033[1mStopping upgrade...\033[0m";
             exit;;
