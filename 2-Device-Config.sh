@@ -9,23 +9,23 @@ setup_users ()
 {
   while : ; do
     #Continue setting up MFA for users?
-    read -p "$(echo '\033[0;106m'"\033[30mSetup MFA for users? (y/n)\033[0m ")" yn
+    read -p "$(echo '\033[0;106m'"\033[30mSetup MFA for users? (y/n)\033[0m " | tee -a 2-Device-Config.log)" yn
     case $yn in
       [yY]) unset MFA_User
-        read -p "$(echo '\033[0;106m'"\033[30mEnter user name to setup MFA:\033[0m ")" MFA_User
+        read -p "$(echo '\n\033[0;106m'"\033[30mEnter user name to setup MFA:\033[0m " | tee -a 2-Device-Config.log)" MFA_User
         if [ -z "$MFA_User" ]; then
-          echo '\033[0;35m'"\033[1mNothing entered.\033[0m"
+          echo '\n\033[0;35m'"\033[1mNothing entered.\033[0m" | tee -a 2-Device-Config.log
         else
           #Check if user exists in system
           if id -u $MFA_User >/dev/null 2>&1; then
             runuser -l $MFA_User -c 'google-authenticator -tdf -Q UTF8 -r 3 -R 30 -w 3'
           else
-            echo '\033[0;31m'"\033[1m$MFA_User does not exist in system.\033[0m"
+            echo '\n\033[0;31m'"\033[1m$MFA_User does not exist in system.\033[0m" | tee -a 2-Device-Config.log
           fi
         fi;;
-      [nN]) echo '\033[0;35m'"\033[1mDone setting up MFA users.\033[0m"
+      [nN]) echo '\033[0;35m'"\033[1mDone setting up MFA users.\033[0m" | tee -a 2-Device-Config.log
         break;;
-      *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+      *) echo '\n\033[0;31m'"\033[1mInvalid response.\033[0m" | tee -a 2-Device-Config.log;;
     esac
   done
 }
@@ -194,7 +194,7 @@ while : ; do
       if [ -z "$New_Port" ]; then
         echo '\n\033[0;35m'"\033[1mNothing entered, SSH port: $SSH_Port.\033[0m"
       else
-        sed -i "s|Port 22|Port $New_Port|g" /etc/ssh/sshd_config
+        sed -i "s|Port $SSH_Port|Port $New_Port|g" /etc/ssh/sshd_config
       fi
       echo "#Script logs out idle SSH connections
 if [ "$SSH_CONNECTION" != "" ]; then
@@ -242,7 +242,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
         #Get subnet from eth0 and pass to variable
         LAN_IP=$(ip -f inet addr show eth0 | awk '/inet / {print $2}')
         #Get subnet from tailnet and pass to variable
-        TAILNET_IP=$(ip -f inet addr show tailscale0 | awk '/inet / {print $2}')
+        TAILNET_IP=$(ip -f inet addr show tailscale0 | awk '/inet / {gsub("/32","/28"); print $2}')
         ufw allow from $LAN_IP to any port $SSH_PortA proto tcp comment 'SSH Port from LAN'
         ufw allow from $TAILNET_IP to any port $SSH_PortA proto tcp comment 'SSH Port from tailnet'
       ufw --force enable
@@ -257,25 +257,25 @@ done
 ) 2>&1 | tee -a 2-Device-Config.log
 #Option to enable MFA
 while : ; do
-  read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m ")" yn
+  read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m  "| tee -a 2-Device-Config.log)" yn
   case $yn in
-    [yY]) apt install -y libpam-google-authenticator
-      sed -i 's|UsePAM no|UsePAM yes|g' /etc/ssh/sshd_config
-      sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config
+    [yY]) apt install -y libpam-google-authenticator | tee -a 2-Device-Config.log
+      sed -i 's|UsePAM no|UsePAM yes|g' /etc/ssh/sshd_config | tee -a 2-Device-Config.log
+      sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config | tee -a 2-Device-Config.log
       if grep -Fxq "#MFA via Google Authenticator" /etc/pam.d/sshd
       then
-        echo '\033[0;35m'"\033[1m#MFA via Google Authenticator already exists.\033[0m"
+        echo '\033[0;35m'"\033[1m#MFA via Google Authenticator already exists.\033[0m" | tee -a 2-Device-Config.log
       else
         echo "
 #MFA via Google Authenticator
 auth   required   pam_google_authenticator.so" >> /etc/pam.d/sshd
       fi
-      systemctl restart ssh
+      systemctl restart ssh | tee -a 2-Device-Config.log
       setup_users
       break;;
-    [nN]) echo '\033[0;35m'"\033[1mNot setting up MFA.\033[0m"
+    [nN]) echo '\033[0;35m'"\033[1mNot setting up MFA.\033[0m" | tee -a 2-Device-Config.log
       break;;
-    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m";;
+    *) echo '\033[0;31m'"\033[1mInvalid response.\033[0m" | tee -a 2-Device-Config.log;;
   esac
 done
 echo "$(date): Script finished" >> 2-Device-Config.log
