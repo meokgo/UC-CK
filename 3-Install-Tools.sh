@@ -32,6 +32,8 @@ setup_users ()
             else
             cp /home/$Tmux_User/.config/btop/btop.conf /home/$Tmux_User/.config/btop/btop.conf.bak
             wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
+            #Update tldr for $Tmux_User
+            cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -
             fi
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
@@ -77,6 +79,11 @@ alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && c
 echo "
 #root user alias for tldr update
 alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
+#Move /root/.local/share directory using symlink
+echo '\033[0;36m'"\033[1m$(date): Moving /root/.local/share directory using symlink...\033[0m"
+  mkdir -p /srv/root/.local
+  mv /root/.local/share /srv/root/.local/share
+  ln -s /srv/root/.local/share /root/.local/share
 #Update tldr for root user
 cd /root/.local/share/tldr/tldr && git pull origin main && cd -
 setup_users
