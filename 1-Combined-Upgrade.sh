@@ -202,9 +202,9 @@ TERM=xterm-256color" >> /etc/bash.bashrc
       #Create global alias for ls to show more detail
       echo "
 #Global alias for ls to show more detail
-alias ls='ls -hAl --color=auto'" >> /etc/profile.d/00-alias.sh
+alias ls='ls -hAlF --color=auto'" >> /etc/profile.d/00-alias.sh
       #Update root user alias for ls to show more detail
-      sed -i "s|alias ls='ls -F --color=auto'|alias ls='ls -hAl --color=auto'|g" /root/.bashrc
+      sed -i "s|alias ls='ls -F --color=auto'|alias ls='ls -hAlF --color=auto'|g" /root/.bashrc
       source /root/.bashrc
       #Option to run 2-Device-Config.sh
       while : ; do
