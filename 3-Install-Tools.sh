@@ -75,6 +75,18 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /
 #Install tools
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+#Install Metasploit
+curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
+chmod 755 msfinstall
+./msfinstall
+msfdb init
+#Create global alias for Metasploit
+echo "
+#Global alias for Metasploit
+alias metasploit='msfconsole'" >> /etc/profile.d/00-alias.sh
+echo "
+#Global alias for Metasploit
+alias metasploit='msfconsole'" >> /etc/bash.bashrc
 #Create global alias for tldr update
 echo "
 #Global alias for tldr update
