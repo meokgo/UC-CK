@@ -238,15 +238,12 @@ fi" > /etc/profile.d/ssh-timeout.sh
         #Set UFW's default policies
         ufw default deny incoming
         ufw default allow outgoing
-        #Allow access to ports from LAN and tailnet only
+        #Allow access to ports from LAN
         SSH_PortA=$(cat /etc/ssh/sshd_config | grep "^Port" | sed 's|Port ||g')
         echo '\033[0;36m'"\033[1mAdding rule for current SSH port:\033[0m "$SSH_PortA
         #Get subnet from eth0 and pass to variable
         LAN_IP=$(ip -f inet addr show eth0 | awk '/inet / {print $2}')
-        #Get subnet from tailnet and pass to variable
-        TAILNET_IP=$(ip -f inet addr show tailscale0 | awk '/inet / {gsub("/32","/28"); print $2}')
         ufw allow from $LAN_IP to any port $SSH_PortA proto tcp comment 'SSH Port from LAN'
-        ufw allow from $TAILNET_IP to any port $SSH_PortA proto tcp comment 'SSH Port from tailnet'
       ufw --force enable
       ufw status verbose
       ufw reload
