@@ -128,6 +128,15 @@ while : ; do
         mkdir -p /srv/home
         mv /home/$New_User /srv/home/$New_User
         ln -s /srv/home/$New_User /home/$New_User
+        #Create $New_User alias for ls to show more detail
+        echo "
+#User alias for ls to show more detail
+alias ls='ls -hAlF --color=auto'" >> /home/$New_User/.bashrc
+        #Create $New_User alias for ssh logs
+        echo "
+#User alias for ssh logs
+alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && sudo lastb -10'" >> /home/$New_User/.bashrc
+        source /home/$New_User/.bashrc
       fi
       break;;
     [nN]) echo '\n\033[0;35m'"\033[1mNot adding new sudo user.\033[0m"
