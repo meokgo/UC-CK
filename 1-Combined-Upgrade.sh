@@ -193,6 +193,7 @@ cat /etc/motd
       echo '#!/bin/sh
 echo "Date: " $(date)
 echo "Logged in users: " $(who)
+echo "Use shhlog to view SSH history."
 echo "Uptime: " $(uptime -p)
 ip -c -f inet addr show eth0 | awk '\''/inet / {print "eth0 IP: " $2}'\''
 ip -c -f inet addr show tailscale0 | awk '\''/inet / {print "tailnet IP: " $2}'\''' > /etc/update-motd.d/30-stats
