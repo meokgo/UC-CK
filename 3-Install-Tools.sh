@@ -32,7 +32,12 @@ setup_users ()
             else
             cp /home/$Tmux_User/.config/btop/btop.conf /home/$Tmux_User/.config/btop/btop.conf.bak
             wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
+            #Crete user alias for tldr update
+            echo "
+#User alias for tldr update
+alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /home/$Tmux_User/.bashrc
             #Update tldr for $Tmux_User
+            source /home/$Tmux_User/.bashrc
             cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -
             fi
           else
