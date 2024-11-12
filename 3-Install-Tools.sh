@@ -38,6 +38,10 @@ setup_users ()
 alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /home/$Tmux_User/.bashrc
             #Create user alias for ls to show more detail
             sed -i "s|alias ls='ls --color=auto'|alias ls='ls -hAlF --color=auto'|g" /home/$Tmux_User/.bashrc
+            #Create user alias for Metasploit
+            echo "
+#User alias for Metasploit
+alias metasploit='msfconsole'" >> /home/$Tmux_User/.bashrc
             #Update tldr for $Tmux_User
             source /home/$Tmux_User/.bashrc
             cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -
