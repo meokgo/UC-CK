@@ -213,6 +213,17 @@ alias ls='ls -hAlF --color=auto'" >> /etc/profile.d/00-alias.sh
 alias ls='ls -hAlF --color=auto'" >> /etc/bash.bashrc
       #Update root user alias for ls to show more detail
       sed -i "s|alias ls='ls -F --color=auto'|alias ls='ls -hAlF --color=auto'|g" /root/.bashrc
+      #Create global alias for ssh logs
+      echo "
+#Global alias for ssh logs
+alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && sudo lastb -10'" >> /etc/profile.d/00-alias.sh
+      echo "
+#Global alias for ssh logs
+alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && sudo lastb -10'" >> /etc/bash.bashrc
+      #Create root user alias for ssh logs
+      echo "
+#User alias for ssh logs
+alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && sudo lastb -10'" >> /root/.bashrc
       source /root/.bashrc
       #Option to run 2-Device-Config.sh
       while : ; do
