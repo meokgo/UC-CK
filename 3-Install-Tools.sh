@@ -91,6 +91,10 @@ alias metasploit='msfconsole'" >> /etc/profile.d/00-alias.sh
 echo "
 #Global alias for Metasploit
 alias metasploit='msfconsole'" >> /etc/bash.bashrc
+#Create root user alias for Metasploit
+echo "
+#User alias for Metasploit
+alias metasploit='msfconsole'" >> /root/.bashrc
 #Create global alias for tldr update
 echo "
 #Global alias for tldr update
