@@ -265,7 +265,7 @@ done
 ) 2>&1 | tee -a 2-Device-Config.log
 #Option to enable MFA
 while : ; do
-  read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m  "| tee -a 2-Device-Config.log)" yn
+  read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m "| tee -a 2-Device-Config.log)" yn
   case $yn in
     [yY]) apt install -y libpam-google-authenticator | tee -a 2-Device-Config.log
       sed -i 's|UsePAM no|UsePAM yes|g' /etc/ssh/sshd_config | tee -a 2-Device-Config.log
