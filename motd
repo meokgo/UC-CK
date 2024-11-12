@@ -8,8 +8,8 @@
  $$P      d$'     ,    $$P      OS: Debian Linux 11 (Bullseye) armv7l
  $$:      $$.   -    ,d$$'      Kernel: Linux 3.10.20-ubnt-mtk
  $$;      Y$b._   _,d$P'        CPU: MT7623 (4) @ 747MHz-1300MHz
- Y$$.    `.`"Y$$$$P"'           Memory: 1.97 GiB
- `$$b      "-.__                Local Disk: 13.25 GiB
+ Y$$.    `.`"Y$$$$P"'           Memory: 2 GB
+ `$$b      "-.__                Local Disk: 13 GB
   `Y$$
    `Y$$.
      `$$b.
