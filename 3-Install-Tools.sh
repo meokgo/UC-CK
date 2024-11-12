@@ -84,6 +84,10 @@ curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/t
 chmod 755 msfinstall
 ./msfinstall
 msfdb init
+#Move Metasploit data with symlink
+mkdir -p /srv/opt
+mv /opt/metasploit-framework /srv/opt
+ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
 #Create global alias for Metasploit
 echo "
 #Global alias for Metasploit
