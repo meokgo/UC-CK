@@ -224,7 +224,7 @@ alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 fai
       #Create root user alias for ssh logs
       echo "
 #User alias for ssh logs
-alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && sudo lastb -10'" >> /root/.bashrc
+alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && lastb -10'" >> /root/.bashrc
       source /root/.bashrc
       #Option to run 2-Device-Config.sh
       while : ; do
