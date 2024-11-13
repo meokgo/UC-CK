@@ -30,7 +30,6 @@ setup_users ()
             then
               echo '\033[0;35m'"\033[1mbtop config file already exists for $Tmux_User.\033[0m"
             else
-            cp /home/$Tmux_User/.config/btop/btop.conf /home/$Tmux_User/.config/btop/btop.conf.bak
             wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
             #Create user alias for tldr update
             echo "
@@ -43,7 +42,7 @@ alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && c
 #User alias for Metasploit
 alias metasploit='msfconsole'" >> /home/$Tmux_User/.bashrc
             #Update tldr for $Tmux_User
-            source /home/$Tmux_User/.bashrc
+            mkdir -p 
             cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -
             fi
           else
@@ -112,6 +111,7 @@ echo "
 alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
 #Move /root/.local/share directory using symlink
 echo '\033[0;36m'"\033[1m$(date): Moving /root/.local/share directory using symlink...\033[0m"
+  mkdir -p /root/.local/share
   mkdir -p /srv/root/.local
   mv /root/.local/share /srv/root/.local/share
   ln -s /srv/root/.local/share /root/.local/share
