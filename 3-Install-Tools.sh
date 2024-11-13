@@ -42,7 +42,6 @@ alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && c
 #User alias for Metasploit
 alias metasploit='msfconsole'" >> /home/$Tmux_User/.bashrc
             #Update tldr for $Tmux_User
-            mkdir -p 
             cd /home/$Tmux_User/.local/share/tldr/tldr && git pull origin main && cd -
             fi
           else
