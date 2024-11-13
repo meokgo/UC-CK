@@ -26,7 +26,7 @@ setup_users ()
               wget -O /home/$Tmux_User/.tmux.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/.tmux.conf
             fi
             #Download btop config file for $Tmux_User
-            if grep -Fxq "shown_boxes = "net mem"" /home/$Tmux_User/.config/btop/btop.conf
+            if grep -Fxq "#Updated meokgo" /home/$Tmux_User/.config/btop/btop.conf
             then
               echo '\033[0;35m'"\033[1mbtop config file already exists for $Tmux_User.\033[0m"
             else
