@@ -128,10 +128,8 @@ while : ; do
         mkdir -p /srv/home
         mv /home/$New_User /srv/home/$New_User
         ln -s /srv/home/$New_User /home/$New_User
-        #Create $New_User alias for ls to show more detail
-        echo "
-#User alias for ls to show more detail
-alias ls='ls -hAlF --color=auto'" >> /home/$New_User/.bashrc
+        #Create user alias for ls to show more detail
+        sed -i "s|alias ls='ls --color=auto'|alias ls='ls -hAlF --color=auto'|g" /home/$Tmux_User/.bashrc
         #Create $New_User alias for ssh logs
         echo "
 #User alias for ssh logs
