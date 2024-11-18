@@ -32,6 +32,19 @@ setup_users ()
             else
               wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/btop/btop.conf
             fi
+            #Download mc config files for $Tmux_User
+            if grep -Fxq "#Updated meokgo" /home/$Tmux_User/.config/mc/ini
+            then
+              echo '\033[0;35m'"\033[1mmc ini config file already exists for $Tmux_User.\033[0m"
+            else
+              wget -O /home/$Tmux_User/.config/mc/ini https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/mc/ini
+            fi
+            if grep -Fxq "#Updated meokgo" /home/$Tmux_User/.config/mc/panels.ini
+            then
+              echo '\033[0;35m'"\033[1mmc panels.ini config file already exists for $Tmux_User.\033[0m"
+            else
+              wget -O /home/$Tmux_User/.config/mc/panels.ini https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/mc/panels.ini
+            fi
             #Create user alias for tldr update
             if grep -Fxq "#User alias for tldr update" /home/$Tmux_User/.bashrc
             then
