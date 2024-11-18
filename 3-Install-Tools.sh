@@ -23,14 +23,14 @@ setup_users ()
             then
               echo '\033[0;35m'"\033[1mtmux config file already exists for $Tmux_User.\033[0m"
             else 
-              wget -O /home/$Tmux_User/.tmux.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/.tmux.conf
+              wget -O /home/$Tmux_User/.tmux.conf https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.tmux.conf
             fi
             #Download btop config file for $Tmux_User
             if grep -Fxq "#Updated meokgo" /home/$Tmux_User/.config/btop/btop.conf
             then
               echo '\033[0;35m'"\033[1mbtop config file already exists for $Tmux_User.\033[0m"
             else
-              wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
+              wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/btop/btop.conf
             fi
             #Create user alias for tldr update
             if grep -Fxq "#User alias for tldr update" /home/$Tmux_User/.bashrc
