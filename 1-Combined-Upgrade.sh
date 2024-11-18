@@ -184,7 +184,7 @@ exit 0' >> /etc/rc.local
       ln -s /srv/var/lib/dpkg /var/lib/dpkg
       #Update motd
       echo '\033[0;36m'"\033[1m$(date): Updating motd...\033[0m"
-      wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/main/motd
+      wget -O /etc/motd https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/etc/motd
       echo '#!/bin/sh
 cat /etc/motd
 ' > /etc/update-motd.d/10-motd
