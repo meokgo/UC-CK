@@ -14,3 +14,16 @@ Max. Power Consumption: 5W
 Operating Temperature: 0 to 40° C (32 to 104° F)
 Operating Humidity: 20 to 90% Noncondensing
 Certifications: CE, FCC, IC
+
+Terminal color test:
+  curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/e50a28ec54188d2413518788de6c6367ffcea4f7/print256colours.sh | bash
+
+Download manager:
+  curl -o </Directory/File-Name> https://<URL>
+  Resume download:
+    curl -C -o </Directory/File-Name> https://<URL>
+
+Show motd:
+  run-parts /etc/update-motd.d
+    
+Control LED: (https://linuxreviews.org/HOWTO_Control_LED_Lights)
