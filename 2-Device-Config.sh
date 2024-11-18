@@ -125,9 +125,13 @@ while : ; do
         usermod -aG sudo $New_User
         echo '\033[0;36m'"\033[1m$New_User added to sudo group.\033[0m"
         #Move $New_User home directory using symlink
-        mkdir -p /srv/home
-        mv /home/$New_User /srv/home/$New_User
-        ln -s /srv/home/$New_User /home/$New_User
+        if [ -L "/home/$New_User" ]; then
+          echo "symlink /home/$New_User already exists"
+        else
+          mkdir -p /srv/home
+          mv /home/$New_User /srv/home/$New_User
+          ln -s /srv/home/$New_User /home/$New_User
+        fi
         #Create user alias for ls to show more detail
         sed -i "s|alias ls='ls --color=auto'|alias ls='ls -hAlF --color=auto'|g" /home/$Tmux_User/.bashrc
         #Create $New_User alias for ssh logs
