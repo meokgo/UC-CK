@@ -85,44 +85,6 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /
 #Install tools
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-#Create symlink for Metasploit
-if [ -L "/opt/metasploit-framework" ]; then
-  echo "symlink /opt/metasploit-framework already exists"
-else
-  mkdir -p /srv/opt
-  ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
-fi
-#Install Metasploit
-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
-chmod 755 msfinstall
-./msfinstall
-msfdb init
-#Create global alias for Metasploit
-if grep -Fxq "#Global alias for Metasploit" /etc/profile.d/00-alias.sh
-then
-  echo '\033[0;35m'"\033[1mGlobal alias for Metasploit already exists.\033[0m"
-else
-  echo "
-#Global alias for Metasploit
-alias metasploit='msfconsole'" >> /etc/profile.d/00-alias.sh
-fi
-if grep -Fxq "#Global alias for Metasploit" /etc/bash.bashrc
-then
-  echo '\033[0;35m'"\033[1mGlobal alias for Metasploit already exists.\033[0m"
-else
-  echo "
-#Global alias for Metasploit
-alias metasploit='msfconsole'" >> /etc/bash.bashrc
-fi
-#Create root user alias for Metasploit
-if grep -Fxq "#User alias for Metasploit" /root/.bashrc
-then
-  echo '\033[0;35m'"\033[1mUser alias for Metasploit already exists.\033[0m"
-else
-  echo "
-#User alias for Metasploit
-alias metasploit='msfconsole'" >> /root/.bashrc
-fi
 #Create global alias for tldr update
 if grep -Fxq "#Global alias for tldr update" /etc/profile.d/00-alias.sh
 then
