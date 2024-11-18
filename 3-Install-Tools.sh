@@ -85,19 +85,18 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.noarmor.gpg | tee /
 #Install tools
 apt update
 DEBIAN_FRONTEND=noninteractive apt -y install nano fzf tldr cmatrix iperf3 speedtest-cli stress s-tui ncdu telnet tailscale tmux btop mc nmap -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+#Create symlink for Metasploit
+if [ -L "/opt/metasploit-framework" ]; then
+  echo "symlink /opt/metasploit-framework already exists"
+else
+  mkdir -p /srv/opt
+  ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
+fi
 #Install Metasploit
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall
 chmod 755 msfinstall
 ./msfinstall
 msfdb init
-#Move Metasploit data with symlink
-if [ -L "/opt/metasploit-framework" ]; then
-  echo "symlink /opt/metasploit-framework already exists"
-else
-  mkdir -p /srv/opt
-  mv /opt/metasploit-framework /srv/opt
-  ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
-fi
 #Create global alias for Metasploit
 if grep -Fxq "#Global alias for Metasploit" /etc/profile.d/00-alias.sh
 then
