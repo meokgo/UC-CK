@@ -107,7 +107,7 @@ echo "
 #root user alias for tldr update
 alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
 #Update tldr for root user
-cd /root/.local/share/tldr/tldr && git pull origin main && cd -
+tldr -u
 #Move /root/.local/share directory using symlink
 echo '\033[0;36m'"\033[1m$(date): Moving /root/.local/share directory using symlink...\033[0m"
   mkdir -p /root/.local/share
