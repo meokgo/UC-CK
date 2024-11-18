@@ -131,9 +131,14 @@ while : ; do
         #Create user alias for ls to show more detail
         sed -i "s|alias ls='ls --color=auto'|alias ls='ls -hAlF --color=auto'|g" /home/$Tmux_User/.bashrc
         #Create $New_User alias for ssh logs
-        echo "
+        if grep -Fxq "#User alias for ssh logs" /home/$New_User/.bashrc
+        then
+          echo '\033[0;35m'"\033[1mAlias for ssh logs already exists for $New_User.\033[0m"
+        else
+          echo "
 #User alias for ssh logs
 alias sshlog='echo "Last 10 successful logins:" && last -10 && echo "Last 10 failed logins:" && sudo lastb -10'" >> /home/$New_User/.bashrc
+        fi
         source /home/$New_User/.bashrc
       fi
       break;;
