@@ -95,27 +95,57 @@ mkdir -p /srv/opt
 mv /opt/metasploit-framework /srv/opt
 ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
 #Create global alias for Metasploit
-echo "
+if grep -Fxq "#Global alias for Metasploit" /etc/profile.d/00-alias.sh
+then
+  echo '\033[0;35m'"\033[1mGlobal alias for Metasploit already exists.\033[0m"
+else
+  echo "
 #Global alias for Metasploit
 alias metasploit='msfconsole'" >> /etc/profile.d/00-alias.sh
-echo "
+fi
+if grep -Fxq "#Global alias for Metasploit" /etc/bash.bashrc
+then
+  echo '\033[0;35m'"\033[1mGlobal alias for Metasploit already exists.\033[0m"
+else
+  echo "
 #Global alias for Metasploit
 alias metasploit='msfconsole'" >> /etc/bash.bashrc
+fi
 #Create root user alias for Metasploit
-echo "
+if grep -Fxq "#User alias for Metasploit" /root/.bashrc
+then
+  echo '\033[0;35m'"\033[1mUser alias for Metasploit already exists.\033[0m"
+else
+  echo "
 #User alias for Metasploit
 alias metasploit='msfconsole'" >> /root/.bashrc
+fi
 #Create global alias for tldr update
-echo "
+if grep -Fxq "#Global alias for tldr update" /etc/profile.d/00-alias.sh
+then
+  echo '\033[0;35m'"\033[1mGlobal alias for tldr update already exists.\033[0m"
+else
+  echo "
 #Global alias for tldr update
 alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /etc/profile.d/00-alias.sh
-echo "
+fi
+if grep -Fxq "#Global alias for tldr update" /etc/bash.bashrc
+then
+  echo '\033[0;35m'"\033[1mGlobal alias for tldr update already exists.\033[0m"
+else
+  echo "
 #Global alias for tldr update
 alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && cd -'" >> /etc/bash.bashrc
+fi
 #Create root user alias for tldr update
-echo "
+if grep -Fxq "#User alias for tldr update" /root/.bashrc
+then
+  echo '\033[0;35m'"\033[1mUser alias for tldr update already exists.\033[0m"
+else
+  echo "
 #root user alias for tldr update
 alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
+fi
 #Update tldr for root user
 tldr -u
 #Move /root/.local/share directory using symlink
