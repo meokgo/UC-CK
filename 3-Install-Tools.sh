@@ -30,7 +30,8 @@ setup_users ()
             then
               echo '\033[0;35m'"\033[1mbtop config file already exists for $Tmux_User.\033[0m"
             else
-            wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
+              wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/btop.conf
+            fi
             #Create user alias for tldr update
             if grep -Fxq "#User alias for tldr update" /home/$Tmux_User/.bashrc
             then
@@ -50,7 +51,6 @@ alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && c
               echo "
 #User alias for Metasploit
 alias metasploit='msfconsole'" >> /home/$Tmux_User/.bashrc
-            fi
             fi
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
