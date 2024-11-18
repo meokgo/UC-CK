@@ -149,9 +149,7 @@ else
 #root user alias for tldr update
 alias tldr-u='cd /root/.local/share/tldr/tldr && git pull origin main && cd -'" >> /root/.bashrc
 fi
-#Update tldr for root user
-tldr -u
-#Move /root/.local/share directory using symlink
+#Move /root/.local/share and /root/.cache directories using symlink
 if [ -L "/root/.local/share" ]; then
   echo "symlink /root/.local/share already exists"
 else
@@ -161,6 +159,16 @@ else
   mv /root/.local/share /srv/root/.local/share
   ln -s /srv/root/.local/share /root/.local/share
 fi
+if [ -L "/root/.cache" ]; then
+  echo "symlink /root/.cache already exists"
+else
+  echo '\033[0;36m'"\033[1m$(date): Moving /root/.cache directory using symlink...\033[0m"
+  mkdir -p /srv/root/.cache
+  mv /root/.cache /srv/root/.cache
+  ln -s /srv/root/cache /root/.cache
+fi
+#Update tldr for root user
+tldr -u
 #Download tmux config file for root user
 wget -O /root/.tmux.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/.tmux.conf
 #Download btop config file for root user
