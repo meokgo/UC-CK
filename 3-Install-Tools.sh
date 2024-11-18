@@ -149,11 +149,15 @@ fi
 #Update tldr for root user
 tldr -u
 #Move /root/.local/share directory using symlink
-echo '\033[0;36m'"\033[1m$(date): Moving /root/.local/share directory using symlink...\033[0m"
+if [ -L "/root/.local/share" ]; then
+  echo "symlink /root/.local/share already exists"
+else
+  echo '\033[0;36m'"\033[1m$(date): Moving /root/.local/share directory using symlink...\033[0m"
   mkdir -p /root/.local/share
   mkdir -p /srv/root/.local
   mv /root/.local/share /srv/root/.local/share
   ln -s /srv/root/.local/share /root/.local/share
+fi
 #Download tmux config file for root user
 wget -O /root/.tmux.conf https://raw.githubusercontent.com/meokgo/UC-CK/main/.tmux.conf
 #Download btop config file for root user
