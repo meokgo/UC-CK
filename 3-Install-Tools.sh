@@ -43,15 +43,6 @@ alias tldr-u='cd /home/$USER/.local/share/tldr/tldr && git pull origin main && c
             fi
             #Create user alias for ls to show more detail
             sed -i "s|alias ls='ls --color=auto'|alias ls='ls -hAlF --color=auto'|g" /home/$Tmux_User/.bashrc
-            #Create user alias for Metasploit
-            if grep -Fxq "#User alias for Metasploit" /home/$Tmux_User/.bashrc
-            then
-              echo '\033[0;35m'"\033[1mAlias for Metasploit already exists for $Tmux_User.\033[0m"
-            else
-              echo "
-#User alias for Metasploit
-alias metasploit='msfconsole'" >> /home/$Tmux_User/.bashrc
-            fi
           else
             echo '\033[0;31m'"\033[1m$Tmux_User does not exist in system.\033[0m"
           fi
