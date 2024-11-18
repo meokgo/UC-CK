@@ -91,9 +91,13 @@ chmod 755 msfinstall
 ./msfinstall
 msfdb init
 #Move Metasploit data with symlink
-mkdir -p /srv/opt
-mv /opt/metasploit-framework /srv/opt
-ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
+if [ -L "/opt/metasploit-framework" ]; then
+  echo "symlink /opt/metasploit-framework already exists"
+else
+  mkdir -p /srv/opt
+  mv /opt/metasploit-framework /srv/opt
+  ln -s /srv/opt/metasploit-framework /opt/metasploit-framework
+fi
 #Create global alias for Metasploit
 if grep -Fxq "#Global alias for Metasploit" /etc/profile.d/00-alias.sh
 then
