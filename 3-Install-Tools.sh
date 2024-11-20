@@ -131,7 +131,7 @@ else
   echo '\033[0;36m'"\033[1m$(date): Moving /root/.cache directory using symlink...\033[0m"
   mkdir -p /srv/root/.cache
   mv /root/.cache /srv/root/.cache
-  ln -s /srv/root/cache /root/.cache
+  ln -s /srv/root/.cache /root/.cache
 fi
 #Update tldr for root user
 tldr -u
