@@ -30,6 +30,7 @@ setup_users ()
             then
               echo '\033[0;35m'"\033[1mbtop config file already exists for $Tmux_User.\033[0m"
             else
+              mkdir -p /home/$Tmux_User/.config/btop
               wget -O /home/$Tmux_User/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/btop/btop.conf
             fi
             #Download mc config files for $Tmux_User
@@ -37,6 +38,7 @@ setup_users ()
             then
               echo '\033[0;35m'"\033[1mmc ini config file already exists for $Tmux_User.\033[0m"
             else
+              mkdir -p /home/$Tmux_User/.config/mc
               wget -O /home/$Tmux_User/.config/mc/ini https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/mc/ini
             fi
             if grep -Fxq "#Updated meokgo" /home/$Tmux_User/.config/mc/panels.ini
@@ -138,6 +140,7 @@ tldr -u
 #Download tmux config file for root user
 wget -O /root/.tmux.conf https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.tmux.conf
 #Download btop config file for root user
+mkdir -p /root/.config/btop
 wget -O /root/.config/btop/btop.conf https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/btop/btop.conf
 #Download mc config files for root user
 wget -O /root/.config/mc/ini https://raw.githubusercontent.com/meokgo/UC-CK/refs/heads/main/home/username/.config/mc/ini
