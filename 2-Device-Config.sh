@@ -97,14 +97,14 @@ DHCP=yes
 done
 #Enable automatic updates and reboots
 echo '\n\033[0;36m'"\033[1mEnabling automatic updates and reboots...\033[0m"
-apt -y install unattended-upgrades
+DEBIAN_FRONTEND=noninteractive apt -y install unattended-upgrades -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   DEBIAN_FRONTEND=noninteractive dpkg-reconfigure --priority=low unattended-upgrades
   sed -i 's|//Unattended-Upgrade::Automatic-Reboot "false";|Unattended-Upgrade::Automatic-Reboot "true";|g' /etc/apt/apt.conf.d/50unattended-upgrades
   systemctl start unattended-upgrades
   systemctl enable unattended-upgrades
 #Enforce strong passwords
 echo '\033[0;36m'"\033[1mEnforcing strong passwords...\033[0m"
-apt -y install libpam-pwquality
+DEBIAN_FRONTEND=noninteractive apt -y install libpam-pwquality -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   cp /etc/pam.d/common-password /etc/pam.d/common-password.bak
   sed -i "s|\[default=ignore\]|requisite|g" /etc/pam.d/common-password
   sed -i "s|pam_pwquality.so retry=3|pam_pwquality.so remember=99 use_authok|g" /etc/pam.d/common-password
@@ -249,7 +249,7 @@ fi" > /etc/profile.d/ssh-timeout.sh
       echo '\033[0;36m'"\033[1mSSH settings updated.\033[0m"
       echo '\033[0;36m'"\033[1mInstalling ufw and creating firewall rule for SSH...\033[0m"
       #Add firewall rules for SSH
-      apt -y install ufw
+      DEBIAN_FRONTEND=noninteractive apt -y install ufw -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
         sed -i 's|IPV6=yes|IPV6=no|g' /etc/default/ufw
         #Set UFW's default policies
         ufw default deny incoming
@@ -274,7 +274,7 @@ done
 while : ; do
   read  -p "$(echo '\033[0;106m'"\033[30mSetup Google Authenticator? (y/n)\033[0m "| tee -a 2-Device-Config.log)" yn
   case $yn in
-    [yY]) apt install -y libpam-google-authenticator | tee -a 2-Device-Config.log
+    [yY]) DEBIAN_FRONTEND=noninteractive apt install -y libpam-google-authenticator -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" | tee -a 2-Device-Config.log
       sed -i 's|UsePAM no|UsePAM yes|g' /etc/ssh/sshd_config | tee -a 2-Device-Config.log
       sed -i 's|ChallengeResponseAuthentication no|ChallengeResponseAuthentication yes|g' /etc/ssh/sshd_config | tee -a 2-Device-Config.log
       if grep -Fxq "#MFA via Google Authenticator" /etc/pam.d/sshd
