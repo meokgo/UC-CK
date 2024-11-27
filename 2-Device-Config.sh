@@ -55,27 +55,27 @@ while : ; do
 #Update with static IP info.
 #*****************************
 [Match]
-Name=eth0
+Name = eth0
 [Address]
-#Address=192.168.1.100/24
+#Address = 192.168.1.100/24
 [Route]
-#Gateway=192.168.1.1
+#Gateway = 192.168.1.1
 [Network]
-DHCP=yes
-#DNS=8.8.4.4 8.8.8.8" > /etc/systemd/network/eth0.network
+DHCP = yes
+#DNS = 8.8.4.4 8.8.8.8" > /etc/systemd/network/eth0.network
       read -p "$(echo '\n\033[0;106m'"\033[30mEnter static IP in 0.0.0.0/24 format (leave blank to keep DHCP):\033[0m ")" New_IP
         if [ -z "$New_IP" ]; then
           echo '\n\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
         else
           sed -i "s|192.168.1.100/24|$New_IP|g" /etc/systemd/network/eth0.network
           sed -i 's|#Address|Address|g' /etc/systemd/network/eth0.network
-          sed -i 's|DHCP=yes|DHCP=no|g' /etc/systemd/network/eth0.network
+          sed -i 's|DHCP = yes|DHCP = no|g' /etc/systemd/network/eth0.network
           read -p "$(echo '\n\033[0;106m'"\033[30mEnter static gateway in 0.0.0.0 format (leave blank to keep DHCP):\033[0m ")" New_Gateway
           if [ -z "$New_Gateway" ]; then
             echo '\n\033[0;35m'"\033[1mNot configuring static gateway, leaving as DHCP.\033[0m"
             sed -i "s|$New_IP|192.168.1.100/24|g" /etc/systemd/network/eth0.network
             sed -i 's|Address|#Address|g' /etc/systemd/network/eth0.network
-            sed -i 's|DHCP=no|DHCP=yes|g' /etc/systemd/network/eth0.network
+            sed -i 's|DHCP = no|DHCP = yes|g' /etc/systemd/network/eth0.network
           else
             sed -i "s|192.168.1.1|$New_Gateway|g" /etc/systemd/network/eth0.network
             sed -i 's|#Gateway|Gateway|g' /etc/systemd/network/eth0.network
@@ -84,7 +84,7 @@ DHCP=yes
               echo '\n\033[0;35m'"\033[1mNot configuring static DNS, leaving as DHCP.\033[0m"
               sed -i "s|$New_IP|192.168.1.100/24|g" /etc/systemd/network/eth0.network
               sed -i 's|Address|#Address|g' /etc/systemd/network/eth0.network
-              sed -i 's|DHCP=no|DHCP=yes|g' /etc/systemd/network/eth0.network
+              sed -i 's|DHCP = no|DHCP = yes|g' /etc/systemd/network/eth0.network
               sed -i "s|$New_Gateway|192.168.1.1|g" /etc/systemd/network/eth0.network
               sed -i 's|Gateway|#Gateway|g' /etc/systemd/network/eth0.network
             else
