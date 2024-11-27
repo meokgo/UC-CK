@@ -95,7 +95,7 @@ DHCP=yes
           fi
         fi
       break;;
-    [nN]) echo '\n\033[0;35m'"\033[1mNot configuring static IP, leaving as DHCP.\033[0m"
+    [nN]) echo '\n\033[0;35m'"\033[1mNot changing IP settings.\033[0m"
       break;;
     *) echo '\n\033[0;31m'"\033[1mInvalid response.\033[0m";;
   esac
